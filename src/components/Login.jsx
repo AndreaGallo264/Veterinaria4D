@@ -1,7 +1,12 @@
-import React from 'react'
+import React from 'react';
+import { Form } from 'react-bootstrap';
 
 const Login = () => {
-    return (  );
+    return ( 
+        <Form>
+            
+        </Form>
+    );
 }
  
 export default Login;
