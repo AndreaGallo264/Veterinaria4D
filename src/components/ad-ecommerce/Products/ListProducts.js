@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Form, Row, Col } from 'react-bootstrap'
 import CardProducts from './CardProducts'
+import EditProducts from './EditProducts';
+import Search from '../Search/Search'
 
-export default function ListProductos({ carProduct, setCarProduct, isAdmin }) {
+export default function ListProductos({ carProduct, setCarProduct, isAdmin, isAction, setisAction }) {
 
-    // Solo Front 
-    const Products = [
+      // Solo Front 
+      const Products = [
         {
             category: "5ec1be2bab214532001848c3",
             detail: "Alimentos",
@@ -33,9 +35,12 @@ export default function ListProductos({ carProduct, setCarProduct, isAdmin }) {
         { datecreate: "2020-05-17T22:42:56.324Z", _id: "5ec1be31ab214532001848c4", detail: "juguetes", name: "Juguetes", __v: 0 },
         { datecreate: "2020-05-17T22:42:56.324Z", _id: "5ec1be36ab214532001848c5", detail: "Medicamentos", name: "Medicamentos", __v: 0 }
     ]
-
-
+    
     const [products, setProducts] = useState([]);
+
+    //State para Editar 
+    const [Add, setAdd] = useState("Add")
+
 
     // State para categoria 
     const [category, setCategory] = useState([]);
@@ -43,53 +48,53 @@ export default function ListProductos({ carProduct, setCarProduct, isAdmin }) {
     //State para la categoria Seleccionada
     const [selectCategory, setSelectCategory] = useState("5ec1be2bab214532001848c3");
 
+    //Para atlas
+    //const [selectCategory, setSelectCategory] = useState("5ec32d2cd4ef170244aa2602");
 
 
     // Obtener los Productos
     const getProducts = async () => {
+       /* const solicitud = await fetch(process.env.REACT_APP_BACKEND_URL + "/ListProducts", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
 
-        /* const solicitud = await fetch(process.env.REACT_APP_BACKEND_URL + "/ListProducts", {
-             method: 'GET',
-             headers: {
-                 'Content-Type': 'application/json',
-             }
-         });
- 
-         const respuesta = await solicitud.json();
-         console.log(respuesta);
-         setProducts(respuesta.products); */
-
+        const respuesta = await solicitud.json();
+        setProducts(respuesta.products); 
+        return respuesta;*/
 
         setProducts(Products);
     }
 
     //Obtener los Productos por Categoria
     const getProductsByCategory = async (catselec) => {
-        /*  const solicitud = await fetch('http://localhost:4000/ListCategoryById/' + catselec, {
-              method: 'GET',
-              headers: {
-                  'Content-Type': 'application/json',
-              }
-          });
-  
-          const respuesta = await solicitud.json();
-          console.log(respuesta);
-          setProducts(respuesta.products); */
+        /*const solicitud = await fetch('http://localhost:4000/ListCategoryById/' + catselec, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
 
-          setProducts(Products);
+        const respuesta = await solicitud.json();
+        console.log(respuesta);
+        setProducts(respuesta.products); */
+
+        setProducts(Products);
+
     }
 
     // Obtener las categorias
     const getCategory = async () => {
-        /*const solicitud = await fetch(process.env.REACT_APP_BACKEND_URL + "/ListCategory", {
+       /* const solicitud = await fetch(process.env.REACT_APP_BACKEND_URL + "/ListCategory", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             }
         });
         const respuesta = await solicitud.json();
-        console.log(respuesta);
-        setCategory(respuesta.categorys); */ 
+        setCategory(respuesta.categorys); */
 
         setCategory(Categorys);
     };
@@ -113,7 +118,14 @@ export default function ListProductos({ carProduct, setCarProduct, isAdmin }) {
 
     return (
         <Container>
-            <h1> Productos Disponibles </h1>
+            <h1> Tienda de Productos </h1>
+            <Search getProd={getProducts} products={products} setProducts={setProducts} />
+
+
+            {isAdmin.isAdmin ?
+                <EditProducts products={products} Add={Add} setAdd={setAdd} isAction={isAction} setisAction={setisAction} getProd={getProductsByCategory} selecCategory={selectCategory} />
+                : ''}
+
 
             <Form.Group controlId="ListProducts">
                 <Container>
@@ -134,7 +146,7 @@ export default function ListProductos({ carProduct, setCarProduct, isAdmin }) {
                     </Row>
                 </Container>
             </Form.Group>
-            <CardProducts products={products} setProducts={setProducts} carProduct={carProduct} setCarProduct={setCarProduct} isAdmin={isAdmin} />
+            <CardProducts products={products} setProducts={setProducts} carProduct={carProduct} setCarProduct={setCarProduct} isAdmin={isAdmin} isAction={isAction} setisAction={setisAction} getProd={getProductsByCategory} selecCategory={selectCategory} />
         </Container>
     )
 }

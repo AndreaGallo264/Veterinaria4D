@@ -1,28 +1,36 @@
-import React , {useState , Fragment} from 'react'
-import {Button , Modal , Col , Image , Form  } from 'react-bootstrap'
+import React , {useState , useEffect} from 'react'
+import {Button , Modal , Col , Container , Form  } from 'react-bootstrap'
 
 
-export default function EditProducts({products}) {
+export default function EditProducts({products , Add , setAdd , isAction ,  setisAction , getProd ,  selecCategory}) {
 
+    //Modal
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+
+     // State para categoria 
+     const [category, setCategory]    = useState([]);
+
+    //State para la categoria Seleccionada
+    const [selectCategory, setSelectCategory]     = useState([]);
 
      // Definimos el state para Producto
      const [productEdit, setProductEdit ] = useState({
 
-        detail: products.detail,
-        price: products.price,
-        stock: products.stock,
-        urlimg: products.urlimg,
-        title: products.title , 
-        id   : products._id
+        detail:  Add === 'Add' ? '': products.detail,
+        price:   Add === 'Add' ? '': products.price,
+        stock:   Add === 'Add' ? '': products.stock,
+        urlimg:  Add === 'Add' ? '': products.urlimg,
+        title:   Add === 'Add' ? '': products.title , 
+        id:      Add === 'Add' ? '': products._id, 
+        prodcategory:   Add === 'Add' ? '': products.category
 
     });
 
     // Extraemos del Product
-    const { detail, price, stock, urlimg, title , id  } = productEdit;
+    const { detail, price, stock, urlimg, title , id , prodcategory  } = productEdit;
 
 
     // Cuando hay cambios en el formulario
@@ -32,7 +40,9 @@ export default function EditProducts({products}) {
             [e.target.name]: e.target.value
         });
     };
-    // Cuando se crea un meme
+
+
+    // Cuando se crea un Producto
     const onSubmitEditProduct = e => {
         e.preventDefault();
         // Validar campos
@@ -40,25 +50,42 @@ export default function EditProducts({products}) {
             alert('Todos los campos son obligatorios');
             return;
         }
-        
-         // Agregar Producto
-         EditProduct(productEdit , id );
-        
-        // Resetear el formulario
-        setProductEdit({
-            detail: '',
-            price: '',
-            stock: '',
-            urlimg: '',
-            title: '' , 
-            id: ''
-        });
 
+       
+        if(Add === 'Add'){
+            // Agregar Producto
+            productEdit.category = selectCategory ; 
+            onSubmitAddProduct(productEdit);
+            setisAction("Agregar");
+           
+        }else {
+            //Editar Producto
+
+            if(prodcategory){
+                //Categoria del Produco
+                if(selectCategory.length > 0){
+                    //Producto Cambia
+                    productEdit.category = selectCategory ; 
+                }else {
+                    productEdit.category = prodcategory
+                }
+               
+            }
+           
+            EditProduct(productEdit , id );
+            setisAction("Editar");
+        }
+
+        //Recargar
+        getProd(selecCategory);
+    
+        //Cerrar Modal
         handleClose();
     }
 
+
     const EditProduct = async (product , id) => {
-        //categoria.id = uuidv4();
+
         const solicitud = await fetch(process.env.REACT_APP_BACKEND_URL+"/product/"+id, {
             method: 'PUT',
             body: JSON.stringify(product),
@@ -70,16 +97,68 @@ export default function EditProducts({products}) {
 
     }
 
+
+      // Cuando se crea un Producto
+      const onSubmitAddProduct = e => {
+
+         // Agregar Producto
+         AddProduct(productEdit);
+        
+        // Resetear el formulario
+        setProductEdit({
+            detail: '',
+            price: '',
+            stock: '',
+            urlimg: '',
+            title: '' , 
+            prodcategory:''
+        });
+    }
+
+    const AddProduct = async (product) => {
+
+        const solicitud = await fetch(process.env.REACT_APP_BACKEND_URL+"/addProduct", {
+            method: 'POST',
+            body: JSON.stringify(product),
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        const respuesta = await solicitud.json();
+
+    }
+
+
+     // Obtener las categorias
+     const getCategory = async () => {
+        const solicitud = await fetch(process.env.REACT_APP_BACKEND_URL+"/ListCategory", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        const respuesta = await solicitud.json();
+        setCategory(respuesta.categorys);
+    };
+
+    const selectedCategory = (category) => {
+        setSelectCategory(category); 
+      }
+
+      useEffect(() => {
+        getCategory();
+      }, [] );
+
     return (
 
-        <Fragment>
+        <Container>
             <Button variant="dark" onClick={handleShow}>
-               Modificar
+              {Add === 'Add' ?'Agregar Producto ': 'Editar'}
              </Button>
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modificar Producto</Modal.Title>
+                    <Modal.Title>  {Add === 'Add' ?'Agregar Producto ': 'Modificar Producto'}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
 
@@ -103,6 +182,24 @@ export default function EditProducts({products}) {
                         />
                     </Col>
                 </Form.Group>
+
+                <Form.Group controlId="">
+            <Form.Label  column
+                    xs="3"
+                    className="pr-0">Categoria</Form.Label>
+                      <Col xs="9">
+              <Form.Control as="select" onChange={e => selectedCategory(e.target.value)}  >
+               
+                 {category.map(category => {
+                  return (
+                    <option key={category._id} value={category._id} genero={category._id}>
+                      {category.name}
+                    </option>
+                  );
+                })} 
+              </Form.Control>
+              </Col>
+              </Form.Group>
 
                 <Form.Group controlId="">
                     <Form.Label
@@ -199,11 +296,13 @@ export default function EditProducts({products}) {
                 <Button
                     type="submit"
                     variant="primary"
-                    className="float-right" >Modificar</Button>
+                    className="float-right" >
+                          {Add === 'Add' ?'Agregar': 'Editar'}
+                    </Button>
             </Form>
 
                 </Modal.Body>
             </Modal>
-        </Fragment>
+        </Container>
     )
 }
