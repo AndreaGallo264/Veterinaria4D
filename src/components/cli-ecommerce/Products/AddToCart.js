@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react'
-import { Button, Modal, Col, Image, Form, Container, Row } from 'react-bootstrap'
+import { Button, Modal, Col, Image, Form } from 'react-bootstrap'
 
 export default function AddToCart(products) {
 
@@ -14,13 +14,13 @@ export default function AddToCart(products) {
         knt: 0,
         title: products.title,
         details: products.details,
-        Id: products.id,
-        urlimg: products.urlimg,
-        price: products.price
+        Id: products.id , 
+        urlimg:products.urlimg , 
+        price:products.price 
     })
 
     // Extraemos del pago
-    const { knt, title, details, id } = cart;
+    const { knt, title, details, id  } = cart;
 
     // Cuando el usuario cambia el input
     const onChangeCart = e => {
@@ -38,7 +38,7 @@ export default function AddToCart(products) {
         console.log("Agrega al Carrito");
         handleClose();
 
-        products.setCarProduct([...products.carProduct, cart]);
+        products.setCarProduct([...products.carProduct , cart]);
 
 
     }
@@ -58,17 +58,12 @@ export default function AddToCart(products) {
                     </Col>
                 </Modal.Header>
                 <Modal.Body>
-                    <Container>
-                        <Row>
-                            Precio : {products.price}
-                        </Row>
-                        <Row>
-                            Stock : {products.stock}
-                        </Row>
-                        <Row>
-                            Detalle = {products.details}
-                        </Row>
-                    </Container>
+
+                    Precio : {products.price}
+                    Stock : {products.stock}
+                    Detalle = {products.details}
+                    Id      ={products.id}
+
                     <Form onSubmit={onAddToCart}>
                         <Form.Group controlId="knt">
                             <Form.Label>Cantidad</Form.Label>
@@ -77,7 +72,6 @@ export default function AddToCart(products) {
                                 name="knt"
                                 onChange={onChangeCart}
                                 value={knt}
-                                min = "1"
                             ></Form.Control>
                         </Form.Group>
                         <Button type="submit">Agregar</Button>
