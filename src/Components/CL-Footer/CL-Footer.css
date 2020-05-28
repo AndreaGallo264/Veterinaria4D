@@ -1,0 +1,31 @@
+footer{
+    text-align:center;
+    margin-top:20px;
+    font-size: large;
+    background-image: linear-gradient(to top, rgba(138, 78, 0, 0.116),
+     rgba(161, 110, 0, 0.507), rgba(167, 53, 0, 0.664));
+    box-shadow: -5px -5px 5px black;
+}
+
+hr{
+    height: 1px;
+    width:60%;
+    border: solid 2px;
+    color: black;
+    transition: transform 0.5s ease;
+}
+hr:hover{
+    transform: scale(1.2);
+}
+.footer-info{
+    transition: transform 0.5s ease;
+}
+.footer-info:hover{
+    transform: scale(1.2);
+}
+.footer-info-tel{
+    text-shadow: 0px 0px 5px rgb(159, 255, 159);
+}
+.footer-info-mail{
+    text-shadow: 0px 0px 3px rgb(255, 153, 0);
+}
