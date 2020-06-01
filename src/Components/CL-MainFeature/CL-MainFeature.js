@@ -1,14 +1,19 @@
-import React from 'react';
+import React , {useState , useEffect} from 'react';
 import CL_SelectorCategoria from './../CL-SelectorCategoria/CL-SelectorCategoria';
 import CL_SearchBar from './../CL-SearchBar/CL-SearchBar';
 import CL_VisualizadorCategoria from './../CL-VisualizadorCategoria/CL_VisualizadorCategoria';
 import CL_MainProduct from './../CL-MainProduct/CL-MainProduct';
 
-const CL_MainFeature = () => {
+const CL_MainFeature = (props) => {
+
+    const [selectCategory, setSelectCategory] = useState([]);
+    const [selecnametCategory, setSelecNametCategory] = useState([]);
+ 
+
     return ( <div className="container mt-4">
         <div className="row">
             <div className="col-4">
-                <CL_SelectorCategoria/>
+                <CL_SelectorCategoria selectCategory={selectCategory} setSelectCategory={setSelectCategory} selecnametCategory={selecnametCategory} setSelecNametCategory={setSelecNametCategory} products={props.products} setProducts={props.setProducts}/>
 
             </div>
             <div className="col-8">
@@ -18,14 +23,14 @@ const CL_MainFeature = () => {
                             <CL_SearchBar/>
                         </div>
                         <div className="col">
-                            <CL_VisualizadorCategoria/>
+                            <CL_VisualizadorCategoria selectCategory={selectCategory} setSelectCategory={setSelectCategory} selecnametCategory={selecnametCategory} setSelecNametCategory={setSelecNametCategory} />
                         </div>
                         
                           
                         </div>
                         <div className="row mt-2">
                             <div className="col">
-                            <CL_MainProduct/>
+                            <CL_MainProduct products={props.products} setProducts={props.setProducts} />
                             </div>
                     </div>
                 </div>

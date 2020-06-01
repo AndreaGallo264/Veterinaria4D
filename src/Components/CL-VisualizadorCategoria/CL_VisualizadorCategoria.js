@@ -1,8 +1,8 @@
 import React from 'react'
 
-const CL_VisualizadorCategoria = () => {
+const CL_VisualizadorCategoria = (props) => {
     return ( 
-        <p>Estas viendo la categoria :</p>
+    <p>Estas viendo la categoria : {props.selecnametCategory}</p>
      );
 }
  
