@@ -6,7 +6,7 @@ const CL_MinorFeatures = (props) => {
         <div className="container">
             <div className="row">
                 <div className="col">
-                    <CL_SliderProductos  products={props.products} setProducts={props.setProducts}/>
+                    <CL_SliderProductos  products={props.products} setProducts={props.setProducts} selectProduct={props.selectProduct} setSelectProduct={props.setSelectProduct}/>
                 </div>
             </div>
         </div>

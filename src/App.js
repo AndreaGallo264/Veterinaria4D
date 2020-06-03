@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-credit-cards/es/styles-compiled.css';
 import './App.css';
 import CL_NavBar from './components/CL-NavBar/CL-NavBar';
 import CL_Presentacion from './components/CL-Presentacion/Cl-Presentacion';
@@ -16,19 +17,21 @@ import {
 } from "react-router-dom";
 import CL_MinorFeatures from './components/CL-MinorFeatures/CL-MinorFeatures';
 
+import CL_Purchase from './components/CL-Purchase/CL-Purchase'
+
 function App() {
 
   const [products, setProducts] = useState([]);
+  const [carrito, setCarrito] = useState([]);
+  const [selectProduct, setSelectProduct] = useState([]);
+  const [price, setTotalPrice] = useState([]);
 
-  useEffect(() => {
-
-  }, products);
 
   return (
 
     <div className="App">
       <Router>
-        <CL_NavBar />
+        <CL_NavBar carrito={carrito} setCarrito={setCarrito} price={price} setTotalPrice={setTotalPrice} />
         <CL_LogBar />
         <Switch>
           <Route path="/home">
@@ -37,12 +40,17 @@ function App() {
             <CL_About />
           </Route>
           <Route path="/ecommerce">
-            <CL_MainFeature products={products} setProducts={setProducts} />
-            <CL_MinorFeatures products={products} setProducts={setProducts} />
+            <CL_MainFeature products={products} setProducts={setProducts} selectProduct={selectProduct} setSelectProduct={setSelectProduct} carrito={carrito} setCarrito={setCarrito} />
+            <CL_MinorFeatures products={products} setProducts={setProducts} selectProduct={selectProduct} setSelectProduct={setSelectProduct} />
           </Route>
           <Route path="/turnos">
             <h1>Solicita tu turno</h1>
           </Route>
+
+          <Route path ="/purchase">
+            <CL_Purchase carrito={carrito} setCarrito={setCarrito}  price={price} setTotalPrice={setTotalPrice} />
+          </Route>
+
           <Route path="/AD-home">
             <h1>AD-home</h1>
           </Route>
@@ -52,8 +60,10 @@ function App() {
           <Route path="/AD-turnos">
 
           </Route>
+
+          
         </Switch>
-        <CL_Footer />
+          <CL_Footer />
       </Router>
 
 

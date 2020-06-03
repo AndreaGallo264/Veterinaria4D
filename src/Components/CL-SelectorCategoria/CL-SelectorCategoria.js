@@ -29,6 +29,7 @@ const CL_SelectorCategoria = (props) => {
     const handleClick = (e) => {
         props.setSelectCategory(e.currentTarget.getAttribute("data_id"));
         props.setSelecNametCategory(e.currentTarget.getAttribute("name"));
+        props.setSelectProduct([]);
     }
 
     useEffect(() => {

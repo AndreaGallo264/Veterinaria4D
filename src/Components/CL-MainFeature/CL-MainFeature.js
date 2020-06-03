@@ -13,7 +13,7 @@ const CL_MainFeature = (props) => {
     return ( <div className="container mt-4">
         <div className="row">
             <div className="col-4">
-                <CL_SelectorCategoria selectCategory={selectCategory} setSelectCategory={setSelectCategory} selecnametCategory={selecnametCategory} setSelecNametCategory={setSelecNametCategory} products={props.products} setProducts={props.setProducts}/>
+                <CL_SelectorCategoria selectCategory={selectCategory} setSelectCategory={setSelectCategory} selecnametCategory={selecnametCategory} setSelecNametCategory={setSelecNametCategory} products={props.products} setProducts={props.setProducts}  selectProduct={props.selectProduct} setSelectProduct={props.setSelectProduct}/>
 
             </div>
             <div className="col-8">
@@ -30,7 +30,7 @@ const CL_MainFeature = (props) => {
                         </div>
                         <div className="row mt-2">
                             <div className="col">
-                            <CL_MainProduct products={props.products} setProducts={props.setProducts} />
+                            <CL_MainProduct products={props.products} setProducts={props.setProducts} selectProduct={props.selectProduct} setSelectProduct={props.setSelectProduct} carrito={props.carrito} setCarrito={props.setCarrito} />
                             </div>
                     </div>
                 </div>

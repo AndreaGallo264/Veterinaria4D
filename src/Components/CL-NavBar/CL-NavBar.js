@@ -5,9 +5,11 @@ import Logotipo from './../../img/Logotipo.png';
 import carritoImg from './../../img/carrito.png';
 import CL_SearchBar from './../CL-SearchBar/CL-SearchBar';
 
+import CL_MainShoopingCart from './../CL-MainShoopingCart/CL-MainShoopingCart'
 
 
-const CL_NavBar = () => {
+
+const CL_NavBar = (props) => {
     return ( 
         <nav className="navbar navbar-expand-lg main-nav sticky-top">
         <a className="navbar-brand title-2 titulo-navbar" href="#">
@@ -28,7 +30,7 @@ const CL_NavBar = () => {
               <a className="nav-link" href="#">Nuestros Servicios</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#"><img src={carritoImg} alt="" width="30px"className="carrito-nav"/></a>
+             <CL_MainShoopingCart  carrito={props.carrito} setCarrito={props.setCarrito}  price={props.price} setTotalPrice={props.setTotalPrice}  />
             </li>
           
         

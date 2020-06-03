@@ -1,7 +1,12 @@
-import React, { Fragment, useState , useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import './CL-SliderProductos.scss';
 
 const CL_SliderProductos = (props) => {
+
+  const productselect = (products) => {
+    props.setSelectProduct([products]);
+  }
+
 
   return (
     <Fragment>
@@ -47,13 +52,13 @@ const CL_SliderProductos = (props) => {
         <section id="section3">
           <a href="#section2" class="arrow__btn">‹</a>
           {
-            props.products?
-            props.products.map(products => (
-              <div class="item">
-                <img src={products.urlimg} />
-              </div>
+            props.products ?
+              props.products.map(products => (
+                <div class="item">
+                  <img src={products.urlimg} onClick={e => productselect(products)} />
+                </div>
 
-            )) : "Mal"
+              )) : "Mal"
           }
           <a href="#section1" class="arrow__btn">›</a>
         </section>
