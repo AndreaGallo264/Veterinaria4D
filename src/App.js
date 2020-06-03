@@ -6,6 +6,8 @@ import {
   Route
 } from "react-router-dom";
 
+import ListAdmins from './../src/components/ListAdmins/ListAdmins';
+
 function App() {
   return (
     <Router>
@@ -42,6 +44,9 @@ function App() {
         </Route>
         <Route path='/admin/ecommerce'>
             <h1>Ecommerce Admin</h1>
+        </Route>
+        <Route path='/admin/adminList'>
+            <ListAdmins/>
         </Route>
       </Switch>
     </Router>
