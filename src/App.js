@@ -15,9 +15,10 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import CL_MinorFeatures from './components/CL-MinorFeatures/CL-MinorFeatures';
 
+import CL_MinorFeatures from './components/CL-MinorFeatures/CL-MinorFeatures';
 import CL_Purchase from './components/CL-Purchase/CL-Purchase'
+import AD_ProductPanel from './components/AD-Product/AD-ProductPanel'
 
 function App() {
 
@@ -58,7 +59,10 @@ function App() {
             <h1>Ad-Ecommerce</h1>
           </Route>
           <Route path="/AD-turnos">
+          </Route>
 
+          <Route path="/AD-Product">
+            <AD_ProductPanel />
           </Route>
 
           
