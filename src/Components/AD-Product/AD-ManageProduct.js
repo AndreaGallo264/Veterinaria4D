@@ -3,7 +3,7 @@ import { Container, Form, Row, Col } from 'react-bootstrap'
 import CardProducts from './AD-CardProduct'
 
 
-export default function AD_ManageProducts(){
+export default function AD_ManageProducts({loadProduct, setLoadProducts , setSelecCategory}){
 
     const [products, setProducts] = useState([]);
 
@@ -32,6 +32,8 @@ export default function AD_ManageProducts(){
 
         const respuesta = await solicitud.json();
         setProducts(respuesta.products);
+        
+       
 
         return respuesta;
     }
@@ -64,14 +66,17 @@ export default function AD_ManageProducts(){
 
     const selectedCategory = (e) => {
         setSelectCategory(e);
+        setSelecCategory(selectCategory) ; 
     }
 
     useEffect(() => {
         getProducts();
+        setLoadProducts({LoadProduct : getProductsByCategory});
     }, []);
 
     useEffect(() => {
         getProductsByCategory(selectCategory);
+        selectedCategory(selectCategory);
     }, [selectCategory]);
 
     useEffect(() => {

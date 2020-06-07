@@ -1,7 +1,7 @@
 import React, { useState , useEffect } from 'react'
-import { Container, Form, Col, Button } from 'react-bootstrap'
+import { Container, Form, Button } from 'react-bootstrap'
 
-export default function Add_Productos() {
+export default function Add_Productos({loadProduct, setLoadProducts ,  selCategory }) {
 
     // State para categoria 
     const [category, setCategory]    = useState([]);
@@ -54,6 +54,8 @@ export default function Add_Productos() {
             urlimg: '',
             title: ''
         });
+
+        loadProduct.LoadProduct(selCategory);
     }
 
     const AddProduct = async (product) => {
