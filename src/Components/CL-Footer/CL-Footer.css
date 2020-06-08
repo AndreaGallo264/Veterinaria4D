@@ -5,6 +5,7 @@ footer{
     background-image: linear-gradient(to top, rgba(138, 78, 0, 0.116),
      rgba(161, 110, 0, 0.507), rgba(167, 53, 0, 0.664));
     box-shadow: -5px -5px 5px black;
+
 }
 
 hr{
@@ -29,3 +30,4 @@ hr:hover{
 .footer-info-mail{
     text-shadow: 0px 0px 3px rgb(255, 153, 0);
 }
+

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CreateNewAdmin from './../CreateNewAdmin/CreateNewAdmin';
+import CreateUserModal from '../CreateUserModal/CreateUserModal';
 import { Button } from 'react-bootstrap';
 
 const ListAdmins = () => {
@@ -13,7 +13,7 @@ const ListAdmins = () => {
         Create new admin
         </Button>
 
-        <CreateNewAdmin
+        <CreateUserModal
             show = {show}
             handleClose = {handleClose}
         />

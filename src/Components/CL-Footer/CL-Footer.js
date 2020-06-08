@@ -5,7 +5,7 @@ import emailLogo from './../../img/email.png';
 
 const CL_Footer = () => {
     return (
-        <footer className="texto-1 font-weight-bolder">
+        <footer className="text-1 font-weight-bolder">
             <p className="footer-info">
                 Veterinaria Patitas
             </p>

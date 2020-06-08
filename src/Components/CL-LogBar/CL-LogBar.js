@@ -5,7 +5,7 @@ import avatar from './../../img/avatar.png';
 const CL_LogBar = () => {
     return ( 
         <nav className="navbar navbar-expand-lg log-bar sticky">
-            <ul className="navbar-nav mr-auto d-flex align-content-center">
+            <ul className="navbar-nav mr-auto d-flex flex-row align-content-center">
                 <li>
                     <img src={avatar} alt="" width="40px"/>
                 </li>
