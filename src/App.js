@@ -21,6 +21,7 @@ import CL_Purchase from './components/CL-Purchase/CL-Purchase'
 import AD_ProductPanel from './components/AD-Product/AD-ProductPanel'
 import AD_Category from './components/AD-Category/AD-CategotyPanel'
 
+import ListAdmins from './../src/components/ListAdmins/ListAdmins';
 
 function App() {
 
@@ -70,7 +71,9 @@ function App() {
           <Route path="/AD-Category">
             <AD_Category />
           </Route>
-
+          <Route path='/admin/adminList'>
+            <ListAdmins/>
+        </Route>
           
         </Switch>
           <CL_Footer />
