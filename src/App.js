@@ -19,6 +19,8 @@ import {
 import CL_MinorFeatures from './components/CL-MinorFeatures/CL-MinorFeatures';
 import CL_Purchase from './components/CL-Purchase/CL-Purchase'
 import AD_ProductPanel from './components/AD-Product/AD-ProductPanel'
+import AD_Category from './components/AD-Category/AD-CategotyPanel'
+
 
 function App() {
 
@@ -63,6 +65,10 @@ function App() {
 
           <Route path="/AD-Product">
             <AD_ProductPanel />
+          </Route>
+
+          <Route path="/AD-Category">
+            <AD_Category />
           </Route>
 
           
