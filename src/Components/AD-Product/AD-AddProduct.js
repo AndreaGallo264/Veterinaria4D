@@ -1,7 +1,7 @@
 import React, { useState , useEffect } from 'react'
 import { Container, Form, Button } from 'react-bootstrap'
 
-export default function Add_Productos({loadProduct, setLoadProducts ,  selCategory }) {
+export default function Add_Productos({loadProduct, setLoadProducts ,  selCategory , selectProduct , setselectProduct }) {
 
     // State para categoria 
     const [category, setCategory]    = useState([]);
@@ -13,18 +13,29 @@ export default function Add_Productos({loadProduct, setLoadProducts ,  selCatego
     // Definimos el state para Producto
     const [product, setProduct] = useState({
 
-        detail: '',
-        price: '',
-        stock: '',
-        urlimg: '',
-        title: ''
+        detail:  selectProduct[0]?selectProduct[0].detail :  '',
+        price:   selectProduct[0]?selectProduct[0].price  :  '',
+        stock:   selectProduct[0]?selectProduct[0].stock  :  '',
+        urlimg:  selectProduct[0]?selectProduct[0].urlimg :  '',
+        title:   selectProduct[0]?selectProduct[0].title  :  '' , 
+        prodcategory:  selectProduct[0]?selectProduct[0].category  :  '' , 
+        id:           selectProduct[0]?selectProduct[0]._id       :  '' 
+
 
     });
 
     // Extraemos del Producto
-    const { detail, price, stock, urlimg, title } = product;
+    const { detail, price, stock, urlimg, title , prodcategory , id   } = selectProduct[0]?selectProduct[0]: product;
     // Cuando hay cambios en el formulario
     const onChangeProduct = e => {
+      
+        selectProduct[0]?   
+        
+        setselectProduct([{
+            ...selectProduct[0],
+            [e.target.name]: e.target.value
+        }])  
+        :
         setProduct({
             ...product,
             [e.target.name]: e.target.value
@@ -41,11 +52,26 @@ export default function Add_Productos({loadProduct, setLoadProducts ,  selCatego
         }
         
 
-         // Agregar Producto
-         product.category = selectCategory ; 
-         AddProduct(product);
-        
-        
+        if(selectProduct[0]){
+            //Editar
+            if( selectProduct[0].category){
+                //Categoria del Produco
+                if(selectCategory.length > 0){
+                    //Producto Cambia
+                    selectProduct[0].category = selectCategory ; 
+                }
+               
+            }
+           
+            EditProduct(selectProduct[0] ,  selectProduct[0]._id );
+
+        }else {
+            // Agregar Producto
+            product.category = selectCategory ; 
+            AddProduct(product);
+        }
+
+    
         // Resetear el formulario
         setProduct({
             detail: '',
@@ -62,6 +88,19 @@ export default function Add_Productos({loadProduct, setLoadProducts ,  selCatego
         //categoria.id = uuidv4();
         const solicitud = await fetch("http://localhost:4000/api/addProduct", {
             method: 'POST',
+            body: JSON.stringify(product),
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        const respuesta = await solicitud.json();
+
+    }
+
+    const EditProduct = async (product , id) => {
+
+        const solicitud = await fetch("http://localhost:4000/api/editProduct/"+id, {
+            method: 'PUT',
             body: JSON.stringify(product),
             headers: {
                 'Content-Type': 'application/json',

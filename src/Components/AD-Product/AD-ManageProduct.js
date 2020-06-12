@@ -3,7 +3,7 @@ import { Container, Form, Row, Col } from 'react-bootstrap'
 import CardProducts from './AD-CardProduct'
 
 
-export default function AD_ManageProducts({loadProduct, setLoadProducts , setSelecCategory}){
+export default function AD_ManageProducts({loadProduct, setLoadProducts , setSelecCategory , selectProduct , setselectProduct , }){
 
     const [products, setProducts] = useState([]);
 
@@ -106,7 +106,7 @@ export default function AD_ManageProducts({loadProduct, setLoadProducts , setSel
                     </Row>
                 </Container>
             </Form.Group>
-            <CardProducts products={products} setProducts={setProducts} getProd={getProductsByCategory} selecCategory={selectCategory} />
+            <CardProducts products={products} setProducts={setProducts} getProd={getProductsByCategory} selecCategory={selectCategory} selectProduct={selectProduct} setselectProduct={setselectProduct} />
         </Container>
     )
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Button, Col, Row, Container } from 'react-bootstrap'
 
 
-export default function AD_CardProduct({ products, setProducts, carProduct, setCarProduct, isAdmin, isAction, setisAction, getProd, selecCategory }) {
+export default function AD_CardProduct({ products, setProducts, carProduct, setCarProduct, isAdmin, isAction, setisAction, getProd, selecCategory , selectProduct ,  setselectProduct }) {
 
     const deleteproduct = async (id) => {
 
@@ -27,6 +27,11 @@ export default function AD_CardProduct({ products, setProducts, carProduct, setC
 
         const respuesta = await solicitud.json();
         setProducts(respuesta.products);
+    }
+
+    const editProduct = (product) => {
+
+      setselectProduct([product]) ; 
     }
 
 
@@ -55,7 +60,7 @@ export default function AD_CardProduct({ products, setProducts, carProduct, setC
                            
                                 <Card.Footer>
                                     <Row>
-                                        <Col> <Button variant="dark" onClick={() => { deleteproduct(products._id) }}>Editar </Button> </Col>
+                                        <Col> <Button variant="dark" onClick={() => { editProduct(products) }}>Editar </Button> </Col>
                                         <Col> <Button variant="danger" onClick={() => { deleteproduct(products._id) }}>Eliminar </Button></Col>
                                     </Row>
                                 </Card.Footer>
