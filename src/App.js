@@ -20,6 +20,7 @@ import CL_MinorFeatures from './components/CL-MinorFeatures/CL-MinorFeatures';
 import CL_Purchase from './components/CL-Purchase/CL-Purchase'
 import AD_ProductPanel from './components/AD-Product/AD-ProductPanel'
 import AD_Category from './components/AD-Category/AD-CategotyPanel'
+import AD_PurchasePanel from './components/AD-Purchase/AD-PurchasePanel'
 
 
 function App() {
@@ -71,6 +72,9 @@ function App() {
             <AD_Category />
           </Route>
 
+          <Route path="/AD-PurchasePanel">
+            <AD_PurchasePanel />
+          </Route>
           
         </Switch>
           <CL_Footer />
