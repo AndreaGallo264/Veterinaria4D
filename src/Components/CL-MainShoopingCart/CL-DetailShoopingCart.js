@@ -1,38 +1,55 @@
 import React, { Fragment, useEffect } from 'react'
-import { Button, Modal, Row, Col, Image } from 'react-bootstrap'
+import { Col, Container, Row } from 'react-bootstrap'
 
 
 export default function CL_DetailShoopingCart(props) {
 
     const calculatePrice = () => {
 
+        props.setTotalPrice(0);
         if (props.carrito.length > 0) {
             let price = 0;
-
             props.carrito.forEach(product => {
                 price += parseFloat(product.price) * parseInt(product.knt);
             });
 
             props.setTotalPrice(price);
         }
-
-
-
     }
 
     useEffect(() => {
         calculatePrice();
-    }, []);
+        props.setFunctionPrice({ CalculaPrice: calculatePrice })
+    }, [props.price]);
 
 
     return (
 
-        <Col>
-            <h4> Resumen </h4>
-            <h5> SubTotal : {props.price} </h5>
-            <h5> Total    : {props.price} </h5>
+        <Container>
+            <h4>  </h4>
+            <Col>
+                <Row>
+                    <Col xs={14}><h5>Valor de la Compra </h5> </Col>
+                    <Col xs={1}>${props.price > 0 ? props.price : "0"}</Col>
+                </Row>
 
-        </Col>
+                <Row>
+                    <Col xs={14}><h5>SubTotal </h5> </Col>
+                    <Col xs={1}>${props.price > 0 ? props.price : "0"}</Col>
+                </Row>
+                <hr style={{
+                    color: '#000000',
+                    backgroundColor: '#000000',
+                    height: .1,
+                    borderColor: '#000000' }} ></hr>
+                <Row>
+
+                    <Col xs={14}><h5>Total </h5> </Col>
+                    <Col xs={1}>${props.price > 0 ? props.price : "0"}</Col>
+                </Row>
+
+            </Col>
+        </Container>
 
     )
 }

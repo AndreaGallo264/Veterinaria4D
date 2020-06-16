@@ -30,10 +30,8 @@ const CL_NavBar = (props) => {
               <a className="nav-link" href="#">Nuestros Servicios</a>
             </li>
             <li className="nav-item">
-             <CL_MainShoopingCart  carrito={props.carrito} setCarrito={props.setCarrito}  price={props.price} setTotalPrice={props.setTotalPrice}  />
+             <CL_MainShoopingCart  carrito={props.carrito} setCarrito={props.setCarrito}  price={props.price} setTotalPrice={props.setTotalPrice} functionPrice={props.functionPrice}  setFunctionPrice={props.setFunctionPrice}   />
             </li>
-          
-        
           </ul>
           <CL_SearchBar/>
         </div>

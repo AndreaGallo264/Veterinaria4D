@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import producto1 from './../../img/nariz.jpg';
 
 const CL_MainProduct = (props) => {
@@ -20,6 +20,10 @@ const CL_MainProduct = (props) => {
     }
   }
 
+  useEffect(() => {
+    setKnt(1);
+} );
+
   return (
 
 
@@ -34,7 +38,7 @@ const CL_MainProduct = (props) => {
 
         <div className="form-group">
           <label for="pwd">Cantidad</label>
-          <input type="number" onChange={e => setknt(e)} class="form-control" id="knt" />
+          <input type="number" onChange={e => setknt(e)} class="form-control" id="knt" min="1" defaultValue={1} />
         </div>
 
         <button type="button" class="btn btn-primary" onClick={saveKart}>Agregar al Carrito</button>

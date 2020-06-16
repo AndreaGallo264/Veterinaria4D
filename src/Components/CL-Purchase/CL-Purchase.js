@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import Cards from 'react-credit-cards';
-import { Container, Col, Row, Button } from 'react-bootstrap'
+import { Col, Row, Button, Form } from 'react-bootstrap'
 import DetailShoopingCart from '../CL-MainShoopingCart/CL-DetailShoopingCart'
+
+import {
+    Link
+} from "react-router-dom";
 
 
 export default function CL_Purchase(props) {
 
+    const [finishPurchase, setfinishPurchase] = useState(false)
     const [State, setState] = useState({
         cvc: '',
         expiry: '',
@@ -14,22 +19,24 @@ export default function CL_Purchase(props) {
         number: ''
     });
 
+    const { cvc, expiry, focus, name, number } = State;
+
     const [paymentId, setPaymentId] = useState([]);
     const [purchaseId, setPurchaseId] = useState([]);
     const [totalPrice, setTotalPrice] = useState({
         totalprice: props.price
     });
 
-    const [saveProduct , setSaveProduct] = useState ({
-        details : ''  , 
-        title   : ''  , 
-        knt     : ''  ,
-        price   : ''  , 
-        users   : ''  , 
-        purchase : '' ,
-        product  : '' , 
-        payment  : ''
-    }); 
+    const [saveProduct, setSaveProduct] = useState({
+        details: '',
+        title: '',
+        knt: '',
+        price: '',
+        users: '',
+        purchase: '',
+        product: '',
+        payment: ''
+    });
 
 
 
@@ -55,7 +62,12 @@ export default function CL_Purchase(props) {
     };
 
     const savePurchase = () => {
-        AddPayment();
+
+        if (cvc.length > 0 && expiry.length > 0 && name.length > 0 && number.length > 0) {
+            AddPayment();
+        } else {
+            alert('Campos Obligatorios');
+        }
     }
 
     const AddPayment = async () => {
@@ -74,7 +86,7 @@ export default function CL_Purchase(props) {
 
         if (respuesta.payments._id) {
             setPaymentId(respuesta.payments._id);
-            setSaveProduct({payment : respuesta.payments._id})
+            setSaveProduct({ payment: respuesta.payments._id })
             AddPurchase();
         }
 
@@ -94,7 +106,7 @@ export default function CL_Purchase(props) {
         const respuesta = await solicitud.json();
         if (respuesta.purchases._id) {
             setPurchaseId(respuesta.purchases._id);
-            setSaveProduct({purchase : respuesta.purchases._id})
+            setSaveProduct({ purchase: respuesta.purchases._id })
         }
 
     }
@@ -102,27 +114,30 @@ export default function CL_Purchase(props) {
     const AddCardProduct = async () => {
         props.carrito.forEach(async product => {
 
-            var newproduc = {}; 
-        
-            newproduc.users    =   "5ec88335e82b7a2d64097bbd" ; 
-            newproduc.payment  = paymentId;
+            var newproduc = {};
+
+            newproduc.users = "5ec88335e82b7a2d64097bbd";
+            newproduc.payment = paymentId;
             newproduc.purchase = purchaseId;
             newproduc.product = product._id;
-            newproduc.details = product.detail ;
-            newproduc.title   = product.title ;
-            newproduc.knt     = product.knt ;
-            newproduc.price   = product.price 
-    
+            newproduc.details = product.detail;
+            newproduc.title = product.title;
+            newproduc.knt = product.knt;
+            newproduc.price = product.price
 
-            const solicitud = await fetch("http://localhost:4000/api/addCardProduct", {
-                method: 'POST',
-                body: JSON.stringify(newproduc),
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            });
+            if (paymentId.length > 0 && purchaseId.length > 0) {
+                const solicitud = await fetch("http://localhost:4000/api/addCardProduct", {
+                    method: 'POST',
+                    body: JSON.stringify(newproduc),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
 
+                setfinishPurchase(true);
+            }
         });
+
 
     }
 
@@ -130,15 +145,20 @@ export default function CL_Purchase(props) {
         AddCardProduct()
     }, [purchaseId]);
 
+    useEffect(() => {
+
+    }, [finishPurchase]);
+
+
 
     return (
         <div id="PaymentForm">
             <h2> </h2>
             <Row>
-                <Col xs={2}>
-                    <DetailShoopingCart price={props.price} setTotalPrice={props.setTotalPrice} carrito={props.carrito} setCarrito={props.setCarrito} />
+                <Col xs={2} style={{ backgroundColor: '#ffffff' }} className="mx-5 my-2">
+                    <DetailShoopingCart price={props.price} setTotalPrice={props.setTotalPrice} carrito={props.carrito} setCarrito={props.setCarrito} functionPrice={props.functionPrice} setFunctionPrice={props.setFunctionPrice} />
                 </Col>
-                <Col >
+                <Col style={{ backgroundColor: '#ffffff' }} className="my-2" >
                     <Cards
                         cvc={State.cvc}
                         expiry={State.expiry}
@@ -148,55 +168,81 @@ export default function CL_Purchase(props) {
                     />
 
                 </Col>
-                <Col xs={6}>
-                    <Row>
-                        <form>
-                            <div>
-                                <input
-                                    type="tel"
-                                    name="number"
-                                    placeholder="Número de Tarjeta"
-                                    onChange={onchangecreditcard}
-                                    onFocus={handleInputFocusFront}
-                                    maxLength="16"
+                <Col xs={6} style={{ backgroundColor: '#ffffff' }} className="my-2">
+                    <Row className="my-4">
+                        <Form>
+                            <Row>
+                                <Col>
+                                    <Form.Group controlId="cardnumber">
+                                        <Form.Control
+                                            type="tel"
+                                            name="number"
+                                            placeholder="Número de Tarjeta"
+                                            onChange={onchangecreditcard}
+                                            onFocus={handleInputFocusFront}
+                                            maxLength="16" />
+                                        <Form.Text className="text-muted">
+                                            Número de Tarjeta
+                            </Form.Text>
+                                    </Form.Group>
+                                </Col>
+                                <Col>
+                                    <Form.Group controlId="nameperson">
+                                        <Form.Control
+                                            type="text"
+                                            name="name"
+                                            placeholder="Nombre"
+                                            onChange={onchangecreditcard}
+                                        />
+                                        <Form.Text className="text-muted">
+                                            Nombre
+                            </Form.Text>
+                                    </Form.Group>
+                                </Col>
+                            </Row>
 
-                                />
-                            </div>
-
-                            <div>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    placeholder="Nombre"
-                                    onChange={onchangecreditcard}
-
-                                />
-                            </div>
-
-                            <div>
-                                <input
+                            <Form.Group controlId="expiry">
+                                <Form.Control
                                     type="tel"
                                     name="expiry"
                                     placeholder="Vencimiento"
                                     onChange={onchangecreditcard}
-                                    maxLength="4" />
+                                    maxLength="4"
+                                />
+                                <Form.Text className="text-muted">
+                                    Vencimiento
+                            </Form.Text>
+                            </Form.Group>
 
-
-                                <input
+                            <Form.Group controlId="cvc">
+                                <Form.Control
                                     type="tel"
                                     name="cvc"
                                     placeholder="CVC"
                                     onChange={onchangecreditcard}
                                     onFocus={handleInputFocus}
-                                    maxLength="3" />
-                            </div>
-                        </form>
+                                    maxLength="3"
+                                />
+                                <Form.Text className="text-muted">
+                                    Código de Seguridad
+                            </Form.Text>
+                            </Form.Group>
+
+                        </Form>
                     </Row>
 
                     <Row >
-                        <Button variant="primary"
-                            onClick={() => { savePurchase() }}
-                        >Confirmar Compra</Button>{' '}
+                        {props.carrito.length > 0 && paymentId.length === 0  ?
+                            <Button variant="primary" className="my-1"
+                                onClick={() => { savePurchase() }}
+                            >Validar Datos de la Tarjeta</Button> : ""}
+
+
+
+                        {finishPurchase === true ?
+                            <Link className="btn btn-primary my-1" to='/CL-FinishPurchase' >Finalizar Compra </Link>
+                            : ""
+                        }
                     </Row>
                 </Col>
             </Row>

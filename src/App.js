@@ -18,9 +18,11 @@ import {
 
 import CL_MinorFeatures from './components/CL-MinorFeatures/CL-MinorFeatures';
 import CL_Purchase from './components/CL-Purchase/CL-Purchase'
+import CL_FinishPurchase from './components/CL-Purchase/CL-FinishPurchase'
 import AD_ProductPanel from './components/AD-Product/AD-ProductPanel'
 import AD_Category from './components/AD-Category/AD-CategotyPanel'
 import AD_PurchasePanel from './components/AD-Purchase/AD-PurchasePanel'
+
 
 
 function App() {
@@ -29,13 +31,14 @@ function App() {
   const [carrito, setCarrito] = useState([]);
   const [selectProduct, setSelectProduct] = useState([]);
   const [price, setTotalPrice] = useState([]);
+  const [functionPrice, setFunctionPrice] = useState([]);
 
 
   return (
 
     <div className="App">
       <Router>
-        <CL_NavBar carrito={carrito} setCarrito={setCarrito} price={price} setTotalPrice={setTotalPrice} />
+        <CL_NavBar carrito={carrito} setCarrito={setCarrito} price={price} setTotalPrice={setTotalPrice} functionPrice={functionPrice} setFunctionPrice={setFunctionPrice} />
         <CL_LogBar />
         <Switch>
           <Route path="/home">
@@ -51,8 +54,8 @@ function App() {
             <h1>Solicita tu turno</h1>
           </Route>
 
-          <Route path ="/purchase">
-            <CL_Purchase carrito={carrito} setCarrito={setCarrito}  price={price} setTotalPrice={setTotalPrice} />
+          <Route path="/purchase">
+            <CL_Purchase carrito={carrito} setCarrito={setCarrito} price={price} setTotalPrice={setTotalPrice} functionPrice={functionPrice} setFunctionPrice={setFunctionPrice} />
           </Route>
 
           <Route path="/AD-home">
@@ -75,9 +78,13 @@ function App() {
           <Route path="/AD-PurchasePanel">
             <AD_PurchasePanel />
           </Route>
-          
+
+          <Route path="/CL-FinishPurchase">
+            <CL_FinishPurchase />
+          </Route>
+
         </Switch>
-          <CL_Footer />
+        <CL_Footer />
       </Router>
 
 
