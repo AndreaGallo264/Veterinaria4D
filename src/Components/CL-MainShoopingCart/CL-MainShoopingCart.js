@@ -21,10 +21,24 @@ export default function CL_MainShoopingCart(props) {
 
     const deleteitem = (title) => {
 
-        props.setCarrito(props.carrito.filter(item => item.title !== title))
-        props.functionPrice.CalculaPrice();
+        props.setCarrito(props.carrito.filter(item => item.title !== title));
 
     }
+
+    const calculatePrice = () => {
+
+        let price = 0;
+        if (props.carrito.length > 0) {
+            props.carrito.forEach(product => {
+                price += parseFloat(product.price) * parseInt(product.knt);
+            });
+        }
+        props.setTotalPrice(price);
+    }
+
+    useEffect(() => {
+        calculatePrice();
+    }, [props.carrito]);
 
 
     return (
@@ -54,7 +68,7 @@ export default function CL_MainShoopingCart(props) {
                         : "AUN NO TIENES PRODUCTOS EN TU CARRITO DE COMPRAS"}
 
                     {props.carrito.length > 0 ?
-                        <DetailShoopingCart price={props.price} setTotalPrice={props.setTotalPrice} carrito={props.carrito} setCarrito={props.setCarrito} functionPrice={props.functionPrice} setFunctionPrice={props.setFunctionPrice} />
+                        <DetailShoopingCart price={props.price} setTotalPrice={props.setTotalPrice} carrito={props.carrito} setCarrito={props.setCarrito}  />
                         : ""}
                 </Modal.Body>
                 <Modal.Footer>

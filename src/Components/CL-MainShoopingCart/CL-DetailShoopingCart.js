@@ -6,20 +6,17 @@ export default function CL_DetailShoopingCart(props) {
 
     const calculatePrice = () => {
 
-        props.setTotalPrice(0);
+        let price = 0;
         if (props.carrito.length > 0) {
-            let price = 0;
             props.carrito.forEach(product => {
                 price += parseFloat(product.price) * parseInt(product.knt);
             });
-
-            props.setTotalPrice(price);
         }
+        props.setTotalPrice(price);
     }
 
     useEffect(() => {
         calculatePrice();
-        props.setFunctionPrice({ CalculaPrice: calculatePrice })
     }, [props.price]);
 
 
@@ -41,7 +38,8 @@ export default function CL_DetailShoopingCart(props) {
                     color: '#000000',
                     backgroundColor: '#000000',
                     height: .1,
-                    borderColor: '#000000' }} ></hr>
+                    borderColor: '#000000'
+                }} ></hr>
                 <Row>
 
                     <Col xs={14}><h5>Total </h5> </Col>

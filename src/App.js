@@ -47,8 +47,8 @@ function App() {
             <CL_About />
           </Route>
           <Route path="/ecommerce">
-            <CL_MainFeature products={products} setProducts={setProducts} selectProduct={selectProduct} setSelectProduct={setSelectProduct} carrito={carrito} setCarrito={setCarrito} />
-            <CL_MinorFeatures products={products} setProducts={setProducts} selectProduct={selectProduct} setSelectProduct={setSelectProduct} />
+            <CL_MainFeature   products={products} setProducts={setProducts} selectProduct={selectProduct} setSelectProduct={setSelectProduct} carrito={carrito} setCarrito={setCarrito} functionPrice={functionPrice} setFunctionPrice={setFunctionPrice} />
+            <CL_MinorFeatures products={products} setProducts={setProducts} selectProduct={selectProduct} setSelectProduct={setSelectProduct} carrito={carrito} setCarrito={setCarrito} functionPrice={functionPrice} setFunctionPrice={setFunctionPrice} />
           </Route>
           <Route path="/turnos">
             <h1>Solicita tu turno</h1>

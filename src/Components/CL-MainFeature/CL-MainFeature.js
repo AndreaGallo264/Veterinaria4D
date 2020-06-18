@@ -30,7 +30,7 @@ const CL_MainFeature = (props) => {
                         </div>
                         <div className="row mt-2">
                             <div className="col">
-                            <CL_MainProduct products={props.products} setProducts={props.setProducts} selectProduct={props.selectProduct} setSelectProduct={props.setSelectProduct} carrito={props.carrito} setCarrito={props.setCarrito} />
+                            <CL_MainProduct products={props.products} setProducts={props.setProducts} selectProduct={props.selectProduct} setSelectProduct={props.setSelectProduct} carrito={props.carrito} setCarrito={props.setCarrito} functionPrice={props.functionPrice} setFunctionPrice={props.setFunctionPrice} />
                             </div>
                     </div>
                 </div>

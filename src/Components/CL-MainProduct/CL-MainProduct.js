@@ -1,5 +1,4 @@
-import React, { useState , useEffect } from 'react';
-import producto1 from './../../img/nariz.jpg';
+import React, { useState, useEffect } from 'react';
 
 const CL_MainProduct = (props) => {
 
@@ -13,16 +12,20 @@ const CL_MainProduct = (props) => {
 
     if (props.selectProduct.length > 0) {
       props.selectProduct[0].knt = knt
-      props.setCarrito([...props.carrito , props.selectProduct[0]]);
+      props.setCarrito([...props.carrito, props.selectProduct[0]]);
+      
     } else {
       props.products[0].knt = knt;
       props.setCarrito([...props.carrito, props.products[0]]);
+      
     }
+
+
   }
 
   useEffect(() => {
     setKnt(1);
-} );
+  });
 
   return (
 
