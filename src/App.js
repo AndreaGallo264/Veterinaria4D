@@ -1,83 +1,139 @@
-import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-credit-cards/es/styles-compiled.css';
+import React, { useState } from 'react';
 import './App.css';
-import CL_NavBar from './components/CL-NavBar/CL-NavBar';
-import CL_Presentacion from './components/CL-Presentacion/Cl-Presentacion';
-import CL_MainCarousel from './components/CL-MainCarousel/CL-MainCarousel';
-import CL_LogBar from './components/CL-LogBar/CL-LogBar';
-import CL_Footer from './components/CL-Footer/CL-Footer';
-import CL_About from './components/CL-About/CL-About';
-import CL_MainFeature from './components/CL-MainFeature/CL-MainFeature';
+
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
+  BrowserRouter as Router, 
+  Switch, 
+  Route
 } from "react-router-dom";
 
-import CL_MinorFeatures from './components/CL-MinorFeatures/CL-MinorFeatures';
-import CL_Purchase from './components/CL-Purchase/CL-Purchase'
-import AD_ProductPanel from './components/AD-Product/AD-ProductPanel'
-import AD_Category from './components/AD-Category/AD-CategotyPanel'
+//Components
+import PrincipalMenu from './components/web_components/0_principalmenu/principalmenu'
+import TopInfo       from './components/web_components/5_topinfo/topinfo'
+import Main          from './components/web_components/6_main/main'
+
+//Users
+import Login    from './components/cli_components/users/Login'
+import Register from './components/cli_components/users/cli-usrs/Register'
+import ListUsr from './components/ad_components/users/ad-usrs/UserPanel'
+
+//Ecommerce 
+import ListProduct    from './components/ad_components/ecommerce/Products/ListProducts'
+import MyCart         from './components/cli_components/ecommerce/ShoopingCar/ShoopingCar'
+import Purchase       from './components/cli_components/ecommerce/Purchase/Purchase'
+import FinishPurchase from './components/cli_components/ecommerce/Purchase/FinishPurchase'
+import CategoryPanel  from './components/ad_components/ecommerce/Category/CategotyPanel'
+import PurchasePanel  from './components/ad_components/ecommerce/Purchase/PurchasePanel'
+import ShippingDetail from './components/cli_components/ecommerce/ShippingDetail/ShippingDetail'
+
+
+//Turnos
+import ShiftsPanel     from './components/cli_components/shifts/ShiftsPanel'
+import AddSpecie       from './components/cli_components/shifts/AddSpecie'
+import AddSpeciality   from './components/cli_components/shifts/AddSpeciality'
+
+//Main 
+import Help            from './components/web_components/7_help/help'
 
 
 function App() {
 
-  const [products, setProducts] = useState([]);
   const [carrito, setCarrito] = useState([]);
-  const [selectProduct, setSelectProduct] = useState([]);
+  const [autenticado, setAutenticado] = useState([]);
   const [price, setTotalPrice] = useState([]);
+  const [kntcat, setKntcat] = useState([0]);
+  const [isAction, setisAction] = useState([]);
+  const [functionPrice, setFunctionPrice] = useState([]);
+  const [Shippingdetail , setShippingDetail] = useState({
+    province : 'San Miguel de Tucuman' , 
+    location : 'Tucuman' , 
+    postalcode : '4000' , 
+    dataadress : ''
+  });
 
+  const userState = {
+    token: localStorage.getItem('token'),
+    autenticado: localStorage.getItem('token') ? true : false,
+    usuario: localStorage.getItem('usuario') !== undefined ? JSON.parse(localStorage.getItem('usuario')) : null,
+    isAdmin: localStorage.getItem('usuario') ? JSON.parse(localStorage.getItem('usuario')).isadmin : false
+    //isAdmin: true
+  }
 
   return (
-
     <div className="App">
+
       <Router>
-        <CL_NavBar carrito={carrito} setCarrito={setCarrito} price={price} setTotalPrice={setTotalPrice} />
-        <CL_LogBar />
+        <TopInfo />
         <Switch>
-          <Route path="/home">
-            <CL_Presentacion />
-            <CL_MainCarousel />
-            <CL_About />
-          </Route>
-          <Route path="/ecommerce">
-            <CL_MainFeature products={products} setProducts={setProducts} selectProduct={selectProduct} setSelectProduct={setSelectProduct} carrito={carrito} setCarrito={setCarrito} />
-            <CL_MinorFeatures products={products} setProducts={setProducts} selectProduct={selectProduct} setSelectProduct={setSelectProduct} />
-          </Route>
-          <Route path="/turnos">
-            <h1>Solicita tu turno</h1>
-          </Route>
 
-          <Route path ="/purchase">
-            <CL_Purchase carrito={carrito} setCarrito={setCarrito}  price={price} setTotalPrice={setTotalPrice} />
-          </Route>
+        <Route strict path="/help">
+            <PrincipalMenu  userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <Help />
+        </Route>
 
-          <Route path="/AD-home">
-            <h1>AD-home</h1>
-          </Route>
-          <Route path="/AD-ecommerce">
-            <h1>Ad-Ecommerce</h1>
-          </Route>
-          <Route path="/AD-turnos">
-          </Route>
+        <Route strict path="/shippingdetail">
+            <PrincipalMenu  userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <ShippingDetail userState={userState} Shippingdetail={Shippingdetail} setShippingDetail={setShippingDetail} />
+        </Route>
 
-          <Route path="/AD-Product">
-            <AD_ProductPanel />
+        <Route strict path="/listusr">
+            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <ListUsr userState={userState} />
+        </Route>
+        <Route strict path="/finishpurchase">
+            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <FinishPurchase />
+        </Route>
+        <Route strict path="/purchasepanel">
+            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <PurchasePanel userState={userState} kntcat={kntcat} setKntcat={setKntcat}  />
+        </Route>
+        <Route strict path="/categorypanel">
+            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <CategoryPanel userState={userState} />
           </Route>
-
-          <Route path="/AD-Category">
-            <AD_Category />
+        <Route strict path="/addspecie">
+            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <AddSpecie     userState={userState} />
           </Route>
-
-          
+        <Route strict path="/addspeciality">
+            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <AddSpeciality userState={userState} />
+          </Route>
+          <Route strict path="/shiftspanel">
+            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <ShiftsPanel userState={userState} />
+          </Route>
+          <Route strict path="/purchase">
+            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <Purchase userState={userState} carProduct={carrito} setCarProduct={setCarrito} price={price} setTotalPrice={setTotalPrice} functionPrice={functionPrice} setFunctionPrice={setFunctionPrice} kntcat={kntcat} setKntcat={setKntcat} Shippingdetail={Shippingdetail} setShippingDetail={setShippingDetail} />
+          </Route>
+          <Route strict path="/MyCart">
+            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <MyCart carProduct={carrito} setCarProduct={setCarrito} user={userState} price={price} setTotalPrice={setTotalPrice} kntcat={kntcat} setKntcat={setKntcat} />
+          </Route>
+          <Route strict path="/listproduct">
+            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <ListProduct   userState={userState} carProduct={carrito} setCarProduct={setCarrito} isAdmin={userState} isAction={isAction} setisAction={setisAction} kntcat={kntcat} setKntcat={setKntcat} price={price} setTotalPrice={setTotalPrice} functionPrice={functionPrice} setFunctionPrice={setFunctionPrice} />
+          </Route>
+          <Route strict path="/register">
+            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <Register autenticado={autenticado} setAutenticado={setAutenticado} userState={userState}  />
+          </Route>
+          <Route strict path="/login">
+            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <Login autenticado={autenticado} setAutenticado={setAutenticado} />
+          </Route>
+          <Route strict path="/home">
+            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <Main />
+          </Route>
+          <Route strict path="/">
+            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <Main />
+          </Route>
         </Switch>
-          <CL_Footer />
       </Router>
-
-
-
     </div>
   );
 }
