@@ -16,6 +16,7 @@ export default function CardProducts(props) {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
+            'x-auth-token': props.userState.token
         }
     });
 
@@ -28,7 +29,6 @@ export default function CardProducts(props) {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'x-auth-token': props.userState.token
             }
         });
 
@@ -69,7 +69,7 @@ export default function CardProducts(props) {
                             {props.isAdmin.isAdmin ?
                                 <Card.Footer>
                                     <Row>
-                                        <Col><EditProducts products={products} isAction={props.isAction} setisAction={props.setisAction} getProd={props.getProd} selecCategory={props.selecCategory} /></Col>
+                                        <Col><EditProducts products={products} isAction={props.isAction} setisAction={props.setisAction} getProd={props.getProd} selecCategory={props.selecCategory} userState={props.userState} Add={props.Add} setAdd={props.setAdd} /></Col>
                                         <Col> <Button variant="danger" onClick={() => { deleteproduct(products._id) }}>Eliminar </Button></Col>
                                     </Row>
                                 </Card.Footer>

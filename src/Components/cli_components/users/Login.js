@@ -41,7 +41,7 @@ export default function Login({ autenticado, setAutenticado }) {
         const response = await request.json();
 
         if (response.success) {
-            localStorage.setItem('usuario', JSON.stringify(response.users));
+            localStorage.setItem('usuario', JSON.stringify(response.datausr));
             localStorage.setItem('token', response.token);
             setAutenticado(true);
         } else {

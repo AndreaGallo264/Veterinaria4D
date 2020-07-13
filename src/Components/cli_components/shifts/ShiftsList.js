@@ -82,7 +82,7 @@ export default function ShiftsList(props) {
                                 Especialidad : {listShips.specialitys[0] ? listShips.specialitys[0].name : "SIN ESPECIALIDAD"}
                             </Row>
                             <Row>
-                                Especie : {listShips.specialitys[0] ? listShips.species[0].name : "SIN ESPECIE"}
+                                Especie : {listShips.species[0] ? listShips.species[0].name : "SIN ESPECIE"}
                             </Row>
                             <Row>
                                 Mascota = {listShips.petname}

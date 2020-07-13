@@ -28,12 +28,15 @@ import ShippingDetail from './components/cli_components/ecommerce/ShippingDetail
 
 
 //Turnos
-import ShiftsPanel     from './components/cli_components/shifts/ShiftsPanel'
-import AddSpecie       from './components/cli_components/shifts/AddSpecie'
-import AddSpeciality   from './components/cli_components/shifts/AddSpeciality'
+import ShiftsPanel       from './components/cli_components/shifts/ShiftsPanel'
+import SpeciePanel       from './components/cli_components/shifts/SpeciePanel'
+import SpecialityPanel   from './components/cli_components/shifts/SpecialityPanel'
 
 //Main 
 import Help            from './components/web_components/7_help/help'
+
+//MP 
+import Chekout         from './components/mp_component/Checkout'
 
 
 function App() {
@@ -56,7 +59,6 @@ function App() {
     autenticado: localStorage.getItem('token') ? true : false,
     usuario: localStorage.getItem('usuario') !== undefined ? JSON.parse(localStorage.getItem('usuario')) : null,
     isAdmin: localStorage.getItem('usuario') ? JSON.parse(localStorage.getItem('usuario')).isadmin : false
-    //isAdmin: true
   }
 
   return (
@@ -65,6 +67,10 @@ function App() {
       <Router>
         <TopInfo />
         <Switch>
+
+        <Route strict path="/chekout">
+          <Chekout />
+        </Route>
 
         <Route strict path="/help">
             <PrincipalMenu  userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
@@ -94,11 +100,11 @@ function App() {
           </Route>
         <Route strict path="/addspecie">
             <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
-            <AddSpecie     userState={userState} />
+            <SpeciePanel   userState={userState} />
           </Route>
         <Route strict path="/addspeciality">
             <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
-            <AddSpeciality userState={userState} />
+            <SpecialityPanel userState={userState} />
           </Route>
           <Route strict path="/shiftspanel">
             <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />

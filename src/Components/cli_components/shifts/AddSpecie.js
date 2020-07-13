@@ -20,6 +20,10 @@ export default function AddSpecie(props) {
         e.preventDefault();
 
         AddSpecie(specie);
+
+        setSpecie({
+            name: ''
+        })
     }
 
     const AddSpecie = async (shifts) => {
@@ -32,13 +36,14 @@ export default function AddSpecie(props) {
             }
         });
         //const response = await request.json()
+        props.loadSpecie.getspecie();
     }
 
 
     return (
-        <Container>
+        <Container fluid>
             <Row className="mt-5">
-                <Col xs={12} sm={8} md={6} className="mx-auto">
+                <Col >
                     <Card bg="light">
                         <Card.Header>Registro de Especie</Card.Header>
                         <Card.Body>

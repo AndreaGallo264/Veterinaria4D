@@ -20,10 +20,10 @@ export default function ListProductos(props) {
 
     //State para la categoria Seleccionada
     //Para Local
-    const [selectCategory, setSelectCategory] = useState("5f06878ca6c36442a0988837");
+    //const [selectCategory, setSelectCategory] = useState("5f06878ca6c36442a0988837");
 
     //Para Atlas
-    //const [selectCategory, setSelectCategory] = useState("5ef15be7c397f100172b2520");
+    const [selectCategory, setSelectCategory] = useState("5ef15be7c397f100172b2520");
 
 
     // Obtener los Productos
@@ -32,14 +32,13 @@ export default function ListProductos(props) {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'x-auth-token': props.userState.token
             }
         });
 
         const response = await request.json();
         if (response.success) {
             setProducts(response.products);
-        }else {
+        } else {
             setProducts([]);
         }
 
@@ -51,15 +50,14 @@ export default function ListProductos(props) {
         const request = await fetch(process.env.REACT_APP_BACKEND_URL + 'listProductByCategory/' + catselec, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
-                'x-auth-token': props.userState.token
-            }
+                'Content-Type': 'application/json'
+            } 
         });
 
         const response = await request.json();
         if (response.success) {
             setProducts(response.products);
-        }else {
+        } else {
             setProducts([]);
         }
     }
@@ -69,8 +67,7 @@ export default function ListProductos(props) {
         const request = await fetch(process.env.REACT_APP_BACKEND_URL + "listCategory", {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
-                'x-auth-token': props.userState.token
+                'Content-Type': 'application/json'
             }
         });
         const response = await request.json();
@@ -147,11 +144,14 @@ export default function ListProductos(props) {
                 </Col>
 
                 {props.isAdmin.isAdmin ?
-                    <EditProducts products={products} Add={Add} setAdd={setAdd} isAction={props.isAction} setisAction={props.setisAction} getProd={getProductsByCategory} selecCategory={selectCategory} />
+                    <EditProducts products={products} Add={Add} setAdd={setAdd} isAction={props.isAction} setisAction={props.setisAction} getProd={getProductsByCategory} selecCategory={selectCategory} userState={props.userState} />
                     : ''}
 
-                <CardProducts products={products} setProducts={setProducts} carProduct={props.carProduct} setCarProduct={props.setCarProduct} isAdmin={props.isAdmin} isAction={props.isAction} setisAction={props.setisAction} getProd={getProductsByCategory} selecCategory={selectCategory} kntcat={props.kntcat} setKntcat={props.setKntcat} price={props.price} setTotalPrice={props.setTotalPrice} functionPrice={props.functionPrice} setFunctionPrice={props.setFunctionPrice} />
+                <CardProducts products={products} setProducts={setProducts} carProduct={props.carProduct} setCarProduct={props.setCarProduct} isAdmin={props.isAdmin} isAction={props.isAction} setisAction={props.setisAction} getProd={getProductsByCategory} selecCategory={selectCategory} kntcat={props.kntcat} setKntcat={props.setKntcat} price={props.price} setTotalPrice={props.setTotalPrice} functionPrice={props.functionPrice} setFunctionPrice={props.setFunctionPrice} userState={props.userState} />
             </Row>
+
+          
+
         </Container>
     )
 }

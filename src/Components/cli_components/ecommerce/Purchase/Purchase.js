@@ -128,16 +128,17 @@ export default function Purchase(props) {
     const AddCardProduct = async () => {
         props.carProduct.forEach(async product => {
 
+            //mejorar
             var newproduc = {};
 
-            newproduc.user = props.userState.usuario._id;
-            newproduc.payment = paymentId;
+            newproduc.user     = props.userState.usuario._id;
+            newproduc.payment  = paymentId;
             newproduc.purchase = purchaseId;
-            newproduc.product = product._id;
-            newproduc.details = product.details;
-            newproduc.title = product.title;
-            newproduc.knt = product.knt;
-            newproduc.price = product.price
+            newproduc.product  = product._id;
+            newproduc.details  = product.details;
+            newproduc.title    = product.title;
+            newproduc.knt      = product.knt;
+            newproduc.price    = product.price
 
             if (paymentId.length > 0 && purchaseId.length > 0) {
                 await fetch(process.env.REACT_APP_BACKEND_URL + "addCardProduct", {

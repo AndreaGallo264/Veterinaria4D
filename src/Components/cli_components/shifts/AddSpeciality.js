@@ -19,6 +19,9 @@ export default function AddSpeciality(props) {
     const onSubmitSpecie = e => {
         e.preventDefault();
         AddSpeciality(speciality);
+        setSpeciality({
+            name: ''
+        })
     }
 
     const AddSpeciality = async (shspecialityifts) => {
@@ -32,13 +35,14 @@ export default function AddSpeciality(props) {
             }
         });
         //const response = await request.json()
+        props.loadSpeciality.getSpeciality();
     }
 
 
     return (
         <Container>
-            <Row className="mt-5">
-                <Col xs={12} sm={8} md={6} className="mx-auto">
+            <Row className="mt-5" fluid>
+                <Col >
                     <Card bg="light">
                         <Card.Header>Registro de Especialidad</Card.Header>
                         <Card.Body>

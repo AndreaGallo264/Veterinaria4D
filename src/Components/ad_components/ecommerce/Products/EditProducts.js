@@ -2,7 +2,7 @@ import React , {useState  , useEffect} from 'react'
 import {Button , Modal , Col , Container , Form  } from 'react-bootstrap'
 
 
-export default function EditProducts({products , Add , setAdd , isAction ,  setisAction , getProd ,  selecCategory}) {
+export default function EditProducts({products , Add , setAdd , isAction ,  setisAction , getProd ,  selecCategory , userState}) {
 
     //Modal
     const [show, setShow] = useState(false);
@@ -31,7 +31,6 @@ export default function EditProducts({products , Add , setAdd , isAction ,  seti
 
     // Extraemos del Product
     const { detail, price, stock, urlimg, title , id , prodcategory  } = productEdit;
-
 
     // Cuando hay cambios en el formulario
     const onChangeEditProduct = e => {
@@ -84,14 +83,15 @@ export default function EditProducts({products , Add , setAdd , isAction ,  seti
 
     const EditProduct = async (product , id) => {
 
-        /*const request =*/ await fetch(process.env.REACT_APP_BACKEND_URL+"editProduct/"+id, {
+        const request = await fetch(process.env.REACT_APP_BACKEND_URL+"editProduct/"+id, {
             method: 'PUT',
             body: JSON.stringify(product),
             headers: {
                 'Content-Type': 'application/json',
+                'x-auth-token':  userState.token
             }
         });
-        //const response = await request.json();
+        const response = await request.json();
 
     }
 
@@ -120,6 +120,7 @@ export default function EditProducts({products , Add , setAdd , isAction ,  seti
             body: JSON.stringify(product),
             headers: {
                 'Content-Type': 'application/json',
+                'x-auth-token':  userState.token
             }
         });
         //const response = await request.json();
