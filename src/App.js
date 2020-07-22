@@ -36,7 +36,7 @@ import SpecialityPanel   from './components/cli_components/shifts/SpecialityPane
 import Help            from './components/web_components/7_help/help'
 
 //MP 
-import Chekout         from './components/mp_component/Checkout'
+//import Chekout         from './components/mp_component/Checkout'
 
 
 function App() {
@@ -68,9 +68,9 @@ function App() {
         <TopInfo />
         <Switch>
 
-        <Route strict path="/chekout">
+        {/* <Route strict path="/chekout">
           <Chekout />
-        </Route>
+        </Route> */}
 
         <Route strict path="/help">
             <PrincipalMenu  userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
@@ -94,10 +94,10 @@ function App() {
             <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
             <PurchasePanel userState={userState} kntcat={kntcat} setKntcat={setKntcat}  />
         </Route>
-        <Route strict path="/categorypanel">
+        {/* <Route strict path="/categorypanel">
             <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
             <CategoryPanel userState={userState} />
-          </Route>
+          </Route> */}
         <Route strict path="/addspecie">
             <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
             <SpeciePanel   userState={userState} />
