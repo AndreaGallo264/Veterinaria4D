@@ -65,7 +65,6 @@ function App() {
     <div className="App">
 
       <Router>
-        <TopInfo />
         <Switch>
 
         {/* <Route strict path="/chekout">

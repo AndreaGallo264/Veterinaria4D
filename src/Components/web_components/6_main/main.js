@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Container } from 'react-bootstrap'
 //Components
 
@@ -11,13 +11,14 @@ import Team from '../3_team/team'
 export default function main() {
 
     return (
-
-        <Container fluid>
-            <PrincipalSlider />
-            <Services />
-            <Team />
+        <Fragment>
+            <Container>
+                <PrincipalSlider />
+                <Services />
+                <Team />
+            </Container>
             <Footer />
-        </Container>
+        </Fragment>
 
     )
 }
