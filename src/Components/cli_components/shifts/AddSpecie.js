@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Col, Row, Card, Form , Button } from 'react-bootstrap'
+import { Container, Col, Row, Card, Form, Button } from 'react-bootstrap'
 
 export default function AddSpecie(props) {
 
@@ -15,28 +15,36 @@ export default function AddSpecie(props) {
             [e.target.name]: e.target.value
         });
     };
-    
+
     const onSubmitSpecie = e => {
         e.preventDefault();
-
         AddSpecie(specie);
-
         setSpecie({
             name: ''
         })
     }
 
     const AddSpecie = async (shifts) => {
-        /*const request =*/ await fetch(process.env.REACT_APP_BACKEND_URL + "addSpecie", {
+        await fetch(process.env.REACT_APP_BACKEND_URL + "addSpecie", {
             method: 'POST',
             body: JSON.stringify(shifts),
             headers: {
                 'Content-Type': 'application/json',
                 'x-auth-token': props.userState.token
             }
-        });
-        //const response = await request.json()
-        props.loadSpecie.getspecie();
+        }).then(async res => await res.json())
+            .then(
+                (result) => {
+                    if (result.success) {
+                        props.loadSpecie.getspecie();
+                    } else {
+                        alert("Ocurrio un Error, reintente nuevamente : " + result.msg);
+                    }
+                },
+                (error) => {
+                    alert("Ocurrio un Error, reintente nuevamente");
+                }
+            );
     }
 
 
@@ -58,6 +66,7 @@ export default function AddSpecie(props) {
                                         placeholder="Ingrese Nombre"
                                         onChange={onChangeSpecie}
                                         value={name}
+                                        required
 
                                     />
                                 </Form.Group>

@@ -16,6 +16,8 @@ import Main          from './components/web_components/6_main/main'
 import Login    from './components/cli_components/users/Login'
 import Register from './components/cli_components/users/cli-usrs/Register'
 import ListUsr from './components/ad_components/users/ad-usrs/UserPanel'
+import EditUsr from './components/cli_components/users/cli-usrs/EditData'
+
 
 //Ecommerce 
 import ListProduct    from './components/ad_components/ecommerce/Products/ListProducts'
@@ -41,17 +43,19 @@ import Chekout         from './components/mp_component/Checkout'
 
 function App() {
 
-  const [carrito, setCarrito] = useState([]);
+  const [carrito, setCarrito]         = useState([]);
   const [autenticado, setAutenticado] = useState([]);
-  const [price, setTotalPrice] = useState([]);
-  const [kntcat, setKntcat] = useState([0]);
-  const [isAction, setisAction] = useState([]);
+  const [price, setTotalPrice]        = useState([]);
+  const [kntcat, setKntcat]           = useState([]);
+  const [realstock, setRealStock]     = useState(0);
+  const [isAction, setisAction]       = useState([]);
   const [functionPrice, setFunctionPrice] = useState([]);
+  const [datusr , setdatusr]              = useState([]);
   const [Shippingdetail , setShippingDetail] = useState({
     province : 'San Miguel de Tucuman' , 
     location : 'Tucuman' , 
     postalcode : '4000' , 
-    dataadress : ''
+    dataadress : datusr[0]?datusr[0].address:""
   });
 
   const userState = {
@@ -59,6 +63,10 @@ function App() {
     autenticado: localStorage.getItem('token') ? true : false,
     usuario: localStorage.getItem('usuario') !== undefined ? JSON.parse(localStorage.getItem('usuario')) : null,
     isAdmin: localStorage.getItem('usuario') ? JSON.parse(localStorage.getItem('usuario')).isadmin : false
+  }
+
+  const commonprops = {
+    userState , kntcat, setKntcat , datusr , setdatusr , realstock, setRealStock , setShippingDetail
   }
 
   return (
@@ -73,69 +81,73 @@ function App() {
         </Route>
 
         <Route strict path="/help">
-            <PrincipalMenu  userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <PrincipalMenu  {...commonprops} />
             <Help />
         </Route>
 
         <Route strict path="/shippingdetail">
-            <PrincipalMenu  userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <PrincipalMenu  {...commonprops} />
             <ShippingDetail userState={userState} Shippingdetail={Shippingdetail} setShippingDetail={setShippingDetail} />
         </Route>
 
         <Route strict path="/listusr">
-            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <PrincipalMenu {...commonprops} />
             <ListUsr userState={userState} />
         </Route>
         <Route strict path="/finishpurchase">
-            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <PrincipalMenu {...commonprops} />
             <FinishPurchase />
         </Route>
         <Route strict path="/purchasepanel">
-            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <PrincipalMenu {...commonprops} />
             <PurchasePanel userState={userState} kntcat={kntcat} setKntcat={setKntcat}  />
         </Route>
         <Route strict path="/categorypanel">
-            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <PrincipalMenu {...commonprops} />
             <CategoryPanel userState={userState} />
           </Route>
         <Route strict path="/addspecie">
-            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <PrincipalMenu {...commonprops} />
             <SpeciePanel   userState={userState} />
           </Route>
         <Route strict path="/addspeciality">
-            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <PrincipalMenu {...commonprops} />
             <SpecialityPanel userState={userState} />
           </Route>
           <Route strict path="/shiftspanel">
-            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <PrincipalMenu {...commonprops} />
             <ShiftsPanel userState={userState} />
           </Route>
           <Route strict path="/purchase">
-            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <PrincipalMenu {...commonprops} />
             <Purchase userState={userState} carProduct={carrito} setCarProduct={setCarrito} price={price} setTotalPrice={setTotalPrice} functionPrice={functionPrice} setFunctionPrice={setFunctionPrice} kntcat={kntcat} setKntcat={setKntcat} Shippingdetail={Shippingdetail} setShippingDetail={setShippingDetail} />
           </Route>
           <Route strict path="/MyCart">
-            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
-            <MyCart carProduct={carrito} setCarProduct={setCarrito} user={userState} price={price} setTotalPrice={setTotalPrice} kntcat={kntcat} setKntcat={setKntcat} />
+            <PrincipalMenu {...commonprops} />
+            <MyCart carProduct={carrito} setCarProduct={setCarrito} user={userState} price={price} setTotalPrice={setTotalPrice} kntcat={kntcat} setKntcat={setKntcat} realstock={realstock} setRealStock={setRealStock} />
           </Route>
           <Route strict path="/listproduct">
-            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
-            <ListProduct   userState={userState} carProduct={carrito} setCarProduct={setCarrito} isAdmin={userState} isAction={isAction} setisAction={setisAction} kntcat={kntcat} setKntcat={setKntcat} price={price} setTotalPrice={setTotalPrice} functionPrice={functionPrice} setFunctionPrice={setFunctionPrice} />
+            <PrincipalMenu {...commonprops} />
+            <ListProduct   userState={userState} carProduct={carrito} setCarProduct={setCarrito} isAdmin={userState} isAction={isAction} setisAction={setisAction} kntcat={kntcat} setKntcat={setKntcat} price={price} setTotalPrice={setTotalPrice} functionPrice={functionPrice} setFunctionPrice={setFunctionPrice} realstock={realstock} setRealStock={setRealStock} />
           </Route>
+          <Route strict path="/editusr">
+            <PrincipalMenu {...commonprops}  />
+            <EditUsr userState={userState} datusr={datusr} setDatUsr={setdatusr} />
+        </Route>
           <Route strict path="/register">
-            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <PrincipalMenu {...commonprops} />
             <Register autenticado={autenticado} setAutenticado={setAutenticado} userState={userState}  />
           </Route>
           <Route strict path="/login">
-            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <PrincipalMenu {...commonprops} />
             <Login autenticado={autenticado} setAutenticado={setAutenticado} />
           </Route>
           <Route strict path="/home">
-            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <PrincipalMenu {...commonprops} />
             <Main />
           </Route>
           <Route strict path="/">
-            <PrincipalMenu userState={userState} kntcat={kntcat} setKntcat={setKntcat} />
+            <PrincipalMenu {...commonprops} />
             <Main />
           </Route>
         </Switch>

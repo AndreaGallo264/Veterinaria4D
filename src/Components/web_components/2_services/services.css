@@ -1,0 +1,9 @@
+@media (max-width: 600px) {
+    .cols-margin-top{
+        margin-top: 20px;
+    }
+
+    .text-services{
+        font-size: small;
+    }
+  }

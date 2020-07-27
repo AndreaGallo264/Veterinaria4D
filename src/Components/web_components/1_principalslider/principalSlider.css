@@ -1,0 +1,9 @@
+.text-carousel{
+    font-size: xx-large;
+}
+
+@media (max-width: 600px) {
+    .text-carousel {
+        font-size: x-small;
+    }
+  }

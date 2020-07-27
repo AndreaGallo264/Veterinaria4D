@@ -1,14 +1,13 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Modal, Col, Image, Form, Container, Row } from 'react-bootstrap'
 
 export default function AddToCart(props) {
 
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    // State Carrito 
+
     const [cart, setCart] = useState({
         knt: 1,
         title: props.title,
@@ -19,7 +18,6 @@ export default function AddToCart(props) {
     })
 
     const { knt } = cart;
-
     const onChangeCart = e => {
 
         if (e.target.value <= props.stock) {
@@ -27,25 +25,35 @@ export default function AddToCart(props) {
                 ...cart,
                 [e.target.name]: e.target.value
             })
-        }else {
+        } else {
             alert("Stock Insuficiente");
         }
     }
 
-    //Cuando agrego al carrito
-
     const onAddToCart = e => {
-
         e.preventDefault();
-        console.log("Agrega al Carrito");
-        handleClose();
+        const findprod = props.carProduct.filter(prod => {
+            return prod.title.includes(props.title);
+        })
 
-        props.setCarProduct([...props.carProduct, cart]);
-        
+        if (findprod.length > 0) {
+            if (props.realstock >= knt * 1) {
+                handleClose();
+                props.setCarProduct([...props.carProduct, cart]);
+            } else {
+                alert("Sin Stock : Productos Agregados en el Carrito")
+            }
+        } else {
+            if (knt > 0) {
+                handleClose();
+                props.setCarProduct([...props.carProduct, cart]);
+            }else {
+                alert("Agregue al Menos un Producto");
+            }
+        }
     }
 
     const calculatePrice = () => {
-
         let price = 0;
         let kntproduct = 0;
         props.carProduct.forEach(product => {
@@ -55,17 +63,45 @@ export default function AddToCart(props) {
 
         props.setTotalPrice(price);
         props.setKntcat(kntproduct);
+    };
 
 
-    }
 
     useEffect(() => {
         calculatePrice();
     }, [props.carProduct]);
 
+
+
+    useEffect(() => {
+        const findprod = props.carProduct.filter(prod => {
+            return prod.title.includes(props.title);
+        })
+        if (findprod.length > 0) {
+            var kntprod = props.stock;
+            for (var i = 0; findprod.length > i; i++) {
+                kntprod = kntprod - findprod[i].knt * 1
+            }
+            props.setRealStock(kntprod);
+        }
+    }, [show]);
+
+    useEffect(() => {
+        const findprod = props.carProduct.filter(prod => {
+            return prod.title.includes(props.title);
+        })
+        if (findprod.length > 0) {
+            var kntprod = props.stock;
+            for (var i = 0; findprod.length > i; i++) {
+                kntprod = kntprod - findprod[i].knt * 1
+            }
+            props.setRealStock(kntprod);
+        }
+    }, [props.carProduct]);
+
     return (
 
-        <Fragment>
+        <Container>
             <Button variant="primary" onClick={handleShow}>
                 Añadir al Carrito
              </Button>
@@ -80,13 +116,13 @@ export default function AddToCart(props) {
                 <Modal.Body>
                     <Container>
                         <Row>
-                            Precio : {props.price}
+                            Precio : $ {props.price}
                         </Row>
                         <Row>
-                            Stock : {props.stock}
+                            Stock : {props.stock > 0 ? props.stock - knt : "AGOTADO"}
                         </Row>
                         <Row>
-                            Detalle = {props.details}
+                            Detalle : {props.details}
                         </Row>
                     </Container>
                     <Form onSubmit={onAddToCart}>
@@ -101,13 +137,15 @@ export default function AddToCart(props) {
                                 defaultValue="1"
                             ></Form.Control>
                         </Form.Group>
-                        <Button type="submit">Agregar</Button>
+                        {props.stock > 0 ? <Button type="submit">Agregar</Button> : ""}
+
+
                     </Form>
 
                 </Modal.Body>
                 <Modal.Footer>
                 </Modal.Footer>
             </Modal>
-        </Fragment>
+        </Container>
     )
 }

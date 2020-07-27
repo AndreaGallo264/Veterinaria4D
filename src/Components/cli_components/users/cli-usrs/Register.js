@@ -5,16 +5,17 @@ import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
 export default function Register(props) {
 
     const [loginerr, setLoginerr] = useState(false);
+
     const [user, setUsr] = useState({
         nombre: '',
         email: '',
         password: '',
-        passwordconfirm: '' ,
-        address: ''
+        passwordconfirm: '',
+        address: '',
     });
 
-    const { nombre, email, password, passwordconfirm , address } = user;
-   
+    const { nombre, email, password, passwordconfirm, address } = user;
+
     const onChangeUsuario = e => {
         setUsr({
             ...user,
@@ -24,62 +25,47 @@ export default function Register(props) {
 
     const onSubmitRegistro = e => {
         e.preventDefault();
-
-
-        if (props.autenticado === true) {
-            EditUsr(user);
-        } else {
+        if (password === passwordconfirm) {
             AddUser(user);
+        }else {
+            return alert("Password y Confirmacion Password no coinciden");
         }
-
-        setUsr({
-            nombre: '',
-            email: '',
-            password: '',
-            passwordconfirm: '' ,
-            address : ''
-        })
     }
 
-
     const AddUser = async (user) => {
-   
-        const request = await fetch(process.env.REACT_APP_BACKEND_URL + "users", {
+
+        await fetch(process.env.REACT_APP_BACKEND_URL + "users", {
             method: 'POST',
             body: JSON.stringify(user),
             headers: {
                 'Content-Type': 'application/json',
             }
-        });
-        const response = await request.json();
-
-        if (response.success) {
-            localStorage.setItem('usuario', JSON.stringify(response.users));
-            localStorage.setItem('token', response.token);
-            props.setAutenticado(true);
-            alert("Usuario Registrado");
-        } else {
-            props.setAutenticado(false);
-            setLoginerr(true);
-            alert("Datos Incorrectos");
-        }
+        }).then(async res => await res.json())
+            .then(
+                (result) => {
+                    if (result.success) {
+                        localStorage.setItem('usuario', JSON.stringify(result.users));
+                        localStorage.setItem('token', result.token);
+                        props.setAutenticado(true);
+                        alert("Usuario Registrado");
+                        setUsr({
+                            nombre: '',
+                            email: '',
+                            password: '',
+                            passwordconfirm: '',
+                            address: ''
+                        })
+                    } else {
+                        props.setAutenticado(false);
+                        setLoginerr(true);
+                        alert("Datos Incorrectos:" + result.msg);
+                    }
+                },
+                (error) => {
+                    alert("Ocurrio un Error, reintente nuevamente");
+                }
+            );
     }
-
-
-    const EditUsr = async (user) => {
-
-        /*const solicitud =*/ await fetch(process.env.REACT_APP_BACKEND_URL+"auth/"+props.userState.usuario._id, {
-            method: 'PUT',
-            body: JSON.stringify(user),
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });
-        //const respuesta = await solicitud.json();
-
-    }
-
-
 
     return (
 
@@ -141,6 +127,7 @@ export default function Register(props) {
                                         onChange={onChangeUsuario}
                                         value={password}
                                         required
+                                        minLength="6"
                                     />
                                 </Form.Group>
                                 <Form.Group controlId="formRegistroPasswordconfirm">
@@ -152,14 +139,15 @@ export default function Register(props) {
                                         onChange={onChangeUsuario}
                                         value={passwordconfirm}
                                         required
+                                        minLength="6"
                                     />
                                 </Form.Group>
                                 <Button
                                     className="mr-3"
                                     variant="primary"
-                                    type="submit">{props.autenticado === true ? "Modificar Datos" : "Registrarme"}
+                                    type="submit"> Registrarme
                                 </Button>
-                                {props.autenticado === true ? "" :
+                                {props.userState.autenticado === true ? "" :
                                     <Link to="/login">Iniciar sesión</Link>
                                 }
                             </Form>

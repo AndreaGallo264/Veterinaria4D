@@ -1,0 +1,9 @@
+@media (max-width: 600px) {
+    .display-row-phone{
+        flex-direction: column;
+    }
+
+    .footer-row{
+        margin-left: 20px;
+    }
+  }

@@ -20,13 +20,17 @@ export default function ShoopingCar(props) {
         props.setKntcat(kntproduct);
 
 
-    }
+    } ; 
 
     const deleteitem = (title) => {
 
         props.setCarProduct(props.carProduct.filter(item => item.title !== title));
 
-    }
+    } ; 
+
+    const cancelPurchase = () =>{
+        props.setCarProduct([]);
+    } ; 
 
     useEffect(() => {
         calculatePrice();
@@ -35,9 +39,10 @@ export default function ShoopingCar(props) {
 
     return (
 
-        <Container className="mt-4" >
+        <Container className="bg-white" fluid >
             <Row>
-                <Col>
+            <Col xs={2}></Col>
+                <Col xs={5}>
                     <h1> MI CARRITO DE COMPRAS </h1>
                     <ListGroup horizontal>
 
@@ -48,36 +53,43 @@ export default function ShoopingCar(props) {
                                 <Card.Body>
                                     <Card.Title>{product.title}</Card.Title>
                                     <Card.Text>
-                                        Detalle : {product.details}
-                                        Precio  : {product.price}
-                                        Cantiad :{product.knt}
+                                        <Row>  Precio  : $ {product.price}</Row>
+                                        <Row>  Cantidad :{product.knt}</Row>
+                                        <Row>  Detalle : {product.details}</Row>
                                     </Card.Text>
                                 </Card.Body>
                                 <Button variant="danger" onClick={() => deleteitem(product.title)}>Eliminar</Button>
                             </Card>
                         ))
                             :
-                            <Row>
-                                <Col> <h5>SIN PRODUCTOS EN EL CARRITO</h5></Col>
-                                <Col><Image fluid src={LogoOps} /></Col>
-                            </Row>}
+                            <Container>
+                                <Row>
+                                    <Col></Col>
+                                    <Col xs={5}>
+                                        <Row> <h5>SIN PRODUCTOS EN EL CARRITO</h5></Row>
+                                        <Row><Image fluid width="400px" src={LogoOps} /></Row>
+                                    </Col>
+                                    <Col></Col>
+                                </Row>
+                            </Container>
+                        }
 
                     </ListGroup>
                 </Col>
+                {props.carProduct.length > 0 ?
                 <Col>
-
-                    <Row className="justify-content-center">
-                        <Col xs={10}><h1> Resumen </h1> </Col>
+                    <Row className="">
+                        <Col ><h1> Resumen </h1> </Col>
                     </Row>
 
-                    <Row className="justify-content-left">
-                        <Col xs={10}><h3> Compra </h3> </Col>
-                        <Col xs={1}>${props.price > 0 ? props.price : "0"}</Col>
+                    <Row className="">
+                        <Col ><h4> Compra </h4> </Col>
+                        <Col >${props.price > 0 ? props.price : "0"}</Col>
                     </Row>
 
-                    <Row className="justify-content-left">
-                        <Col xs={10}><h3>SubTotal </h3> </Col>
-                        <Col xs={1}>${props.price > 0 ? props.price : "0"}</Col>
+                    <Row className="">
+                        <Col ><h4>SubTotal </h4> </Col>
+                        <Col >${props.price > 0 ? props.price : "0"}</Col>
                     </Row>
                     <hr style={{
                         color: '#000000',
@@ -85,24 +97,26 @@ export default function ShoopingCar(props) {
                         height: .1,
                         borderColor: '#000000'
                     }} ></hr>
-                    <Row className="justify-content-left">
+                    <Row className="">
 
-                        <Col xs={10}><h3>Total </h3> </Col>
-                        <Col xs={1}>${props.price > 0 ? props.price : "0"}</Col>
+                        <Col ><h4>Total </h4> </Col>
+                        <Col >${props.price > 0 ? props.price : "0"}</Col>
                     </Row>
 
                     {
                         props.isPurchase ? "" :
                             <Row className="justify-content-center mt-4">
-                                <Button variant="danger">Cancelar</Button>
+                                <Button variant="danger" onClick={() => cancelPurchase()} className="mr-2">Cancelar</Button>
                                 {
-                                    props.user.usuario ? <Link to="/purchase"  >Continuar y Pagar</Link> :
-                                        <Link to="/Login" > Iniciar Sesión para Continuar </Link>
+                                    props.user.usuario ? <Link to="/purchase" className="btn btn-primary"  >Continuar y Pagar</Link> :
+                                        <Link to="/Login" className="btn btn-primary" > Iniciar Sesión para Continuar </Link>
                                 }
                             </Row>
                     }
 
                 </Col>
+                :""}
+                <Col xs={2}></Col>
             </Row>
         </Container>
     )
