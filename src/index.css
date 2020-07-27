@@ -19,6 +19,12 @@ code {
   color: #970099;
 }
 
-.bg-menu{
+.bg-menu, .card-header.bg-menu{
   background-color: rgb(255, 245, 108);
+}
+
+.App{
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 7rem;
 }

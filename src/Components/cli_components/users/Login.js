@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
-
-
+import { Image, Container, Form, Button, Card, Alert } from 'react-bootstrap';
+import { onKeyPressValidateEmail, onKeyPressValidatePassword } from '../../resources/CommonValidations';
+import ImgEmail from '../../resources/mail.png';
+import ImgPass from '../../resources/security.png';
+import ImgAdd from '../../resources/add.png';
+import Perritos from '../../resources/perritos.jpg';
+import alertify from 'alertifyjs';
 export default function Login({ autenticado, setAutenticado }) {
 
     const [usuario, setUsuario] = useState({
@@ -20,7 +24,7 @@ export default function Login({ autenticado, setAutenticado }) {
             [e.target.name]: e.target.value
         });
     };
- 
+
     const onSubmitLogin = e => {
 
         e.preventDefault();
@@ -30,7 +34,7 @@ export default function Login({ autenticado, setAutenticado }) {
 
 
     const LoginUsr = async (usuario) => {
-       
+
         const request = await fetch(process.env.REACT_APP_BACKEND_URL + "auth", {
             method: 'POST',
             body: JSON.stringify(usuario),
@@ -43,63 +47,81 @@ export default function Login({ autenticado, setAutenticado }) {
         if (response.success) {
             localStorage.setItem('usuario', JSON.stringify(response.datausr));
             localStorage.setItem('token', response.token);
+            alertify.success('Bienvenido!!!');
             setAutenticado(true);
         } else {
+            alertify.error('Intenta nuevamente por favor');
             setAutenticado(false);
             setLoginerr(true);
-            alert("Datos Incorrectos");
+            setUsuario({
+                email: '',
+                password: ''
+            });            
         }
     }
 
-
     return (
-
         <Container>
             {
-                autenticado===true ? <Alert variant='success'>
-                    Usuario Logueado
-              </Alert> :
-                    
-                        <Row className="mt-5">
-                            <Col xs={12} sm={8} md={6} className="mx-auto">
-                                <Card bg="light">
-                                    <Card.Header>Login</Card.Header>
-                                    {loginerr ? <Alert variant='danger'> Datos Incorrectos </Alert> : "" }
-                                    <Card.Body>
-                                        <Form onSubmit={onSubmitLogin} >
-                                            <Form.Group controlId="formLoginEmail">
-                                                <Form.Label>
-                                                    Email
-                                    </Form.Label>
-                                                <Form.Control
-                                                    type="email"
-                                                    name="email"
-                                                    placeholder="Ingrese su email"
-                                                    onChange={onChangeUsuario}
-                                                    value={email}
-                                                />
-                                            </Form.Group>
-                                            <Form.Group controlId="formLoginPassword">
-                                                <Form.Label>Password</Form.Label>
-                                                <Form.Control
-                                                    type="password"
-                                                    name="password"
-                                                    placeholder="Ingrese su password"
-                                                    onChange={onChangeUsuario}
-                                                    value={password}
-                                                />
-                                            </Form.Group>
-                                            <Button
-                                                className="mr-3"
-                                                variant="primary"
-                                                type="submit">Iniciar Sesión
-                                 </Button>
-                                            <Link to="/register">Crear usuario</Link>
-                                        </Form>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        </Row>
+                autenticado === true ?
+                    <Alert variant='success'>
+                        Usuario Logueado
+                    </Alert>
+                    :
+                    <Card className='my-2 text-center px-5'>
+                        {loginerr ? <Alert variant='danger' className='mt-2'> Email o contraseña incorrecto/s </Alert> : ""}
+                        <Card.Body>
+                        
+                                <Form onSubmit={onSubmitLogin}>
+                                    <Form.Group controlId="formLoginEmail" className='pt-1 text-left'>
+                                        <Form.Label className='pl-2'>
+                                            <Image src={ImgEmail} alt='' className='mr-2'/>Email
+                                        </Form.Label>
+                                        <Form.Control
+                                            type="email"
+                                            required
+                                            name="email"
+                                            placeholder="Ingrese su email"
+                                            onChange={onChangeUsuario}
+                                            value={email}
+                                            maxLength='50'
+                                            pattern='(?=^.{5,50}$)([A-Za-z0-9_.-]+@[A-Za-z0-9_.-]+\.[A-Za-z]{2,5})'
+                                            onKeyPress={onKeyPressValidateEmail}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group controlId="formLoginPassword" className='pt-3 text-left'>
+                                        <Form.Label className='pl-2'>
+                                        <Image src={ImgPass} alt='' className='mr-2'/> Password
+                                        </Form.Label>
+                                        <Form.Control
+                                            type="password"
+                                            required
+                                            name="password"
+                                            placeholder="Ingrese su password"
+                                            onChange={onChangeUsuario}
+                                            value={password}
+                                            minLength='3'
+                                            maxLength='20'
+                                            pattern='[a-zA-Z0-9!?-_]{3,20}'
+                                            onKeyPress={onKeyPressValidatePassword}
+                                        />
+                                    </Form.Group>
+                                    <Button
+                                        variant="warning"
+                                        block
+                                        className='mr-3 font-weight-bold'
+                                        type="submit">INGRESA AL SITIO
+                                    </Button>
+                                    <p className='text-center text-dark mt-3'>
+                                        <Link to="/register">
+                                        <Image src={ImgAdd} alt='' className='mr-2'/>Crear usuario
+                                        </Link>
+                                    </p>
+                                </Form>
+                                <Image width='50%' src={Perritos} alt='' className='text-center'/>
+                           
+                        </Card.Body>
+                    </Card>
             }
         </Container>
 

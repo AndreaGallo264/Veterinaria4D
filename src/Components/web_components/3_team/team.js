@@ -17,19 +17,19 @@ export default function team() {
             <Row className="mt-3">
                 <Col xs={12} md={3} className="mb-3">
                     <Image fluid width='150px' src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSgXRbmPOBQghTjD5f1bQBp6c68bA6N_RD3i_HqBIm_Zt-OaoAa&usqp=CAU" roundedCircle />
-                    <p className='text-violet font-weight-bold mt-2'><FontAwesomeIcon icon={faUserNurse} className='mr-2' />Vet. Alguito</p>
+                    <p className='text-violet font-weight-bold mt-2'><FontAwesomeIcon icon={faUserNurse} className='mr-2' />Vet. Cosme Fulanito</p>
                 </Col>
                 <Col xs={12} md={3} className="mb-3">
                     <Image fluid width='150px' src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSgXRbmPOBQghTjD5f1bQBp6c68bA6N_RD3i_HqBIm_Zt-OaoAa&usqp=CAU" roundedCircle />
-                    <p className='text-violet font-weight-bold mt-2'><FontAwesomeIcon icon={faUserNurse} className='mr-2' />Vet. Alguito</p>
+                    <p className='text-violet font-weight-bold mt-2'><FontAwesomeIcon icon={faUserNurse} className='mr-2' />Vet. Cosme Fulanito</p>
                 </Col>
                 <Col xs={12} md={3} className="mb-3">
                     <Image fluid width='150px' src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSgXRbmPOBQghTjD5f1bQBp6c68bA6N_RD3i_HqBIm_Zt-OaoAa&usqp=CAU" roundedCircle />
-                    <p className='text-violet font-weight-bold mt-2'><FontAwesomeIcon icon={faUserNurse} className='mr-2' />Vet. Alguito</p>
+                    <p className='text-violet font-weight-bold mt-2'><FontAwesomeIcon icon={faUserNurse} className='mr-2' />Vet. Cosme Fulanito</p>
                 </Col>
                 <Col xs={12} md={3} className="mb-3">
                     <Image fluid width='150px' src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSgXRbmPOBQghTjD5f1bQBp6c68bA6N_RD3i_HqBIm_Zt-OaoAa&usqp=CAU" roundedCircle />
-                    <p className='text-violet font-weight-bold mt-2'><FontAwesomeIcon icon={faUserNurse} className='mr-2' />Vet. Alguito</p>
+                    <p className='text-violet font-weight-bold mt-2'><FontAwesomeIcon icon={faUserNurse} className='mr-2' />Vet. Cosme Fulanito</p>
                 </Col>
 
             </Row>

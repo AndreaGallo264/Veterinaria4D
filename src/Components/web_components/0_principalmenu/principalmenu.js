@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Logo from '../../resources/logo.png';
 import './principalMenu.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faPaw, faStore, faShoppingCart, faShoppingBag, faSignInAlt, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faStore, faShoppingCart, faShoppingBag, faSignInAlt, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function Principalmenu(props) {
@@ -21,7 +21,6 @@ export default function Principalmenu(props) {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                     <Link id="sale" className="nav-link text-dark font-weight-bold font-size-nav-links" to="/"><FontAwesomeIcon icon={faHome} className='mr-2' />Inicio</Link>
-                    <Nav.Link href="#aboutus" className='text-dark font-weight-bold font-size-nav-links' ><FontAwesomeIcon icon={faPaw} className='mr-2' />Nuestros Servicios</Nav.Link>
                     <Link id="sale" className="nav-link text-dark font-weight-bold font-size-nav-links" to="/listproduct"><FontAwesomeIcon icon={faStore} className='mr-2' />Tienda</Link>
 
                     {
@@ -45,7 +44,7 @@ export default function Principalmenu(props) {
                         <Dropdown>
                             <Dropdown.Toggle variant="warning" id="dropdown-basic">
                                 Administrador Ecommerce
-                </Dropdown.Toggle>
+                        </Dropdown.Toggle>
 
                             <Dropdown.Menu>
                                 <Link id="sale" className="nav-link" to="/listusr">Administracion Usuarios</Link>
@@ -64,9 +63,9 @@ export default function Principalmenu(props) {
 
 
                 <Navbar.Text className="mr-1 text-dark font-weight-bold font-size-nav-links">
-                    Bienvenido 
+                    Bienvenido
                     {
-                        props.userState.usuario ? " "+props.userState.usuario.nombre : " Visitante"
+                        props.userState.usuario ? " " + props.userState.usuario.nombre : " Visitante"
                     }
                 </Navbar.Text>
 

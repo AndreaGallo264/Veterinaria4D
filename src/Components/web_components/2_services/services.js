@@ -12,9 +12,6 @@ import { faHandHoldingMedical, faPaw } from '@fortawesome/free-solid-svg-icons';
 import './services.css';
 
 export default function services() {
-
-    let imgUrl = Back;
-
     return (
         <section id="aboutus">
             <Row className='bg-white mb-2 pb-5'>
