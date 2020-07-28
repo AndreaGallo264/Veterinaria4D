@@ -3,6 +3,7 @@ import { Container, Row, Card, Button, Image, Col } from 'react-bootstrap'
 import LogoOps from '../../../resources/logoopps.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimes, faCrown } from '@fortawesome/free-solid-svg-icons';
+import './UserList.css';
 
 export default function UserList(props) {
 
@@ -68,15 +69,15 @@ export default function UserList(props) {
     }, [isAdmin]);
 
     return (
-        <Container className="bg-white">
-            <h1>Lista de Usuarios</h1>
+        <Container >
+            <h1 className="pt-3">Lista de Usuarios</h1>
             <Row className="row-cols-1">
 
                 {
                     listUsr.length > 0 ?
                         listUsr.map(listusr => (
 
-                            <Card border="dark" style={{ width: "44rem" }} className="m-1"> <Card.Body>
+                            <Card border="dark" style={{ width: "44rem" }} className="m-1 shadow"> <Card.Body>
                                 <Card.Title className="text-orange-fenix">Usuario : {listusr.nombre} 
                                 {listusr.isadmin && <FontAwesomeIcon icon={faCrown} className="ml-2" />}
                                 </Card.Title>
