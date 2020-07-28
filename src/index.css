@@ -15,10 +15,16 @@ code {
     monospace;
 }
 
-.text-violet{
-  color: #970099;
+.text-orange-fenix{
+  color: #ff9121;
 }
 
-.bg-menu{
+.bg-menu, .card-header.bg-menu{
   background-color: rgb(255, 245, 108);
+}
+
+.App{
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 7rem;
 }

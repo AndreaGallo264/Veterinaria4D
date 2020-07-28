@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './App.css';
 
 import {
   BrowserRouter as Router, 
@@ -11,6 +10,7 @@ import {
 import PrincipalMenu from './components/web_components/0_principalmenu/principalmenu'
 import TopInfo       from './components/web_components/5_topinfo/topinfo'
 import Main          from './components/web_components/6_main/main'
+import Footer        from './components/web_components/4_footer/footer'
 
 //Users
 import Login    from './components/cli_components/users/Login'
@@ -54,8 +54,7 @@ function App() {
   const [Shippingdetail , setShippingDetail] = useState({
     province : 'San Miguel de Tucuman' , 
     location : 'Tucuman' , 
-    postalcode : '4000' , 
-    dataadress : datusr[0]?datusr[0].address:""
+    postalcode : '4000' 
   });
 
   const userState = {
@@ -151,6 +150,7 @@ function App() {
             <Main />
           </Route>
         </Switch>
+        <Footer />
       </Router>
     </div>
   );

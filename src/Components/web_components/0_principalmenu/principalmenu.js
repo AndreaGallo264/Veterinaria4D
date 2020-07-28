@@ -57,7 +57,6 @@ export default function Principalmenu(props) {
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
                     <Link id="sale" className="nav-link font-weight-bold" to="/"><FontAwesomeIcon icon={faHome} className='mr-2' />Inicio</Link>
-                    <Nav.Link className='font-weight-bold' href="#aboutus"><FontAwesomeIcon icon={faPaw} className='mr-2' />Nuestros Servicios</Nav.Link>
                     <NavLink to="/listproduct" className="nav-link font-weight-bold" activeClassName="active"><FontAwesomeIcon icon={faStore} className='mr-2' /> Tienda </NavLink>
 
                     {

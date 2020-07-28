@@ -1,65 +1,69 @@
 import React from 'react'
-import { Container, Col, Row, Accordion, Button, Card } from 'react-bootstrap'
-import Back from '../../resources/backprof.jpg'
+import { Container, Accordion, Card, Button, Image, Row, Col } from 'react-bootstrap'
+import Logistics from '../../resources/logistics.png';
+import Products from '../../resources/pets.png';
+import Appointments from '../../resources/phone.png';
+import WhatsappSm from '../../resources/whatsapp-sm.png';
+import Questions from '../../resources/dog.gif';
+import Faq from '../../resources/faq.png';
+import { Link } from 'react-router-dom';
 
 export default function help() {
 
-    let imgUrl = Back;
-
     return (
 
-        <Container fluid style={{
-            backgroundImage: `url(${imgUrl})`,
-            backgroundRepeat: 'repeat',
-            backgroundPosition: 'center',
-        }}>
+        <Container className='bg-white mt-5 rounded py-3'>
+            <h2 className="text-center text-warning py-2">Preguntas Frecuentes<Image src={Faq} className='ml-2'></Image></h2>
             <Row>
-                <Col className=" bg-white text-center text-gray"><h2>Preguntas Frecuentes</h2></Col>
-            </Row>
-            <Row >
-                <Col>
-                <Accordion>
-                    <Card>
-                        <Card.Header>
-                            <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                                ¿Cómo me Registro en el Sitio?
-                        </Accordion.Toggle>
-                        </Card.Header>
-                        <Accordion.Collapse eventKey="0">
-                            <Card.Body>Para Registrarte en el Sitio , debes acceder a la Opción del Menú Registrarme. Alli debes completar tus datos. Y Listo, tu cuenta estará creada!</Card.Body>
-                        </Accordion.Collapse>
-                    </Card>
-                    <Card>
-                        <Card.Header>
-                            <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                               ¿Cómo Agregar Productos a Mi Carrito?
-                        </Accordion.Toggle>
-                        </Card.Header>
-                        <Accordion.Collapse eventKey="1">
-                            <Card.Body>Debes acceder a la Opción Tienda. Busca el Producto Deseado. Puedes elegir productos por Categorias. Haz Clic en el Botón Añadir al Carrito. Y listo, tus productos estarán en el Carrito. Sigue los Pasos para Finalizar la Compra.</Card.Body>
-                        </Accordion.Collapse>
-                    </Card>
-                    <Card>
-                        <Card.Header>
-                            <Accordion.Toggle as={Button} variant="link" eventKey="2">
-                               ¿Cómo Puedo reservar un Turno para mi Mascota?
-                        </Accordion.Toggle>
-                        </Card.Header>
-                        <Accordion.Collapse eventKey="2">
-                            <Card.Body>Para reservar un Turno, debes registrarte en el Sitio. Una vez realizado ese paso, al ingresar al mismo, podrás ver la Funcion "Solicitar Turno". Accede a la misma, podrás ver el formulario de Registro de Turno. Elige un dia y un horario disponible y la especialidad y reserva tu turno!</Card.Body>
-                        </Accordion.Collapse>
-                    </Card>
-                    <Card>
-                        <Card.Header>
-                            <Accordion.Toggle as={Button} variant="link" eventKey="3">
-                               ¿Otras Consultas?
-                        </Accordion.Toggle>
-                        </Card.Header>
-                        <Accordion.Collapse eventKey="3">
-                            <Card.Body>Envianos un Mensaje desde nuestro Sitio. Nos llegará Directamente! <a href="https://api.whatsapp.com/send?phone=+543815699049" target='_blank'>Click para Enviarnos tu Consulta!</a></Card.Body>
-                        </Accordion.Collapse>
-                    </Card>
-                </Accordion>
+                <Col xs={12} md={6}>
+                    <Image src={Questions} width='100%'>
+
+                    </Image>
+                </Col>
+                <Col xs={12} md={6}>
+                    <Accordion>
+                        <Card>
+                            <Card.Header className='bg-light'>
+                                <Accordion.Toggle as={Button} variant="link" className='text-dark font-weight-bold' eventKey="0">
+                                    <Image src={Logistics} className='mr-2'></Image>Sobre nuestros envíos
+                                 </Accordion.Toggle>
+                            </Card.Header>
+                            <Accordion.Collapse eventKey="0">
+                                <Card.Body className="text-justify">Si tuviste algún problema o tenés consulta por tu envío por favor contactanos a nuestro whatsapp haciendo click aquí
+                        <a href="https://api.whatsapp.com/send?phone=+543815699049" target='_blank' className='ml-2'><Image src={WhatsappSm}></Image></a>
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                        <Card>
+                            <Card.Header className='bg-light'>
+                                <Accordion.Toggle as={Button} variant="link" className='text-dark font-weight-bold' eventKey="1">
+                                    <Image src={Appointments} className='mr-2'></Image>Sobre nuestros turnos
+                                </Accordion.Toggle>
+                            </Card.Header>
+                            <Accordion.Collapse eventKey="1">
+                                <Card.Body className="text-justify">
+                                    <ul>
+                                        <li>Si querés cancelar tu turno...</li>
+                                        <li>Si querés cambiar de día u horario tu turno...</li>
+                                        <li>Si necesitás un turno para tu mascotita hacé click <Link to='/shiftspanel'>aquí.</Link> Recordá que tenés que estar logueado para acceder</li>
+                                    </ul>
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                        <Card>
+                            <Card.Header className='bg-light'>
+                                <Accordion.Toggle as={Button} variant="link" className='text-dark font-weight-bold' eventKey="2">
+                                    <Image src={Products} className='mr-2'></Image>Sobre nuestros productos
+                                </Accordion.Toggle>
+                            </Card.Header>
+                            <Accordion.Collapse eventKey="2">
+                                <Card.Body className="text-justify">Todos los productos que ofrecemos están avalados por instituciones de prestigio. No ofrecemos nada que no hayamos probado antes con nuestros compañeritos.
+                            <br></br>Igualmente, si tuviste algún problema, estás disconforme con algo que compraste, contactanos a nuestro whatsapp haciendo click aquí
+                        <a href="https://api.whatsapp.com/send?phone=+543815699049" target='_blank' className='ml-2'><Image src={WhatsappSm}></Image></a>
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                    </Accordion>
                 </Col>
             </Row>
         </Container>

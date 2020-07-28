@@ -262,7 +262,6 @@ export default function AddShifts(props) {
                                         onChange={onChangeShifts}
                                         value={petname}
                                         required
-
                                     />
                                 </Form.Group>
                                 <Button
