@@ -42,11 +42,11 @@ export default function Principalmenu(props) {
             );
     }
 
-    useEffect(() => {
+/*     useEffect(() => {
         if (props.userState.autenticado === true) {
             getusrbyId();
         }
-    }, []);
+    }, []); */
 
     return (
 

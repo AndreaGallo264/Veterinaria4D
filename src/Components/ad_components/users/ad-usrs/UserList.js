@@ -78,7 +78,7 @@ export default function UserList(props) {
 
                                 <Card.Title>Usuario : {listusr.nombre} </Card.Title>
                                 <Row>
-                                    Es Administrador : {listusr.isadmin ? "Administrador" : "Cliente"}
+                                    Rol : {listusr.isadmin ? "Administrador" : "Cliente"}
                                 </Row>
                                 <Row>
                                     Fecha de Creacion : {listusr.Date}
