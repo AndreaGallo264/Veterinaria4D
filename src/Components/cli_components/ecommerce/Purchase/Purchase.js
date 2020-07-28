@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Cards from 'react-credit-cards';
-import { Col, Row, Button, Form } from 'react-bootstrap'
+import { Col, Row, Button, Form, Container } from 'react-bootstrap'
 import DetailShoopingCart from '../ShoopingCar/DetailShoopingCart'
 
 import {
@@ -12,8 +12,6 @@ import ShippingDetail from '../ShippingDetail/ShippingDetail'
 
 //MyCart
 import ShoopingCar from '../ShoopingCar/ShoopingCar'
-
-
 
 export default function Purchase(props) {
 
@@ -85,44 +83,51 @@ export default function Purchase(props) {
     const AddPayment = async () => {
 
         State.users = props.userState.usuario._id;
-        const request = await fetch(process.env.REACT_APP_BACKEND_URL + "addPayment", {
+        await fetch(process.env.REACT_APP_BACKEND_URL + "addPayment", {
             method: 'POST',
             body: JSON.stringify(State),
             headers: {
                 'Content-Type': 'application/json',
                 'x-auth-token': props.userState.token
             }
-        });
-
-        const response = await request.json();
-
-        if (response.payments._id) {
-            setPaymentId(response.payments._id);
-            setSaveProduct({ payment: response.payments._id })
-            AddPurchase();
-        }
-
+        }).then(async res => await res.json())
+            .then(
+                (result) => {
+                    if (result.payments._id) {
+                        setPaymentId(result.payments._id);
+                        setSaveProduct({ payment: result.payments._id })
+                        AddPurchase();
+                    }
+                },
+                (error) => {
+                    alert("Ocurrio un Error, reintente nuevamente");
+                }
+            );
     }
 
     const AddPurchase = async () => {
 
         totalPrice.user = props.userState.usuario._id;
-        totalPrice.address =  province +' ' + location +' ' +   postalcode +' ' +  dataadress
-        const request = await fetch(process.env.REACT_APP_BACKEND_URL + "addPurchase", {
+        totalPrice.address = province + ' ' + location + ' ' + postalcode + ' ' + dataadress
+        await fetch(process.env.REACT_APP_BACKEND_URL + "addPurchase", {
             method: 'POST',
             body: JSON.stringify(totalPrice),
             headers: {
                 'Content-Type': 'application/json',
                 'x-auth-token': props.userState.token
             }
-        });
-
-        const response = await request.json();
-        if (response.purchases._id) {
-            setPurchaseId(response.purchases._id);
-            setSaveProduct({ purchase: response.purchases._id })
-        }
-
+        }).then(async res => await res.json())
+            .then(
+                (result) => {
+                    if (result.purchases._id) {
+                        setPurchaseId(result.purchases._id);
+                        setSaveProduct({ purchase: result.purchases._id })
+                    }
+                },
+                (error) => {
+                    alert("Ocurrio un Error, reintente nuevamente");
+                }
+            );
     }
 
     const AddCardProduct = async () => {
@@ -131,32 +136,34 @@ export default function Purchase(props) {
             //mejorar
             var newproduc = {};
 
-            newproduc.user     = props.userState.usuario._id;
-            newproduc.payment  = paymentId;
+            newproduc.user = props.userState.usuario._id;
+            newproduc.payment = paymentId;
             newproduc.purchase = purchaseId;
-            newproduc.product  = product._id;
-            newproduc.details  = product.details;
-            newproduc.title    = product.title;
-            newproduc.knt      = product.knt;
-            newproduc.price    = product.price
+            newproduc.product = product._id;
+            newproduc.details = product.details;
+            newproduc.title = product.title;
+            newproduc.knt = product.knt;
+            newproduc.price = product.price
 
             if (paymentId.length > 0 && purchaseId.length > 0) {
                 await fetch(process.env.REACT_APP_BACKEND_URL + "addCardProduct", {
-                method: 'POST',
-                body: JSON.stringify(newproduc),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-auth-token': props.userState.token
-                }
-            });
-
+                    method: 'POST',
+                    body: JSON.stringify(newproduc),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-auth-token': props.userState.token
+                    }
+                });
                 setfinishPurchase(true);
-                props.setCarProduct([]);
             }
         });
-
-
     }
+
+    const cleanCarProduct = () => {
+        props.setCarProduct([]);
+        props.setKntcat([1]);
+    }
+
 
     useEffect(() => {
         AddCardProduct();
@@ -169,7 +176,7 @@ export default function Purchase(props) {
 
 
     return (
-        <div id="PaymentForm">
+        <Container className='bg-white' fluid>
 
             <ShoopingCar carProduct={props.carProduct} setCarProduct={props.setCarProduct} user={props.userState} price={props.price} setTotalPrice={props.setTotalPrice} kntcat={props.kntcat} setKntcat={props.setKntcat} isPurchase={true} />
             <ShippingDetail Shippingdetail={props.Shippingdetail} setShippingDetail={props.setShippingDetail} />
@@ -188,9 +195,8 @@ export default function Purchase(props) {
                         name={State.name}
                         number={State.number}
                     />
-
                 </Col>
-                <Col xs={6} style={{ backgroundColor: '#ffffff' }} className="my-2">
+                <Col  style={{ backgroundColor: '#ffffff' }} className="my-2">
                     <Row className="my-4">
                         <Form>
                             <Row>
@@ -266,12 +272,12 @@ export default function Purchase(props) {
 
 
                         {finishPurchase === true ?
-                            <Link className="btn btn-primary my-1" to='/finishpurchase' >Finalizar Compra </Link>
+                            <Link className="btn btn-primary my-1" onClick={() => { cleanCarProduct() }} to='/finishpurchase' >Finalizar Compra </Link>
                             : ""
                         }
                     </Row>
                 </Col>
             </Row>
-        </div>
+        </Container>
     )
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Col, Row, Card, Form , Button } from 'react-bootstrap'
+import { Container, Col, Row, Card, Form, Button } from 'react-bootstrap'
 
 export default function AddSpeciality(props) {
 
@@ -15,7 +15,7 @@ export default function AddSpeciality(props) {
             [e.target.name]: e.target.value
         });
     };
-   
+
     const onSubmitSpecie = e => {
         e.preventDefault();
         AddSpeciality(speciality);
@@ -25,17 +25,27 @@ export default function AddSpeciality(props) {
     }
 
     const AddSpeciality = async (shspecialityifts) => {
-  
-        /*const request =*/ await fetch(process.env.REACT_APP_BACKEND_URL + "addSpeciality", {
+
+        await fetch(process.env.REACT_APP_BACKEND_URL + "addSpeciality", {
             method: 'POST',
             body: JSON.stringify(speciality),
             headers: {
                 'Content-Type': 'application/json',
                 'x-auth-token': props.userState.token
             }
-        });
-        //const response = await request.json()
-        props.loadSpeciality.getSpeciality();
+        }).then(async res => await res.json())
+            .then(
+                (result) => {
+                    if (result.success) {
+                        props.loadSpeciality.getSpeciality();
+                    } else {
+                        alert("Ocurrio un Error, reintente nuevamente: " + result.msg);
+                    }
+                },
+                (error) => {
+                    alert("Ocurrio un Error, reintente nuevamente");
+                }
+            );
     }
 
 
@@ -57,6 +67,7 @@ export default function AddSpeciality(props) {
                                         placeholder="Ingrese Nombre"
                                         onChange={onChangeSpeciality}
                                         value={name}
+                                        required
 
                                     />
                                 </Form.Group>

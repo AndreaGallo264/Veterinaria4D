@@ -5,22 +5,29 @@ import { ListGroup, Container, Button, Row, Col } from 'react-bootstrap'
 export default function ListCategory(props) {
 
     const [listCategory, setListCategory] = useState([]);
-    const [deleteCategory , setDeleteCategory] = useState([]);
+    const [deleteCategory, setDeleteCategory] = useState([]);
 
-    // Obtener las Categorias
     const getCategorys = async () => {
-        const request = await fetch(process.env.REACT_APP_BACKEND_URL + "listCategory", {
+        await fetch(process.env.REACT_APP_BACKEND_URL + "listCategory", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'x-auth-token': props.userState.token
-                
-            }
-        });
 
-        const response = await request.json();
-        setListCategory(response.categorys);
-        return response;
+            }
+        }).then(async res => await res.json())
+            .then(
+                (result) => {
+                    if (result.success) {
+                        setListCategory(result.categorys);
+                    } else {
+                        alert('Ocurrio un Inconveniente')
+                    }
+                },
+                (error) => {
+                    alert("Ocurrio un Error, reintente nuevamente");
+                }
+            );
     }
 
     const onClickCategoria = (e) => {
@@ -28,20 +35,28 @@ export default function ListCategory(props) {
         props.setSelectCategory([JSON.parse(e.currentTarget.getAttribute('dataCategory'))]);
     }
 
-    const deleteCateogry = async (item) =>{
+    const deleteCateogry = async (item) => {
 
-        const request = await fetch(process.env.REACT_APP_BACKEND_URL + "deleteCategory/"+item._id, {
+        await fetch(process.env.REACT_APP_BACKEND_URL + "deleteCategory/" + item._id, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 'x-auth-token': props.userState.token
             }
-        });
-
-        const response = await request.json();
-        setDeleteCategory(response);
-        return response;
-
+        }).then(async res => await res.json())
+            .then(
+                (result) => {
+                    if (result.success) {
+                        setDeleteCategory(result);
+                        alert('Categoria Eliminada')
+                    } else {
+                        //alert('Ocurrio un Inconveniente')
+                    }
+                },
+                (error) => {
+                    alert("Ocurrio un Error, reintente nuevamente");
+                }
+            );
     }
 
     useEffect(() => {
@@ -57,7 +72,7 @@ export default function ListCategory(props) {
 
     return (
 
-        <Container>
+        <Container  fluid className='bg-white'>
             <h1>Listado de Categorias</h1>
             <ListGroup className="list-group-flush">
 

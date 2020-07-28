@@ -1,14 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Container, Form, Col } from 'react-bootstrap'
 
 export default function ShippingDetail(props) {
 
-
-    const { province, location, postalcode, dataadress } = props.Shippingdetail;
-    const [selectlocation, setselectlocation] = useState([]);
-
+    const { province, postalcode, dataadress } = props.Shippingdetail;
     const datalocation = [
-
         { id: 1, value: 'YerbaBuena' },
         { id: 2, value: 'San Miguel de Tucuman' }
     ];
@@ -25,7 +21,7 @@ export default function ShippingDetail(props) {
     }
 
     return (
-        <Container fluid>
+        <Container className='bg-white' fluid>
             <h1> Detalle de Envio  </h1>
             <Form >
                 <Form.Group controlId="">

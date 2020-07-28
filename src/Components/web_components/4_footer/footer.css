@@ -1,0 +1,16 @@
+@media (max-width: 600px) {
+    .display-row-phone{
+        flex-direction: column;
+    }
+
+    .footer-row{
+        margin-left: 20px;
+    }
+  }
+
+  footer{
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 6.5rem;
+  }

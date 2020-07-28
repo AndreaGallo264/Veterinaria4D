@@ -1,59 +1,104 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Row, Card, Button , Image } from 'react-bootstrap'
+import { Container, Row, Card, Button, Image, Pagination } from 'react-bootstrap'
 import LogoOps from '../../resources/logoopps.png'
+import ShiftsListCancel from './ShiftsListCancel'
 
 export default function ShiftsList(props) {
 
     const [listShips, setListShips] = useState([]);
     const [editShifts, setEditShips] = useState([]);
-
+    const [totalShips, setTotalShips] = useState([]);
+    const [page, setpage] = useState(1);
 
     const GetShifts = () => {
         getShifts();
     }
 
-
     const getShifts = async () => {
 
         if (props.userState.isAdmin) {
-            const request = await fetch(process.env.REACT_APP_BACKEND_URL + "listShifts", {
+            await fetch(process.env.REACT_APP_BACKEND_URL + "listShifts" + "?page=" + page + "&limit=4", {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'x-auth-token': props.userState.token
                 }
-            });
-            const response = await request.json();
-            setListShips(response.data);
+            }).then(async res => await res.json())
+                .then(
+                    (result) => {
+                        if (result.success) {
+                            setTotalShips(result);
+                            setListShips(result.data);
+                        } else {
+                            //alert("Ocurrio un Error, reintente nuevamente");
+                        }
+                    },
+                    (error) => {
+                        alert("Ocurrio un Error, reintente nuevamente");
+                    }
+                );
         } else {
             if (props.userState.usuario) {
-                const request = await fetch(process.env.REACT_APP_BACKEND_URL + "listShiftsByUsr/" + props.userState.usuario._id, {
+                await fetch(process.env.REACT_APP_BACKEND_URL + "listShiftsByUsr/" + props.userState.usuario._id + "?page=" + page + "&limit=4", {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
                         'x-auth-token': props.userState.token
                     }
-                });
-                const response = await request.json();
-                setListShips(response.data);
+                }).then(async res => await res.json())
+                .then(
+                    (result) => {
+                        if (result.success) {
+                            setTotalShips(result);
+                            setListShips(result.data);
+                        } else {
+                           // alert("Ocurrio un Error, reintente nuevamente");
+                        }
+                    },
+                    (error) => {
+                       alert("Ocurrio un Error, reintente nuevamente");
+                    }
+                );
             }
         }
-
     };
 
     const cancshift = async (shift) => {
 
         shift.state = true;
-        const request = await fetch(process.env.REACT_APP_BACKEND_URL + "editShifts/" + shift._id, {
+        await fetch(process.env.REACT_APP_BACKEND_URL + "editShifts/" + shift._id, {
             method: 'PUT',
             body: JSON.stringify(shift),
             headers: {
                 'Content-Type': 'application/json',
                 'x-auth-token': props.userState.token
             }
-        });
-        const response = await request.json();
-        setEditShips(response);
+        }).then(async res => await res.json())
+        .then(
+            (result) => {
+                if (result.success) {
+                    setEditShips(result);
+                } else {
+                    alert("Ocurrio un Error, reintente nuevamente");
+                }
+            },
+            (error) => {
+                alert("Ocurrio un Error, reintente nuevamente");
+            }
+        );
+    }
+
+    const newpage = (number) => {
+        setpage(number);
+    }
+
+    let items = [];
+    for (let number = 1; number <= totalShips.totalPages; number++) {
+        items.push(
+            <Pagination.Item key={number} active={number === page} >
+                <Button variant="" onClick={() => newpage(number)}>{number}</Button>
+            </Pagination.Item>,
+        );
     }
 
 
@@ -67,42 +112,72 @@ export default function ShiftsList(props) {
         props.setLoadShifs({ LoadList: GetShifts });
     }, [editShifts]);
 
+    useEffect(() => {
+        GetShifts();
+    }, [page]);
+
     return (
-        <Container className="mt-5 text-white">
-            <Row className="row-cols-1 row-cols-sm-2 row-cols-md-2">
+        <Container className="bg-white">
+            <h3>Mis Próximos Turno</h3>
+            <Row className="row-cols-1 row-cols-sm-3 row-cols-md-2  text-white">
 
                 {
-                     listShips.length > 0 ?
-                    listShips.map(listShips => (
+                    listShips.length > 0 ?
+                        listShips.map(listShips => (
 
-                        <Card bg={listShips.state === false ? "success" : "danger"} border="dark" style={{ width: "44rem" }}> <Card.Body>
+                            listShips.state === false ?
+                                <Card bg={listShips.state === false ? "success" : "danger"} border="dark" style={{ width: "33rem" }}> <Card.Body>
 
-                            <Card.Title>Turno {new Date(listShips.dateshifts).toISOString().slice(0, 10)}</Card.Title>
-                            <Row>
-                                Especialidad : {listShips.specialitys[0] ? listShips.specialitys[0].name : "SIN ESPECIALIDAD"}
-                            </Row>
-                            <Row>
-                                Especie : {listShips.species[0] ? listShips.species[0].name : "SIN ESPECIE"}
-                            </Row>
-                            <Row>
-                                Mascota = {listShips.petname}
-                            </Row>
+                                    <Card.Title>Turno {new Date(listShips.dateshifts).toISOString().slice(0, 10)}</Card.Title>
 
-                            <Row>
-                                Estado = {listShips.state === false ? "CONFIRMADO" : "CANCELADO/CONSULTAR"}
-                            </Row>
-                        </Card.Body>
-                            <Card.Footer>
+                                    {props.userState.isAdmin ?
+                                        <Row>
+                                            Cliente : {listShips.users[0] ? listShips.users[0].nombre : "SIN USUARIO"}
+                                        </Row> : ""
+                                    }
 
-                                {listShips.state === false ? <Button variant="warning" onClick={() => cancshift(listShips)}>Cancelar Turno</Button> : ""}
+                                    <Row>
+                                        Horario : {listShips.timeshifts ? listShips.timeshifts : "SIN HORARIO"}
+                                    </Row>
+                                    <Row>
+                                        Especialidad : {listShips.specialitys[0] ? listShips.specialitys[0].name : "SIN ESPECIALIDAD"}
+                                    </Row>
+                                    <Row>
+                                        Especie : {listShips.species[0] ? listShips.species[0].name : "SIN ESPECIE"}
+                                    </Row>
+                                    <Row>
+                                        Mascota : {listShips.petname}
+                                    </Row>
 
-                            </Card.Footer>
-                        </Card>
+                                    <Row>
+                                        Estado : {listShips.state === false ? "CONFIRMADO" : "CANCELADO/CONSULTAR"}
+                                    </Row>
+                                </Card.Body>
+                                    <Card.Footer>
 
-                    ))
-                    : <Image fluid src={LogoOps} />
+                                        {listShips.state === false ? <Button variant="warning" onClick={() => cancshift(listShips)}>Cancelar Turno</Button> : ""}
+
+                                    </Card.Footer>
+                                </Card>
+                                : "Sin Turnos Disponibles"
+
+
+
+
+                        )) : <Image fluid src={LogoOps} />
                 }
 
+
+
+
+            </Row>
+            <Row>
+                <ShiftsListCancel shifts={listShips} items={items} userState={props.userState} />
+                <Row className="mt-5">
+                    <Pagination>
+                        <Pagination >{items}</Pagination>
+                    </Pagination>
+                </Row>
             </Row>
         </Container>
     )

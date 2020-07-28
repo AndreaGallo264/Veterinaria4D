@@ -26,7 +26,7 @@ export default function DetailShoopingCart(props) {
 
     return (
 
-        <Container>
+        <Container className='bg-white'>
             <h4>  </h4>
             <Col>
                 <Row className="justify-content-left">

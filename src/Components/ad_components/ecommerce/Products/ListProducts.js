@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Form, Row, Col, Image } from 'react-bootstrap'
+import { Container, Form, Row, Col, Image, Pagination, Button } from 'react-bootstrap'
 import CardProducts from './CardProducts'
 import EditProducts from './EditProducts';
 import Search from '../Search/Search'
@@ -10,74 +10,90 @@ import LogoProduct from '../../../resources/products.png'
 export default function ListProductos(props) {
 
     const [products, setProducts] = useState([]);
-
-    //State para Editar 
+    const [dataProduct, setDataProduct] = useState([]);
     const [Add, setAdd] = useState("Add")
-
-
-    // State para categoria 
+    const [page, setpage] = useState(1);
     const [category, setCategory] = useState([]);
+    const [selectCategory, setSelectCategory] = useState("all");
 
-    //State para la categoria Seleccionada
-    //Para Local
-    //const [selectCategory, setSelectCategory] = useState("5f06878ca6c36442a0988837");
-
-    //Para Atlas
-    const [selectCategory, setSelectCategory] = useState("5ef15be7c397f100172b2520");
-
-
-    // Obtener los Productos
     const getProducts = async () => {
-        const request = await fetch(process.env.REACT_APP_BACKEND_URL + "listProducts", {
+        await fetch(process.env.REACT_APP_BACKEND_URL + "listProducts?page=" + page + "&limit=4", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             }
-        });
-
-        const response = await request.json();
-        if (response.success) {
-            setProducts(response.products);
-        } else {
-            setProducts([]);
-        }
-
-
+        }).then(async res => await res.json())
+            .then(
+                (result) => {
+                    if (result.success) {
+                        if (result.success) {
+                            setProducts(result.products);
+                            setDataProduct(result);
+                        } else {
+                            setProducts([]);
+                        }
+                    } else {
+                        alert("Ocurrio un Error, reintente nuevamente");
+                    }
+                },
+                (error) => {
+                    alert("Ocurrio un Error, reintente nuevamente");
+                }
+            );
     }
 
-    //Obtener los Productos por Categoria
     const getProductsByCategory = async (catselec) => {
-        const request = await fetch(process.env.REACT_APP_BACKEND_URL + 'listProductByCategory/' + catselec, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            } 
-        });
-
-        const response = await request.json();
-        if (response.success) {
-            setProducts(response.products);
-        } else {
-            setProducts([]);
-        }
-    }
-
-    // Obtener las categorias
-    const getCategory = async () => {
-        const request = await fetch(process.env.REACT_APP_BACKEND_URL + "listCategory", {
+        await fetch(process.env.REACT_APP_BACKEND_URL + 'listProductByCategory/' + catselec + "?page=" + page + "&limit=4", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }
-        });
-        const response = await request.json();
-        if (response.success) {
-            setCategory(response.categorys);
-        }
+        }).then(async res => await res.json())
+            .then(
+                (result) => {
+                    if (result.success) {
+                        if (result.success) {
+                            setProducts(result.products);
+                            setDataProduct(result);
+                        } else {
+                            setProducts([]);
+                        }
+                    } else {
+                        alert("Ocurrio un Error, reintente nuevamente");
+                    }
+                },
+                (error) => {
+                    alert("Ocurrio un Error, reintente nuevamente");
+                }
+            );
+    }
+
+    const getCategory = async () => {
+        await fetch(process.env.REACT_APP_BACKEND_URL + "listCategory", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(async res => await res.json())
+            .then(
+                (result) => {
+                    if (result.success) {
+                        if (result.success) {
+                            setCategory(result.categorys);
+                        }
+                    } else {
+                        //alert("Ocurrio un Error, reintente nuevamente");
+                    }
+                },
+                (error) => {
+                    alert("Ocurrio un Error, reintente nuevamente");
+                }
+            );
     };
 
     const selectedCategory = (e) => {
         setSelectCategory(e);
+        setpage(1);
     }
 
     useEffect(() => {
@@ -85,8 +101,33 @@ export default function ListProductos(props) {
     }, []);
 
     useEffect(() => {
-        getProductsByCategory(selectCategory);
-    }, [selectCategory]);
+        if (selectCategory === "all") {
+            getProducts();
+        } else {
+            getProductsByCategory(selectCategory);
+        }
+    }, [page]);
+
+    useEffect(() => {
+        if (selectCategory === "all") {
+            getProducts();
+        } else {
+            getProductsByCategory(selectCategory);
+        }
+    }, [selectCategory], [page]);
+
+    const newpage = (number) => {
+        setpage(number);
+    }
+
+    let items = [];
+    for (let number = 1; number <= dataProduct.totalPages; number++) {
+        items.push(
+            <Pagination.Item key={number} active={number === page} >
+                <Button variant="" onClick={() => newpage(number)}>{number}</Button>
+            </Pagination.Item>,
+        );
+    }
 
     useEffect(() => {
         getCategory()
@@ -94,8 +135,7 @@ export default function ListProductos(props) {
 
 
     return (
-        <Container>
-
+        <Container >
             <Row>
                 <Container fluid>
                     <hr style={{
@@ -105,13 +145,8 @@ export default function ListProductos(props) {
                         borderColor: '#000000'
                     }} ></hr>
                     <Row>
-                        <Col xs={4}>
-                            <Search getProd={getProducts} products={products} setProducts={setProducts} />
-                        </Col>
                         <Col>
-
                             <Image width="500px" fluid src={LogoProduct} />
-
                         </Col>
                     </Row>
                     <hr style={{
@@ -122,35 +157,46 @@ export default function ListProductos(props) {
                     }} ></hr>
                 </Container>
             </Row>
-            <SliderProduct products={products} />
+            {
+                props.isAdmin.isAdmin ? "" : <SliderProduct products={products} />
+            }
             <Row>
-
-                <Col className="mt-3">
+                <Col  className="mt-2" >
                     <Form.Group controlId="ListProducts">
-                        <Form.Label>Categorias</Form.Label>
-                        <Form.Control as="select" onChange={e => selectedCategory(e.target.value)} >
+                        <Col>
+                            <Form.Control as="select" onChange={e => selectedCategory(e.target.value)} >
+                                <option key="all" value="all" >
+                                    Seleccione una Categoria...
+                            </option>
+                                {
+                                    category.length > 0 ?
+                                        category.map(category => {
+                                            return (
+                                                <option key={category._id} value={category._id} >
+                                                    {category.name}
+                                                </option>
+                                            );
+                                        }) : ""}
 
-                            {
-                                category.length > 0 ?
-                                    category.map(category => {
-                                        return (
-                                            <option key={category._id} value={category._id} genero={category._id}>
-                                                {category.name}
-                                            </option>
-                                        );
-                                    }) : ""}
-                        </Form.Control>
+                            </Form.Control>
+                        </Col>
                     </Form.Group>
                 </Col>
-
+                <Col className="mt-2" xs={4}>
+                    <Search getProd={getProducts} getProductsByCategory={getProductsByCategory} selectCategory={selectCategory} setSelectCategory={setSelectCategory} products={products} setProducts={setProducts} />
+                </Col>
                 {props.isAdmin.isAdmin ?
-                    <EditProducts products={products} Add={Add} setAdd={setAdd} isAction={props.isAction} setisAction={props.setisAction} getProd={getProductsByCategory} selecCategory={selectCategory} userState={props.userState} />
+                    <EditProducts products={products} Add={Add} setAdd={setAdd} isAction={props.isAction} setisAction={props.setisAction} getProd={getProductsByCategory} selecCategory={selectCategory} userState={props.userState} getProducts={getProducts} />
                     : ''}
 
-                <CardProducts products={products} setProducts={setProducts} carProduct={props.carProduct} setCarProduct={props.setCarProduct} isAdmin={props.isAdmin} isAction={props.isAction} setisAction={props.setisAction} getProd={getProductsByCategory} selecCategory={selectCategory} kntcat={props.kntcat} setKntcat={props.setKntcat} price={props.price} setTotalPrice={props.setTotalPrice} functionPrice={props.functionPrice} setFunctionPrice={props.setFunctionPrice} userState={props.userState} />
+                <CardProducts products={products} setProducts={setProducts} carProduct={props.carProduct} setCarProduct={props.setCarProduct} isAdmin={props.isAdmin} isAction={props.isAction} setisAction={props.setisAction} getProd={getProductsByCategory} selecCategory={selectCategory} kntcat={props.kntcat} setKntcat={props.setKntcat} price={props.price} setTotalPrice={props.setTotalPrice} functionPrice={props.functionPrice} setFunctionPrice={props.setFunctionPrice} userState={props.userState} getProducts={getProducts} realstock={props.realstock} setRealStock={props.setRealStock} />
             </Row>
 
-          
+            <Row className="mt-5">
+                <Pagination>
+                    <Pagination >{items}</Pagination>
+                </Pagination>
+            </Row>
 
         </Container>
     )

@@ -3,14 +3,8 @@ import { Container, Form, Col, Button } from 'react-bootstrap'
 
 export default function AddProductos() {
 
-    // State para categoria 
     const [category, setCategory]    = useState([]);
-
-    //State para la categoria Seleccionada
     const [selectCategory, setSelectCategory]     = useState([]);
-
-
-    // Definimos el state para Producto
     const [product, setProduct] = useState({
 
         detail: '',
@@ -21,9 +15,8 @@ export default function AddProductos() {
 
     });
 
-    // Extraemos del Producto
     const { detail, price, stock, urlimg, title } = product;
-    // Cuando hay cambios en el formulario
+    
     const onChangeProduct = e => {
         setProduct({
             ...product,
@@ -31,20 +24,16 @@ export default function AddProductos() {
         });
     };
 
-    // Cuando se crea un Producto
     const onSubmitAddProduct = e => {
         e.preventDefault();
-        // Validar campos
         if (title.trim() === '' || urlimg.trim() === '' || price.trim() === '') {
             alert('Todos los campos son obligatorios');
             return;
         }
         
-         // Agregar Producto
          product.category = selectCategory ; 
          AddProduct(product);
         
-        // Resetear el formulario
         setProduct({
             detail: '',
             price: '',
@@ -56,15 +45,25 @@ export default function AddProductos() {
 
     const AddProduct = async (product) => {
 
-        const request = await fetch(process.env.REACT_APP_BACKEND_URL+"addProduct", {
+        await fetch(process.env.REACT_APP_BACKEND_URL+"addProduct", {
             method: 'POST',
             body: JSON.stringify(product),
             headers: {
                 'Content-Type': 'application/json',
             }
-        });
-        const response = await request.json();
-
+        }).then(async res => await res.json())
+        .then(
+            (result) => {
+                if (result.success) {
+                   alert('Producto Almacenado');
+                } else {
+                    alert('Error Al Almacenar Producto');
+                }
+            },
+            (error) => {
+              alert("Ocurrio un Error, reintente nuevamente");
+            }
+          );
     }
     
     const getCategory = async () => {
@@ -77,7 +76,6 @@ export default function AddProductos() {
         const response = await request.json();
         setCategory(response.categorys);
       };
-
 
       const selectedCategory = (category) => {
         setSelectCategory(category); 
@@ -98,7 +96,7 @@ export default function AddProductos() {
                     xs="3"
                     className="pr-0">Categoria</Form.Label>
                       <Col xs="9">
-              <Form.Control as="select" onChange={e => selectedCategory(e.target.value)}  >
+              <Form.Control as="select" required onChange={e => selectedCategory(e.target.value)}  >
                 <option>Seleccione una Categoria...</option>
                  {category.map(category => {
                   return (
@@ -126,6 +124,7 @@ export default function AddProductos() {
                             placeholder="Nombre"
                             value ={title}
                             onChange={onChangeProduct}
+                            required
                         />
                     </Col>
                 </Form.Group>
@@ -144,7 +143,7 @@ export default function AddProductos() {
                             placeholder="Precio"
                             value ={price}
                             onChange={onChangeProduct}
-
+                            required
                         />
                     </Col>
                 </Form.Group>
@@ -164,7 +163,7 @@ export default function AddProductos() {
                             placeholder="Stock"
                             value ={stock}
                             onChange={onChangeProduct}
-
+                            required
                         />
                     </Col>
                 </Form.Group>
@@ -182,7 +181,7 @@ export default function AddProductos() {
                             placeholder="Detalle"
                             value ={detail}
                             onChange={onChangeProduct}
-
+                            required
                         />
                     </Col>
                 </Form.Group>
@@ -200,12 +199,10 @@ export default function AddProductos() {
                             placeholder="Imagen"
                             value ={urlimg}
                             onChange={onChangeProduct}
-
+                            required
                         />
                     </Col>
                 </Form.Group>
-
-
                 <Button
                     type="submit"
                     variant="primary"
