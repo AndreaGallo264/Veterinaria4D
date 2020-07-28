@@ -17,10 +17,10 @@ export default function services() {
 
     return (
         <section id="aboutus">
-            <Row className='bg-white mb-2 pb-5'>
+            <Row className='bg-white mb-2 pb-5  '>
                     <Col>
-                        <Row className="mt-5 justify-content-center mb-3 ">
-                            <h2 className="text-warning font-weight-bolder text-uppercase"> <FontAwesomeIcon icon={faPaw} className='mr-2' />Nuestros clientitos </h2>
+                        <Row className="mt-5 text-center justify-content-center mb-3 ">
+                            <h2 className="text-orange-fenix font-weight-bolder text-uppercase"> <FontAwesomeIcon icon={faPaw} className='mr-2' />Nuestros clientitos </h2>
                         </Row>
                         <Row className="mt-5">
                             <Col xs={12} md={3}>
@@ -43,7 +43,7 @@ export default function services() {
                 <Row>
                     <Col>
                         <Row className="mt-5 justify-content-center mb-3 ">
-                            <h2 className="text-warning font-weight-bolder text-uppercase"> <FontAwesomeIcon icon={faHandHoldingMedical} className='mr-2' />Nuestros Servicios </h2>
+                            <h2 className="text-orange-fenix text-center font-weight-bolder text-uppercase"> <FontAwesomeIcon icon={faHandHoldingMedical} className='mr-2' />Nuestros Servicios </h2>
                         </Row>
                         <Row>
                             <p className="text-gray text-justify text-center font-weight-bold px-4">
