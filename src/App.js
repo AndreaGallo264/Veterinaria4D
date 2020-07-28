@@ -8,7 +8,6 @@ import {
 
 //Components
 import PrincipalMenu from './components/web_components/0_principalmenu/principalmenu'
-import TopInfo       from './components/web_components/5_topinfo/topinfo'
 import Main          from './components/web_components/6_main/main'
 import Footer        from './components/web_components/4_footer/footer'
 
@@ -72,7 +71,6 @@ function App() {
     <div className="App">
 
       <Router>
-        <TopInfo />
         <Switch>
 
         <Route strict path="/chekout">

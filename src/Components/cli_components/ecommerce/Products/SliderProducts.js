@@ -15,11 +15,7 @@ export default function SliderProducts(props) {
 
     return (
 
-        <Carousel activeIndex={index} onSelect={handleSelect}  fluid style={{
-            backgroundImage: `url(${ imgUrl })` , 
-            backgroundRepeat  : 'repeat',
-            backgroundPosition: 'center',
-        }} >
+        <Carousel activeIndex={index} onSelect={handleSelect}  fluid className='bg-white p-3 text-orange-fenix border border-warning rounded' >
 
             {props.products.length > 0 ?
                 props.products.map(products => (

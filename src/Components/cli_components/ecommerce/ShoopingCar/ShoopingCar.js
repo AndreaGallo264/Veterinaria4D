@@ -1,7 +1,10 @@
 import React, { useEffect } from 'react'
 import { Container, Row, Col, Card, ListGroup, Button, Image } from 'react-bootstrap'
 import { Link } from "react-router-dom";
-import LogoOps from '../../../resources/logoopps.png'
+import LogoOps from '../../../resources/emptyCart.jpg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSadTear, faBan } from '@fortawesome/free-solid-svg-icons';
+import './shoppingCart.css';
 
 
 export default function ShoopingCar(props) {
@@ -20,17 +23,17 @@ export default function ShoopingCar(props) {
         props.setKntcat(kntproduct);
 
 
-    } ; 
+    };
 
     const deleteitem = (title) => {
 
         props.setCarProduct(props.carProduct.filter(item => item.title !== title));
 
-    } ; 
+    };
 
-    const cancelPurchase = () =>{
+    const cancelPurchase = () => {
         props.setCarProduct([]);
-    } ; 
+    };
 
     useEffect(() => {
         calculatePrice();
@@ -39,44 +42,30 @@ export default function ShoopingCar(props) {
 
     return (
 
-        <Container className="bg-white" fluid >
-            <Row>
-            <Col xs={2}></Col>
-                <Col xs={5}>
-                    <h1> MI CARRITO DE COMPRAS </h1>
-                    <ListGroup horizontal>
-
-                        {props.carProduct.length > 0 ? props.carProduct.map(product => (
-
-                            <Card style={{ width: '18rem' }}>
-                                <Card.Img variant="top" src={product.urlimg} />
-                                <Card.Body>
-                                    <Card.Title>{product.title}</Card.Title>
-                                    <Card.Text>
-                                        <Row>  Precio  : $ {product.price}</Row>
-                                        <Row>  Cantidad :{product.knt}</Row>
-                                        <Row>  Detalle : {product.details}</Row>
-                                    </Card.Text>
-                                </Card.Body>
-                                <Button variant="danger" onClick={() => deleteitem(product.title)}>Eliminar</Button>
-                            </Card>
-                        ))
-                            :
-                            <Container>
-                                <Row>
-                                    <Col></Col>
-                                    <Col xs={5}>
-                                        <Row> <h5>SIN PRODUCTOS EN EL CARRITO</h5></Row>
-                                        <Row><Image fluid width="400px" src={LogoOps} /></Row>
-                                    </Col>
-                                    <Col></Col>
-                                </Row>
-                            </Container>
-                        }
-
-                    </ListGroup>
-                </Col>
-                {props.carProduct.length > 0 ?
+        <Container className="bg-white text-center text-orange-fenix my-3 py-5" >
+                {props.carProduct.length > 0 ? <h1 className='font-weight-bold'> MI CARRITO DE COMPRAS </h1> : ""}
+                    <Col xs={12}>
+                    {props.carProduct.length > 0 ? props.carProduct.map(product => (
+                        <Row className='border border-warning shopping-items'>
+                                <Image width='100%' src={product.urlimg} />                       
+                                <p>{product.title}</p>
+                                <p>  Precio  : $ {product.price}</p>
+                                <p>  Cantidad :{product.knt}</p>
+                                <p>  Detalle : {product.details}</p>
+                                <Button variant="danger" onClick={() => deleteitem(product.title)}>
+                                    <FontAwesomeIcon icon={faBan} className='mr-2' />    Eliminar
+                                </Button>
+                        </Row>
+                    ))
+                    
+                        :
+                        <Container className='text-center'>
+                            <h1><FontAwesomeIcon icon={faSadTear} className='mr-2' />Tu carrito de compras está vacío</h1>
+                            <Image fluid width="60%" src={LogoOps} className='mt-4'/>
+                        </Container>
+                    }
+                    </Col>
+            {props.carProduct.length > 0 ?
                 <Col>
                     <Row className="">
                         <Col ><h1> Resumen </h1> </Col>
@@ -115,9 +104,8 @@ export default function ShoopingCar(props) {
                     }
 
                 </Col>
-                :""}
-                <Col xs={2}></Col>
-            </Row>
+                : ""}
+
         </Container>
     )
 }

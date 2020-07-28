@@ -7,8 +7,10 @@ import ImgPass from '../../resources/security.png';
 import ImgAdd from '../../resources/add.png';
 import Perritos from '../../resources/perritos.jpg';
 import alertify from 'alertifyjs';
+import { useHistory } from 'react-router-dom';
 
 export default function Login({ autenticado, setAutenticado }) {
+    let history = useHistory();
 
     const [usuario, setUsuario] = useState({
         email: '',
@@ -46,12 +48,13 @@ export default function Login({ autenticado, setAutenticado }) {
                         localStorage.setItem('usuario', JSON.stringify(result.datausr));
                         localStorage.setItem('token', result.token);
                         setAutenticado(true);
+                        history.push('/');
                         alertify.success('Bienvenido!!!');
+                        
                     } else {
                         alertify.error('Intenta nuevamente por favor');
                         setAutenticado(false);
                         setLoginerr(true);
-                        alert("Datos Incorrectos");
                         setUsuario({
                             email: '',
                             password: ''
