@@ -157,7 +157,7 @@ export default function Register(props) {
                                         </Col>
                                     </Row>
                                     <Row className='mt-4'>
-                                        <Col xs={12} md={6}>
+                                        <Col xs={12} lg={6}>
                                             <Form.Group controlId="formRegistroPassword">
                                                 <Form.Label>
                                                     <Image src={ImgPassword} alt='' className='mr-2' />Contraseña
@@ -176,7 +176,7 @@ export default function Register(props) {
                                                 />
                                             </Form.Group>
                                         </Col>
-                                        <Col xs={12} md={6}>
+                                        <Col xs={12} lg={6}>
                                             <Form.Group controlId="formRegistroPasswordconfirm">
                                                 <Form.Label>
                                                     <Image src={ImgPass} alt='' className='mr-2' />Confirmar contraseña

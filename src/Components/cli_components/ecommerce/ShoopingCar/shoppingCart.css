@@ -1,0 +1,9 @@
+@media (max-width: 600px) {
+    .shopping-items {
+      flex-direction: column;
+    }
+}
+
+.shopping-items{
+  display: flex;
+}
