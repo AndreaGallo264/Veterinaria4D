@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Card, Button, Image } from 'react-bootstrap'
+import { Container, Row, Card, Button, Image, Col } from 'react-bootstrap'
 import LogoOps from '../../../resources/logoopps.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faTimes, faCrown } from '@fortawesome/free-solid-svg-icons';
 
 export default function UserList(props) {
 
@@ -68,29 +70,33 @@ export default function UserList(props) {
     return (
         <Container className="bg-white">
             <h1>Lista de Usuarios</h1>
-            <Row className="row-cols-1 row-cols-sm-2 row-cols-md-2">
+            <Row className="row-cols-1">
 
                 {
                     listUsr.length > 0 ?
                         listUsr.map(listusr => (
 
-                            <Card border="dark" style={{ width: "44rem" }}> <Card.Body>
-
-                                <Card.Title>Usuario : {listusr.nombre} </Card.Title>
+                            <Card border="dark" style={{ width: "44rem" }} className="m-1"> <Card.Body>
+                                <Card.Title className="text-orange-fenix">Usuario : {listusr.nombre} 
+                                {listusr.isadmin && <FontAwesomeIcon icon={faCrown} className="ml-2" />}
+                                </Card.Title>
                                 <Row>
-                                    Rol : {listusr.isadmin ? "Administrador" : "Cliente"}
-                                </Row>
-                                <Row>
-                                    Fecha de Creacion : {listusr.Date}
-                                </Row>
-                                <Row>
+                                    <Col xs={12} sm={6} md={8}>
+                                    Rol : {listusr.isadmin ? "Administrador" : "Cliente"} <br/>
+                                    Fecha de Creacion : {listusr.Date} <br/>
                                     Email : {listusr.email}
-                                </Row>
-                                <Card.Footer>
-                                    {listusr.isadmin ? <Button variant="danger" onClick={() => { saveAdmin(listusr, false) }} >Quitar Acceso Administrador</Button>
-                                        : <Button variant="warning" className="mx-2" onClick={() => { saveAdmin(listusr, true) }}>Hacer Administrador</Button>
+                                    </Col>
+
+                                    <Col xs={12} sm={6} md={4} className="d-flex justify-content-center">
+                                    {listusr.isadmin ? <Button variant="danger" onClick={() => { saveAdmin(listusr, false) }} >
+                                    <FontAwesomeIcon icon={faTimes} size="2x" /> <br/>
+                                        Quitar Admin</Button>
+                                        : <Button variant="warning" className="mx-2" onClick={() => { saveAdmin(listusr, true) }}>  
+                                        <FontAwesomeIcon icon={faCheck} size="2x" /> <br/>
+                                            Hacer Admin</Button>
                                     }
-                                </Card.Footer>
+                                    </Col>
+                                </Row>
                             </Card.Body>
                             </Card>
 
