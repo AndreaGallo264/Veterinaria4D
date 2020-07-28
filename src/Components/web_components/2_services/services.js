@@ -40,7 +40,7 @@ export default function services() {
                 <Row>
                     <Col>
                         <Row className="mt-5 justify-content-center mb-3 ">
-                            <h2 className="text-violet font-weight-bolder text-uppercase"> <FontAwesomeIcon icon={faHandHoldingMedical} className='mr-2' />Nuestros Servicios </h2>
+                            <h2 className="text-warning font-weight-bolder text-uppercase"> <FontAwesomeIcon icon={faHandHoldingMedical} className='mr-2' />Nuestros Servicios </h2>
                         </Row>
                         <Row>
                             <p className="text-gray text-justify text-center font-weight-bold px-4">

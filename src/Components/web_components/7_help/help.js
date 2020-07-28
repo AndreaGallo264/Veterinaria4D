@@ -57,7 +57,7 @@ export default function help() {
                                 </Accordion.Toggle>
                             </Card.Header>
                             <Accordion.Collapse eventKey="2">
-                                <Card.Body>Todos los productos que ofrecemos están avalados por instituciones de prestigio. No ofrecemos nada que no hayamos probado antes en nuestros compañeritos.
+                                <Card.Body>Todos los productos que ofrecemos están avalados por instituciones de prestigio. No ofrecemos nada que no hayamos probado antes con nuestros compañeritos.
                             <br></br>Igualmente, si tuviste algún problema, estás disconforme con algo que compraste, contactanos a nuestro whatsapp haciendo click aquí
                         <a href="https://api.whatsapp.com/send?phone=+543815699049" target='_blank' className='ml-2'><Image src={WhatsappSm}></Image></a>
                                 </Card.Body>
