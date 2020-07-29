@@ -28,3 +28,7 @@ code {
   position: relative;
   padding-bottom: 7rem;
 }
+
+.AdmTitle{
+    text-shadow: 2px 2px #ffbb00;
+  }

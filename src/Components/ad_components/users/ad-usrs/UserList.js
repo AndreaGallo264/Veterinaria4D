@@ -3,7 +3,6 @@ import { Container, Row, Card, Button, Image, Col } from 'react-bootstrap'
 import LogoOps from '../../../resources/logoopps.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimes, faCrown } from '@fortawesome/free-solid-svg-icons';
-import './UserList.css';
 
 export default function UserList(props) {
 
@@ -70,7 +69,7 @@ export default function UserList(props) {
 
     return (
         <Container >
-            <h1 className="pt-3">Lista de Usuarios</h1>
+            <h1 className="pt-3 AdmTitle">Lista de Usuarios</h1>
             <Row className="row-cols-1">
 
                 {
