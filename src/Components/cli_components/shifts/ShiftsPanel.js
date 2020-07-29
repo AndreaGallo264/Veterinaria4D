@@ -12,9 +12,9 @@ export default function ShiftsPanel(props){
     return (
         <Container>
             <Row className="d-flex justify-content-center align-items-center">
-                { props.userState.isAdmin? "" : <Col xs={12} md={7} className="mt-3">  <AddShifts  loadshifts={loadshifts} setLoadShifs={setLoadShifs} userState={props.userState}  /> </Col>}
-                <Col xs={6} md={5} className='mt-3'>
-                <Image fluid width='100%' src={pikuImg} className="rounded shadow" />
+                { props.userState.isAdmin? "" : <Col xs={12} md={7} >  <AddShifts  loadshifts={loadshifts} setLoadShifs={setLoadShifs} userState={props.userState}  /> </Col>}
+                <Col xs={6} md={12} lg={5} className="d-none d-lg-block">
+                <Image fluid width='95%' src={pikuImg} className="rounded shadow my-2" />
                 </Col>
             </Row>
             <Row className="d-flex justify-content-center">
