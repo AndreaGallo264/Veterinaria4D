@@ -60,7 +60,9 @@ export default function CardProducts(props) {
                         {props.isAdmin.isAdmin ?
                             <Card.Footer>
                                     <EditProducts products={products} isAction={props.isAction} setisAction={props.setisAction} getProd={props.getProd} selecCategory={props.selecCategory} userState={props.userState} Add={props.Add} setAdd={props.setAdd} getProducts={props.getProducts} />
-                                    <Button variant="danger" onClick={() => { deleteproduct(products._id) }}>Eliminar </Button>
+                                   <Col className="mt-1">
+                                    <Button block variant="danger"  onClick={() => { deleteproduct(products._id) }}>Eliminar </Button>
+                                   </Col>
                             </Card.Footer>
                             :
                             <Card.Footer>

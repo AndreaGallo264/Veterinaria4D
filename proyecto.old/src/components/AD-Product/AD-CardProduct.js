@@ -61,7 +61,6 @@ export default function AD_CardProduct({ products, setProducts, carProduct, setC
                                 </Card.Footer>
                                
 
-                            }
                         </Card>
 
                     ))

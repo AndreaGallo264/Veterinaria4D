@@ -194,7 +194,7 @@ export default function EditProducts(props) {
     return (
 
         <Container>
-            <Button variant="dark" onClick={handleShow}>
+            <Button block variant="dark" onClick={handleShow}>
                 {props.Add === 'Add' ? 'Agregar Producto ' : 'Editar'}
             </Button>
 
