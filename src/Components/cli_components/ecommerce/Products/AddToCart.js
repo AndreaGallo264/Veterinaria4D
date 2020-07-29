@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { Button, Modal, Col, Image, Form, Container, Row } from 'react-bootstrap'
+import React, { useState, useEffect } from 'react';
+import { Button, Modal, Col, Image, Form, Container, Row } from 'react-bootstrap';
+import Cart from '../../../resources/cart.png';
 
 export default function AddToCart(props) {
 
@@ -101,9 +102,9 @@ export default function AddToCart(props) {
 
     return (
 
-        <Container>
-            <Button variant="primary" onClick={handleShow}>
-                Añadir al Carrito
+        <Container className='d-flex justify-content-center pb-2'>
+            <Button variant="outline-light" onClick={handleShow}>
+                <Image src={Cart} alt=''></Image>
              </Button>
 
             <Modal show={show} onHide={handleClose}>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { Image, Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
 import { onKeyPressValidateEmail, onKeyPressValidatePassword, onKeyPressLettersAndNumbers, onKeyPressLetters } from '../../../resources/CommonValidations';
 

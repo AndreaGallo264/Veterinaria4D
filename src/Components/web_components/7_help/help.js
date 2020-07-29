@@ -12,7 +12,7 @@ export default function help() {
 
     return (
 
-        <Container className='bg-white mt-5 rounded py-3'>
+        <Container className='bg-white mt-5 rounded py-3 shadow'>
             <h2 className="text-center text-orange-fenix py-2">Preguntas Frecuentes<Image src={Faq} className='ml-2'></Image></h2>
             <Row>
                 <Col xs={12} md={6}>

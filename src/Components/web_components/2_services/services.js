@@ -1,6 +1,5 @@
 import React from 'react'
-import { Container, Row, Col, Image } from 'react-bootstrap'
-import Back from '../../resources/backfenix.jpg';
+import { Row, Col, Image } from 'react-bootstrap';
 import Logo from '../../resources/logo.png';
 import tobyImg from '../../resources/toby.png';
 import sansonImg from '../../resources/sanson.jpeg';
@@ -13,11 +12,9 @@ import './services.css';
 
 export default function services() {
 
-    let imgUrl = Back;
-
     return (
         <section id="aboutus">
-            <Row className='bg-white mb-2 pb-5  '>
+            <Row className='bg-white mb-2 pb-5 shadow rounded'>
                     <Col>
                         <Row className="mt-5 text-center justify-content-center mb-3 ">
                             <h2 className="text-orange-fenix font-weight-bolder text-uppercase"> <FontAwesomeIcon icon={faPaw} className='mr-2' />Nuestros clientitos </h2>
@@ -38,9 +35,8 @@ export default function services() {
                         </Row>
                     </Col>
                 </Row>
-            <Container fluid className='pl-5 background-gradient bg-white'>
-                
-                <Row>
+
+                <Row className='pl-5 background-gradient bg-white shadow rounded'>
                     <Col>
                         <Row className="mt-5 justify-content-center mb-3 ">
                             <h2 className="text-orange-fenix text-center font-weight-bolder text-uppercase"> <FontAwesomeIcon icon={faHandHoldingMedical} className='mr-2' />Nuestros Servicios </h2>
@@ -102,7 +98,7 @@ export default function services() {
                     </Col>
 
                 </Row>
-            </Container>
+
         </section>
 
 
