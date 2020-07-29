@@ -178,8 +178,8 @@ export default function AddShifts(props) {
         <Container>
             <Row>
                 <Col xs={12} className="mx-auto">
-                    <Card bg="light" className="shadow">
-                        <Card.Header>Registro de Turno</Card.Header>
+                    <Card bg="white" className="shadow">
+                        <Card.Header className="bg-warning">Registro de Turno</Card.Header>
                         <Card.Body>
                             <Form onSubmit={onSubmitShifts}>
                                 <Form.Group controlId="dateshifts">
@@ -266,7 +266,7 @@ export default function AddShifts(props) {
                                 </Form.Group>
                                 <Button
                                     className="mr-3"
-                                    variant="primary"
+                                    variant="warning"
                                     type="submit">Registrar Turno
                                 </Button>
 
