@@ -117,9 +117,9 @@ export default function ShiftsList(props) {
     }, [page]);
 
     return (
-        <Container className="bg-white">
-            <h3>Mis Próximos Turno</h3>
-            <Row className="row-cols-1 row-cols-sm-3 row-cols-md-2  text-white">
+        <Container className='bg-white p-2 m-2 border shadow'>
+            <h3 className="AdmTitle">Mis Próximos Turnos</h3>
+            <Row className="row-cols-1 row-cols-sm-3 row-cols-md-2 ">
 
                 {
                     listShips.length > 0 ?
@@ -159,21 +159,15 @@ export default function ShiftsList(props) {
 
                                     </Card.Footer>
                                 </Card>
-                                : "Sin Turnos Disponibles"
-
-
-
+                                : null
 
                         )) : <Image fluid src={LogoOps} />
                 }
 
-
-
-
             </Row>
-            <Row>
+            <Row className="d-flex justify-content-center m-2">
                 <ShiftsListCancel shifts={listShips} items={items} userState={props.userState} />
-                <Row className="mt-5">
+                <Row >
                     <Pagination>
                         <Pagination >{items}</Pagination>
                     </Pagination>

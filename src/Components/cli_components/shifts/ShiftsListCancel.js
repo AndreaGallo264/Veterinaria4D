@@ -7,9 +7,9 @@ export default function ShiftsListCancel(props) {
     return (
 
         <Container fluid>
-            <h4>Turnos Cancelados/Pasados</h4>
-            <Row>
-                <Col xs={10}>
+            <h4 className="AdmTitle">Turnos Cancelados/Pasados</h4>
+            <Row className="d-flex justify-content-center">
+                <Col xs={11}>
                     <Row className="mt-1" style={{
                         backgroundColor: 'orange'
                     }}>
@@ -27,11 +27,11 @@ export default function ShiftsListCancel(props) {
 
                                 shift.state === true ?
 
-                                    <Row className="mt-2">
+                                    <Row className="mt-2 d-flex align-items-center">
                                         <Col>{new Date(shift.dateshifts).toISOString().slice(0, 10)} </Col>
 
                                         {props.userState.isAdmin ?
-                                            <Col>Cliente : {shift.users[0] ? shift.users[0].nombre : "SIN USUARIO"}</Col>
+                                            <Col>{shift.users[0] ? shift.users[0].nombre : "SIN USUARIO"}</Col>
                                             : ""}
                                         <Col>{shift.specialitys[0] ? shift.specialitys[0].name : "SIN ESPECIALIDAD"}</Col>
                                         <Col>{shift.species[0] ? shift.species[0].name : "SIN ESPECIE"}</Col>

@@ -9,10 +9,10 @@ export default function ShiftsPanel(props){
 
     const [loadshifts , setLoadShifs] = useState([]) ; 
     return (
-        <Container className='bg-white'>
-            <Row>
+        <Container>
+            <Row className="d-flex justify-content-center">
                 { props.userState.isAdmin? "" : <Col>  <AddShifts  loadshifts={loadshifts} setLoadShifs={setLoadShifs} userState={props.userState}  /> </Col>}
-                <Col>  <ShiftsList loadshifts={loadshifts} setLoadShifs={setLoadShifs} userState={props.userState} /> </Col>
+                <Col xs={12}>  <ShiftsList loadshifts={loadshifts} setLoadShifs={setLoadShifs} userState={props.userState} /> </Col>
             </Row>
         </Container>
       
