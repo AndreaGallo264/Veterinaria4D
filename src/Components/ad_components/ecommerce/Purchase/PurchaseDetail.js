@@ -10,7 +10,7 @@ export default function PurchaseDetail(props) {
 
     return (
 
-        <Container fluid>
+        <Container fluid className="d-flex justify-content-end">
             <Button variant="primary" onClick={handleShow}>
                 <Image fluid width="40px" src={Purchase} />
             </Button>
@@ -21,8 +21,9 @@ export default function PurchaseDetail(props) {
                         <Modal.Title>Fecha de Compra : {new Date(props.purchase.dateship).toISOString().slice(0, 10)}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Row>Usuario : {props.purchase.users.length > 0 ? props.purchase.users[0].nombre : "SIN USUARIO"}</Row>
-                        <Row> Productos a Entregar </Row>
+                        <Row className="pl-2">
+                        <p>Usuario : {props.purchase.users.length > 0 ? props.purchase.users[0].nombre : "SIN USUARIO"}</p>
+                        <p>Productos a Entregar </p>
                         {props.purchase.cartproducts.map(products => (
                             products ?
                                 <Container>
@@ -35,8 +36,9 @@ export default function PurchaseDetail(props) {
                                 </Container>
                                 : "Sin Productos"
                         ))}
-                        <Row>Dirección de Entrega: {props.purchase.users.length > 0 ? props.purchase.users[0].address ? props.purchase.users[0].address : props.purchase.address : "SIN DIRECCION"} </Row>
-                        <Row>Total Compra : {props.purchase.totalprice}</Row>
+                        <p>Dirección de Entrega: {props.purchase.users.length > 0 ? props.purchase.users[0].address ? props.purchase.users[0].address : props.purchase.address : "SIN DIRECCION"} </p>
+                        <p bold>Total Compra: ${props.purchase.totalprice}</p>
+                        </Row>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
