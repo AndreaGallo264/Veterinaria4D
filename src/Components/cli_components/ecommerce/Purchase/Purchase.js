@@ -14,6 +14,8 @@ import ShippingDetail from '../ShippingDetail/ShippingDetail'
 import ShoopingCar from '../ShoopingCar/ShoopingCar'
 
 export default function Purchase(props) {
+    const [IsPaying, setIsPaying] = useState(false);
+    const [IsSelectingShipment, setIsSelectingShipment] = useState(true);
 
     const [finishPurchase, setfinishPurchase] = useState(false)
     const [State, setState] = useState({
@@ -176,108 +178,120 @@ export default function Purchase(props) {
 
 
     return (
-        <Container className='bg-white' fluid>
+        <Container className='bg-white'>
+            {
+                IsSelectingShipment ?
+                    <ShippingDetail setIsPaying={setIsPaying} setIsSelectingShipment={setIsSelectingShipment} Shippingdetail={props.Shippingdetail} setShippingDetail={props.setShippingDetail} />
+                    :
+                    ""
+            }
 
-            <ShoopingCar carProduct={props.carProduct} setCarProduct={props.setCarProduct} user={props.userState} price={props.price} setTotalPrice={props.setTotalPrice} kntcat={props.kntcat} setKntcat={props.setKntcat} isPurchase={true} />
-            <ShippingDetail Shippingdetail={props.Shippingdetail} setShippingDetail={props.setShippingDetail} />
-
-            <h2> Detalle de Pago </h2>
-            <Row className="mt-5" fluid>
-
-                <Col xs={2} style={{ backgroundColor: '#ffffff' }} className="mx-5 my-2">
-                    <DetailShoopingCart price={props.price} setTotalPrice={props.setTotalPrice} carProduct={props.carProduct} setCarProduct={props.setCarProduct} functionPrice={props.functionPrice} setFunctionPrice={props.setFunctionPrice} kntcat={props.kntcat} setKntcat={props.setKntcat} />
-                </Col>
-                <Col style={{ backgroundColor: '#ffffff' }} className="my-2" >
-                    <Cards
-                        cvc={State.cvc}
-                        expiry={State.expiry}
-                        focused={State.focus}
-                        name={State.name}
-                        number={State.number}
-                    />
-                </Col>
-                <Col  style={{ backgroundColor: '#ffffff' }} className="my-2">
-                    <Row className="my-4">
-                        <Form>
-                            <Row>
-                                <Col>
-                                    <Form.Group controlId="cardnumber">
-                                        <Form.Control
-                                            type="tel"
-                                            name="number"
-                                            placeholder="Número de Tarjeta"
-                                            onChange={onchangecreditcard}
-                                            onFocus={handleInputFocusFront}
-                                            maxLength="16"
-                                            required />
-                                        <Form.Text className="text-muted">
-                                            Número de Tarjeta
-                            </Form.Text>
-                                    </Form.Group>
-                                </Col>
-                                <Col>
-                                    <Form.Group controlId="nameperson">
-                                        <Form.Control
-                                            type="text"
-                                            name="name"
-                                            placeholder="Nombre"
-                                            onChange={onchangecreditcard}
-                                            required
-                                        />
-                                        <Form.Text className="text-muted">
-                                            Nombre
-                            </Form.Text>
-                                    </Form.Group>
-                                </Col>
-                            </Row>
-
-                            <Form.Group controlId="expiry">
-                                <Form.Control
-                                    type="tel"
-                                    name="expiry"
-                                    placeholder="Vencimiento"
-                                    onChange={onchangecreditcard}
-                                    maxLength="4"
-                                    required
+            {
+                IsPaying ?
+                    <div>
+                        <h2> Detalle de Pago </h2>
+                        <Row className="mt-5" fluid>
+                            <Col xs={2} style={{ backgroundColor: '#ffffff' }} className="mx-5 my-2">
+                                <DetailShoopingCart price={props.price} setTotalPrice={props.setTotalPrice} carProduct={props.carProduct} setCarProduct={props.setCarProduct} functionPrice={props.functionPrice} setFunctionPrice={props.setFunctionPrice} kntcat={props.kntcat} setKntcat={props.setKntcat} />
+                            </Col>
+                            <Col style={{ backgroundColor: '#ffffff' }} className="my-2" >
+                                <Cards
+                                    cvc={State.cvc}
+                                    expiry={State.expiry}
+                                    focused={State.focus}
+                                    name={State.name}
+                                    number={State.number}
                                 />
-                                <Form.Text className="text-muted">
-                                    Vencimiento
-                            </Form.Text>
-                            </Form.Group>
+                            </Col>
+                            <Col style={{ backgroundColor: '#ffffff' }} className="my-2">
+                                <Row className="my-4">
+                                    <Form>
+                                        <Row>
+                                            <Col>
+                                                <Form.Group controlId="cardnumber">
+                                                    <Form.Control
+                                                        type="tel"
+                                                        name="number"
+                                                        placeholder="Número de Tarjeta"
+                                                        onChange={onchangecreditcard}
+                                                        onFocus={handleInputFocusFront}
+                                                        maxLength="16"
+                                                        required />
+                                                    <Form.Text className="text-muted">
+                                                        Número de Tarjeta
+                                                    </Form.Text>
+                                                </Form.Group>
+                                            </Col>
+                                            <Col>
+                                                <Form.Group controlId="nameperson">
+                                                    <Form.Control
+                                                        type="text"
+                                                        name="name"
+                                                        placeholder="Nombre"
+                                                        onChange={onchangecreditcard}
+                                                        required
+                                                    />
+                                                    <Form.Text className="text-muted">
+                                                        Nombre
+                                                    </Form.Text>
+                                                </Form.Group>
+                                            </Col>
+                                        </Row>
 
-                            <Form.Group controlId="cvc">
-                                <Form.Control
-                                    type="tel"
-                                    name="cvc"
-                                    placeholder="CVC"
-                                    onChange={onchangecreditcard}
-                                    onFocus={handleInputFocus}
-                                    maxLength="3"
-                                    required
-                                />
-                                <Form.Text className="text-muted">
-                                    Código de Seguridad
-                            </Form.Text>
-                            </Form.Group>
+                                        <Form.Group controlId="expiry">
+                                            <Form.Control
+                                                type="tel"
+                                                name="expiry"
+                                                placeholder="Vencimiento"
+                                                onChange={onchangecreditcard}
+                                                maxLength="4"
+                                                required
+                                            />
+                                            <Form.Text className="text-muted">
+                                                Vencimiento
+                                            </Form.Text>
+                                        </Form.Group>
 
-                        </Form>
-                    </Row>
+                                        <Form.Group controlId="cvc">
+                                            <Form.Control
+                                                type="tel"
+                                                name="cvc"
+                                                placeholder="CVC"
+                                                onChange={onchangecreditcard}
+                                                onFocus={handleInputFocus}
+                                                maxLength="3"
+                                                required
+                                            />
+                                            <Form.Text className="text-muted">
+                                                Código de Seguridad
+                                            </Form.Text>
+                                        </Form.Group>
 
-                    <Row >
-                        {props.carProduct.length > 0 && paymentId.length === 0 ?
-                            <Button variant="primary" className="my-1"
-                                onClick={() => { savePurchase() }}
-                            >Validar Datos de la Tarjeta</Button> : ""}
+                                    </Form>
+                                </Row>
+
+                                <Row >
+                                    {props.carProduct.length > 0 && paymentId.length === 0 ?
+                                        <Button variant="primary" className="my-1"
+                                            onClick={() => { savePurchase() }}
+                                        >Validar Datos de la Tarjeta</Button> : ""}
 
 
 
-                        {finishPurchase === true ?
-                            <Link className="btn btn-primary my-1" onClick={() => { cleanCarProduct() }} to='/finishpurchase' >Finalizar Compra </Link>
-                            : ""
-                        }
-                    </Row>
-                </Col>
-            </Row>
+                                    {finishPurchase === true ?
+                                        <Link className="btn btn-primary my-1" onClick={() => { cleanCarProduct() }} to='/finishpurchase' >Finalizar Compra </Link>
+                                        : ""
+                                    }
+                                </Row>
+                            </Col>
+                        </Row>
+                    </div>
+                    :
+                    ""
+            }
+
+
+
         </Container>
     )
 }

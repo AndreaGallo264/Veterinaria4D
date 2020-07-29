@@ -114,7 +114,7 @@ export default function Principalmenu(props) {
 
                 {
                     props.userState.usuario ? <Link onClick={() => setExpanded(false)} id="sale" className="text-dark nav-link font-weight-bold" to="/editusr">
-                        <FontAwesomeIcon icon={faBookReader} className='mr-2' />Mis Datos</Link> : ""
+                            <FontAwesomeIcon icon={faBookReader} className='mr-2' />Mis Datos</Link> : ""
                 }
                 <Link onClick={() => setExpanded(false)} id="sale" className="text-dark nav-link font-weight-bold" to="/help"><FontAwesomeIcon icon={faQuestionCircle} className='mr-2' />Ayuda</Link>
 

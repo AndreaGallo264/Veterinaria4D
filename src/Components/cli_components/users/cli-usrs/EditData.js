@@ -2,15 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Image, Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
 import { onKeyPressValidateEmail, onKeyPressValidatePassword, onKeyPressLettersAndNumbers, onKeyPressLetters } from '../../../resources/CommonValidations';
-import Manuela from '../../../resources/manuela_vert.jpg';
+
 import ImgEmail from '../../../resources/mail.png';
 import ImgPass from '../../../resources/security.png';
 import ImgPassword from '../../../resources/password.png';
 import ImgAddress from '../../../resources/address.png';
 import ImgUser from '../../../resources/user.png';
 
-export default function EditData(props) {
+import { useHistory } from 'react-router-dom';
+import alertify from 'alertifyjs';
 
+export default function EditData(props) {
+    let history = useHistory();
     const [user, setUsr] = useState({
         nombre: props.datusr[0] ? props.datusr[0].nombre : '',
         email: props.datusr[0] ? props.datusr[0].email : '',
@@ -18,6 +21,16 @@ export default function EditData(props) {
         passwordconfirm: '',
         address: props.datusr[0] ? props.datusr[0].address : '',
     });
+
+    useEffect(()=>{
+        setUsr({
+            nombre: props.datusr[0] ? props.datusr[0].nombre : '',
+            email: props.datusr[0] ? props.datusr[0].email : '',
+            password: '',
+            passwordconfirm: '',
+            address: props.datusr[0] ? props.datusr[0].address : '',
+        })
+    }, [props])
 
     const [edit, setEdit] = useState(false);
     const { nombre, email, password, passwordconfirm, address } = user;
@@ -70,12 +83,28 @@ export default function EditData(props) {
                             passwordconfirm: '',
                             address: ''
                         })
+                        history.push('/');
+                        alertify.success('Sus datos fueron modificados!!!');
                     } else {
-                        alert("Ocurrio un Error, reintente nuevamente:" + result.msg);
+                        alertify.error("Ocurrio un Error, reintente nuevamente:" + result.msg);
+                        setUsr({
+                            nombre: '',
+                            email: '',
+                            password: '',
+                            passwordconfirm: '',
+                            address: ''
+                        })
                     }
                 },
                 (error) => {
-                    alert("Ocurrio un Error, reintente nuevamente");
+                    alertify.error("Ocurrio un Error, reintente nuevamente");
+                    setUsr({
+                        nombre: '',
+                        email: '',
+                        password: '',
+                        passwordconfirm: '',
+                        address: ''
+                    })
                 }
             );
     };
@@ -129,7 +158,7 @@ export default function EditData(props) {
                                         <Form.Group controlId="formRegistroNombre">
                                             <Form.Label>
                                                 <Image src={ImgUser} alt='' className='mr-2' />Nombre
-                                    </Form.Label>
+                                            </Form.Label>
                                             <Form.Control
                                                 type="text"
                                                 name="nombre"
