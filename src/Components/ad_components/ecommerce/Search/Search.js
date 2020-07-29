@@ -1,5 +1,8 @@
-import React, { useState } from 'react'
-import { Button, Form, FormControl, Container } from 'react-bootstrap'
+import React, { useState } from 'react';
+import { Button, Form, FormControl, Row, Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+
 
 export default function Search(props) {
 
@@ -31,13 +34,17 @@ export default function Search(props) {
     }
 
     return (
-        <Container fluid>
-            <Form onSubmit={Search} inline>
-                <FormControl value={search} name={search} type="text" placeholder="Buscar"
-                    onKeyPress={handleKeyPress}
-                    onChange={onSearch} />
-                <Button className="ml-3" variant="outline-success" onClick={Search}>Buscar</Button>
-            </Form>
-        </Container>
+        <Form onSubmit={Search}>
+            <Row>
+                <Col xs={9}>
+                    <FormControl value={search} name={search} type="text" placeholder="Buscar"
+                        onKeyPress={handleKeyPress}
+                        onChange={onSearch} />
+                </Col>
+                <Col xs={3} className='mb-2'>
+                    <Button variant="outline-warning" onClick={Search}><FontAwesomeIcon icon={faSearch} /></Button>
+                </Col>
+            </Row>
+        </Form>
     )
 }

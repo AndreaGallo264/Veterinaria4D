@@ -48,7 +48,7 @@ export default function services() {
                         </Row>
                         <Row className="mt-2">
                             <Col xs={12} md={6}>
-                                <Image rounded fluid width='100%' src="https://veterinariapanda.com.ar/wp-content/uploads/2019/04/Dias-y-horarios-de-atencion-1-1.jpg" rounded />
+                                <Image rounded fluid width='100%' src="https://veterinariapanda.com.ar/wp-content/uploads/2019/04/Dias-y-horarios-de-atencion-1-1.jpg" />
                             </Col>
                             <Col xs={12} md={6} className='cols-margin-top'>
                                 <Image fluid width='100%' src={tobyImg} rounded />

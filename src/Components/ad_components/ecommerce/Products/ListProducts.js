@@ -153,13 +153,12 @@ export default function ListProductos(props) {
                     (
                         <Fragment>
                             <Row>
-                                <Col className="mt-2" >
+                                <Col xs={12} md={7} className="mt-2" >
                                     <Form.Group controlId="ListProducts">
-                                        <Col>
                                             <Form.Control as="select" onChange={e => selectedCategory(e.target.value)} >
                                                 <option key="all" value="all" >
                                                     Seleccione una Categoría...
-                                    </option>
+                                                </option>
                                                 {
                                                     category.length > 0 ?
                                                         category.map(category => {
@@ -171,10 +170,9 @@ export default function ListProductos(props) {
                                                         }) : ""}
 
                                             </Form.Control>
-                                        </Col>
                                     </Form.Group>
                                 </Col>
-                                <Col className="mt-2" xs={4}>
+                                <Col className="mt-2" xs={12} md={5}>
                                     <Search getProd={getProducts} getProductsByCategory={getProductsByCategory} selectCategory={selectCategory} setSelectCategory={setSelectCategory} products={products} setProducts={setProducts} />
                                 </Col>
                                 {props.isAdmin.isAdmin ?

@@ -13,7 +13,7 @@ export default function ShippingDetail(props) {
 
     const { province, postalcode, dataadress } = props.Shippingdetail;
     const datalocation = [
-        { id: 1, value: 'YerbaBuena' },
+        { id: 1, value: 'Yerba Buena' },
         { id: 2, value: 'San Miguel de Tucumán' }
     ];
 
@@ -75,7 +75,7 @@ export default function ShippingDetail(props) {
                             <Form.Label>
                                 Localidad
                             </Form.Label>
-                            <Form.Control value='San Miguel de Tucumán' as="select" name="location" required onChange={e => selectedLoc(e)}  >
+                            <Form.Control defaultValue='San Miguel de Tucumán' as="select" name="location" required onChange={e => selectedLoc(e)}  >
                                 {datalocation.map(location => {
                                     return (
                                         <option name="location" key={location.id} value={location.value} >

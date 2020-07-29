@@ -119,7 +119,7 @@ export default function Principalmenu(props) {
                 <Link onClick={() => setExpanded(false)} id="sale" className="text-dark nav-link font-weight-bold" to="/help"><FontAwesomeIcon icon={faQuestionCircle} className='mr-2' />Ayuda</Link>
 
                 {
-                    props.userState.usuario ? <Link onClick={() => setExpanded(false)} id="adm" className="text-dark nav-link font-weight-bold" to="/home" onClick={logouts} > <FontAwesomeIcon icon={faSignOutAlt} className='mr-2' />Salir</Link> : ""
+                    props.userState.usuario ? <Link onClick={() => {setExpanded(false); logouts();}} id="adm" className="text-dark nav-link font-weight-bold" to="/home" > <FontAwesomeIcon icon={faSignOutAlt} className='mr-2' />Salir</Link> : ""
                 }
 
             </Navbar.Collapse>

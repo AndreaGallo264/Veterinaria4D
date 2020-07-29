@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Col, Image, Form, Container, Row } from 'react-bootstrap';
 import Cart from '../../../resources/cart.png';
+import Buy from '../../../resources/buy.png';
+import { onKeyPressValidateNumbers } from '../../../resources/CommonValidations';
+import alertify from 'alertifyjs';
 
 export default function AddToCart(props) {
 
@@ -27,7 +30,7 @@ export default function AddToCart(props) {
                 [e.target.name]: e.target.value
             })
         } else {
-            alert("Stock Insuficiente");
+            alertify.error("Stock Insuficiente");
         }
     }
 
@@ -42,14 +45,14 @@ export default function AddToCart(props) {
                 handleClose();
                 props.setCarProduct([...props.carProduct, cart]);
             } else {
-                alert("Sin Stock : Productos Agregados en el Carrito")
+                alertify.error("Sin Stock : Productos Agregados en el Carrito")
             }
         } else {
             if (knt > 0) {
                 handleClose();
                 props.setCarProduct([...props.carProduct, cart]);
-            }else {
-                alert("Agregue al Menos un Producto");
+            } else {
+                alertify.error("Agregue al Menos un Producto");
             }
         }
     }
@@ -105,47 +108,45 @@ export default function AddToCart(props) {
         <Container className='d-flex justify-content-center pb-2'>
             <Button variant="outline-light" onClick={handleShow}>
                 <Image src={Cart} alt=''></Image>
-             </Button>
+            </Button>
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>{props.title}</Modal.Title>
-                    <Col xs={6} md={4}>
-                        <Image src={props.urlimg} thumbnail="true" />
-                    </Col>
+                    <Modal.Title className='text-center text-orange-fenix'><h5>{props.title}</h5></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Container>
-                        <Row>
-                            Precio : $ {props.price}
-                        </Row>
-                        <Row>
-                            Stock : {props.stock > 0 ? props.stock - knt : "AGOTADO"}
-                        </Row>
-                        <Row>
-                            Detalle : {props.details}
-                        </Row>
-                    </Container>
-                    <Form onSubmit={onAddToCart}>
-                        <Form.Group controlId="knt">
-                            <Form.Label>Cantidad</Form.Label>
-                            <Form.Control
-                                type="number"
-                                name="knt"
-                                onChange={onChangeCart}
-                                value={knt}
-                                min="1"
-                                defaultValue="1"
-                            ></Form.Control>
-                        </Form.Group>
-                        {props.stock > 0 ? <Button type="submit">Agregar</Button> : ""}
-
-
-                    </Form>
-
+                    <Row>
+                        <Col xs={6} md={4}>
+                            <Image src={props.urlimg} width='100%' />
+                        </Col>
+                        <Col xs={6} md={8}>
+                            <p>
+                                <strong>Precio:</strong> $ {props.price}
+                            </p>
+                            <p>
+                                <strong>Stock:</strong> {props.stock > 0 ? props.stock - knt : "AGOTADO"}
+                            </p>
+                            <p>
+                                <strong>Detalle:</strong> {props.details}
+                            </p>
+                            <Form onSubmit={onAddToCart}>
+                                <Form.Group controlId="knt">
+                                    <Form.Label><strong>Cantidad</strong></Form.Label>
+                                    <Form.Control
+                                        type="number"
+                                        name="knt"
+                                        onChange={onChangeCart}
+                                        value={knt}
+                                        min="1"
+                                        defaultValue="1"
+                                        onKeyPress={onKeyPressValidateNumbers}
+                                    ></Form.Control>
+                                </Form.Group>
+                                {props.stock > 0 ? <Button block type="submit" variant='light'><Image src={Buy} alt=''></Image></Button> : ""}
+                            </Form>
+                        </Col>
+                    </Row>
                 </Modal.Body>
-                <Modal.Footer>
-                </Modal.Footer>
             </Modal>
         </Container>
     )

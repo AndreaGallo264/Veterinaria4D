@@ -40,8 +40,8 @@ export default function footer() {
                             <h5 className="text-dark d-none d-lg-block">Redes Sociales</h5>
                         </Col>
                         <Col className='d-flex justify-content-around'>
-                            <a href='#'><Image src={Facebook}></Image></a>
-                            <a href='#'><Image src={Instagram}></Image></a>
+                            <a href='https://www.facebook.com/' target='_blank'  rel="noopener noreferrer"><Image src={Facebook}></Image></a>
+                            <a href='https://www.instagram.com/' target='_blank'  rel="noopener noreferrer"><Image src={Instagram}></Image></a>
                             <a href="https://api.whatsapp.com/send?phone=+543815699049" target='_blank'><Image src={Whatsapp}></Image></a>
                         </Col>
                     </Col>

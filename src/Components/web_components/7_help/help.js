@@ -30,7 +30,7 @@ export default function help() {
                             </Card.Header>
                             <Accordion.Collapse eventKey="0">
                                 <Card.Body className="text-justify">Si tuviste algún problema o tenés consulta por tu envío por favor contactanos a nuestro whatsapp haciendo click aquí
-                        <a href="https://api.whatsapp.com/send?phone=+543815699049" target='_blank' className='ml-2'><Image src={WhatsappSm}></Image></a>
+                        <a href="https://api.whatsapp.com/send?phone=+543815699049"  rel="noopener noreferrer" target='_blank' className='ml-2'><Image src={WhatsappSm}></Image></a>
                                 </Card.Body>
                             </Accordion.Collapse>
                         </Card>
@@ -59,7 +59,7 @@ export default function help() {
                             <Accordion.Collapse eventKey="2">
                                 <Card.Body className="text-justify">Todos los productos que ofrecemos están avalados por instituciones de prestigio. No ofrecemos nada que no hayamos probado antes con nuestros compañeritos.
                             <br></br>Igualmente, si tuviste algún problema, estás disconforme con algo que compraste, contactanos a nuestro whatsapp haciendo click aquí
-                        <a href="https://api.whatsapp.com/send?phone=+543815699049" target='_blank' className='ml-2'><Image src={WhatsappSm}></Image></a>
+                        <a href="https://api.whatsapp.com/send?phone=+543815699049"  rel="noopener noreferrer" target='_blank' className='ml-2'><Image src={WhatsappSm}></Image></a>
                                 </Card.Body>
                             </Accordion.Collapse>
                         </Card>
