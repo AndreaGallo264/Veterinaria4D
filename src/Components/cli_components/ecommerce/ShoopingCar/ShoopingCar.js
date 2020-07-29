@@ -43,28 +43,32 @@ export default function ShoopingCar(props) {
     return (
 
         <Container className="bg-white text-center text-orange-fenix my-3 py-5" >
-                {props.carProduct.length > 0 ? <h1 className='font-weight-bold'> MI CARRITO DE COMPRAS </h1> : ""}
-                    <Col xs={12}>
-                    {props.carProduct.length > 0 ? props.carProduct.map(product => (
-                        <Row className='border border-warning shopping-items'>
-                                <Image width='100%' src={product.urlimg} />                       
-                                <p>{product.title}</p>
-                                <p>  Precio  : $ {product.price}</p>
-                                <p>  Cantidad :{product.knt}</p>
-                                <p>  Detalle : {product.details}</p>
-                                <Button variant="danger" onClick={() => deleteitem(product.title)}>
-                                    <FontAwesomeIcon icon={faBan} className='mr-2' />    Eliminar
-                                </Button>
-                        </Row>
-                    ))
-                    
-                        :
-                        <Container className='text-center'>
-                            <h1><FontAwesomeIcon icon={faSadTear} className='mr-2' />Tu carrito de compras está vacío</h1>
-                            <Image fluid width="60%" src={LogoOps} className='mt-4'/>
-                        </Container>
-                    }
-                    </Col>
+            {props.carProduct.length > 0 ? <h1 className='font-weight-bold mb-3'> MI CARRITO DE COMPRAS </h1> : ""}
+            <Col xs={12}>
+                {props.carProduct.length > 0 ? props.carProduct.map(product => (
+                    <Row className='border border-warning shopping-items mb-2 p-2'>
+                        <Image width='20%' src={product.urlimg} />
+                        <div className='py-2 font-weight-bold text-align-left shopping-details text-dark'>
+                            <h3>{product.title}</h3>
+                            <p>  Precio  : $ {product.price}</p>
+                            <p>  Cantidad :{product.knt}</p>
+                            <p>  Detalle : {product.details}</p>
+                        </div>
+                        <div className='shopping-delete-btn'>
+                            <Button variant="danger" size='lg' onClick={() => deleteitem(product.title)}>
+                                <FontAwesomeIcon icon={faBan} className='mr-2' />    Eliminar
+                            </Button>
+                        </div>
+                    </Row>
+                ))
+
+                    :
+                    <Container className='text-center'>
+                        <h1><FontAwesomeIcon icon={faSadTear} className='mr-2' />Tu carrito de compras está vacío</h1>
+                        <Image fluid width="60%" src={LogoOps} className='mt-4' />
+                    </Container>
+                }
+            </Col>
             {props.carProduct.length > 0 ?
                 <Col>
                     <Row className="">

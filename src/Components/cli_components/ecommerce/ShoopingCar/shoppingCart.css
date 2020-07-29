@@ -1,9 +1,34 @@
+.shopping-details{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 60%;
+}
+
+.shopping-delete-btn{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 20%;
+}
+.shopping-items{
+display: flex;
+}
 @media (max-width: 600px) {
     .shopping-items {
       flex-direction: column;
     }
-}
 
-.shopping-items{
-  display: flex;
-}
+    .shopping-items img{
+      width: 100%;
+    }
+    .shopping-details{
+      display: contents;
+    }
+    .shopping-delete-btn{
+      width: 100%;
+      display: contents;
+    }
+
+  }
+  
