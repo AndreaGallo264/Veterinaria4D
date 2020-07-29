@@ -3,12 +3,9 @@ import { Card, Button, Col, Row, Container, Image } from 'react-bootstrap'
 
 import EditProducts from './EditProducts'
 import AddToCart from '../../../cli_components/ecommerce/Products/AddToCart'
-import LogoOps from '../../../resources/logoopps.png'
-import Back from '../../../resources/backprof.jpg'
+import LogoOps from '../../../resources/logoopps.png';
 
 export default function CardProducts(props) {
-
-    let imgUrl = Back;
 
     const deleteproduct = async (id) => {
 
@@ -41,64 +38,58 @@ export default function CardProducts(props) {
     }
 
     return (
-        <Container fluid>
-            <Row className="row-cols-1 row-cols-sm-2 row-cols-md-5">
+        <Row className="d-flex justify-content-center px-4">
+            {props.products.length > 0 ?
+                props.products.map(products => (
+                    <Col xs={12} md={3}>
+                    <Card key={products._id} border="dark" className="mt-1 mb-2 bg-white h-100">
+                        <Card.Body className='text-center text-orange-fenix'>
+                            <Row className='mt-2'>
+                                <h5>{products.title}</h5>
+                            </Row>
+                            <Row>
+                                <Col xs={6}>
+                                    <Image width='100%' rounded src={products.urlimg}></Image>
+                                </Col>
+                                <Col xs={6} className='d-flex align-items-center'>
+                                    <h5>$ {products.price}</h5>
+                                </Col>
+                            </Row>
+                        </Card.Body>
 
-                {props.products.length > 0 ?
-                    props.products.map(products => (
+                        {props.isAdmin.isAdmin ?
+                            <Card.Footer>
+                                    <EditProducts products={products} isAction={props.isAction} setisAction={props.setisAction} getProd={props.getProd} selecCategory={props.selecCategory} userState={props.userState} Add={props.Add} setAdd={props.setAdd} getProducts={props.getProducts} />
+                                    <Button variant="danger" onClick={() => { deleteproduct(products._id) }}>Eliminar </Button>
+                            </Card.Footer>
+                            :
+                            <Card.Footer>
+                            <AddToCart
+                                title={products.title}
+                                price={products.price}
+                                stock={products.stock}
+                                details={products.detail}
+                                id={products._id}
+                                urlimg={products.urlimg}
+                                carProduct={props.carProduct}
+                                setCarProduct={props.setCarProduct}
+                                category={products.category}
+                                kntcat={props.kntcat}
+                                setKntcat={props.setKntcat}
+                                setTotalPrice={props.setTotalPrice}
+                                functionPrice={props.functionPrice}
+                                setFunctionPrice={props.setFunctionPrice}
+                                realstock={props.realstock}
+                                setRealStock={props.setRealStock}
+                            />
+                            </Card.Footer>
+                        }
+                    </Card>
+                    </Col>
 
-                        <Card key={products._id} border="dark" className="mr-2 mt-2 mb-2"
-                            style={{
-                                height: "30rem", backgroundImage: `url(${imgUrl})`,
-                                backgroundRepeat: 'repeat',
-                                backgroundPosition: 'center',
-                            }}>
-                            <Card.Img variant="top" src={products.urlimg} className="card-img-top" />
-                            <Card.Body>
-                                <Card.Title>{products.title}</Card.Title>
-                                <Row>
-                                    Precio : $ {products.price}
-                                </Row>
+                ))
+                : <Image fluid src={LogoOps} />}
 
-                                <Row>
-                                    Detalle : {products.detail}
-                                </Row>
-                            </Card.Body>
-
-                            {props.isAdmin.isAdmin ?
-                                <Card.Footer>
-                                    <Row>
-                                        <Col><EditProducts products={products} isAction={props.isAction} setisAction={props.setisAction} getProd={props.getProd} selecCategory={props.selecCategory} userState={props.userState} Add={props.Add} setAdd={props.setAdd} getProducts={props.getProducts} /></Col>
-                                        <Col> <Button variant="danger" onClick={() => { deleteproduct(products._id) }}>Eliminar </Button></Col>
-                                    </Row>
-                                </Card.Footer>
-                                :
-                                <AddToCart
-                                    title={products.title}
-                                    price={products.price}
-                                    stock={products.stock}
-                                    details={products.detail}
-                                    id={products._id}
-                                    urlimg={products.urlimg}
-                                    carProduct={props.carProduct}
-                                    setCarProduct={props.setCarProduct}
-                                    category={products.category}
-                                    kntcat={props.kntcat}
-                                    setKntcat={props.setKntcat}
-                                    setTotalPrice={props.setTotalPrice}
-                                    functionPrice={props.functionPrice}
-                                    setFunctionPrice={props.setFunctionPrice}
-                                    realstock={props.realstock} 
-                                    setRealStock={props.setRealStock}
-                                />
-                            }
-                        </Card>
-
-                    ))
-                    : <Image fluid src={LogoOps} />}
-
-            </Row>
-        </Container>
-
+        </Row>
     )
 }

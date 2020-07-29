@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import Cards from 'react-credit-cards';
-import { Col, Row, Button, Form, Container } from 'react-bootstrap'
+import { Col, Row, Button, Form, Container, Image } from 'react-bootstrap'
 import DetailShoopingCart from '../ShoopingCar/DetailShoopingCart'
-
+import alertify from 'alertifyjs';
+import PaymentImg from '../../../resources/pay.png';
+import { useHistory } from 'react-router-dom';
+import {
+    onKeyPressValidateNumbers,
+    onKeyPressValidateDate,
+    onKeyPressLetters
+} from '../../../resources/CommonValidations';
 import {
     Link
 } from "react-router-dom";
-
 //Shipping Detail 
 import ShippingDetail from '../ShippingDetail/ShippingDetail'
 
-//MyCart
-import ShoopingCar from '../ShoopingCar/ShoopingCar'
-
 export default function Purchase(props) {
+    const history = useHistory();
     const [IsPaying, setIsPaying] = useState(false);
     const [IsSelectingShipment, setIsSelectingShipment] = useState(true);
 
@@ -70,20 +74,15 @@ export default function Purchase(props) {
     };
 
     const savePurchase = () => {
-
-        if (province.length > 0 && location.length > 0 && postalcode.length > 0 && dataadress) {
-            if (cvc.length > 0 && expiry.length > 0 && name.length > 0 && number.length > 0) {
-                AddPayment();
-            } else {
-                alert('Campos Obligatorios : Datos de Pago');
-            }
+        if (province.length > 0 && location.length > 0 && postalcode.length > 0 && dataadress && document.getElementsByTagName('form')[0].checkValidity()) {
+            AddPayment();
         } else {
-            alert('Campos Obligatorios : Datos de Envio');
+            return;
         }
     }
 
     const AddPayment = async () => {
-
+        
         State.users = props.userState.usuario._id;
         await fetch(process.env.REACT_APP_BACKEND_URL + "addPayment", {
             method: 'POST',
@@ -102,7 +101,7 @@ export default function Purchase(props) {
                     }
                 },
                 (error) => {
-                    alert("Ocurrio un Error, reintente nuevamente");
+                    alertify.error("Ocurrio un Error, reintente nuevamente");
                 }
             );
     }
@@ -123,11 +122,11 @@ export default function Purchase(props) {
                 (result) => {
                     if (result.purchases._id) {
                         setPurchaseId(result.purchases._id);
-                        setSaveProduct({ purchase: result.purchases._id })
+                        setSaveProduct({ purchase: result.purchases._id });
                     }
                 },
                 (error) => {
-                    alert("Ocurrio un Error, reintente nuevamente");
+                    alertify.error("Ocurrio un Error, reintente nuevamente");
                 }
             );
     }
@@ -164,6 +163,8 @@ export default function Purchase(props) {
     const cleanCarProduct = () => {
         props.setCarProduct([]);
         props.setKntcat([1]);
+        history.push('/finishpurchase');
+        alertify.success('Su compra ha sido realizada con éxito');
     }
 
 
@@ -178,10 +179,12 @@ export default function Purchase(props) {
 
 
     return (
-        <Container className='bg-white'>
+        <Container className='bg-white my-3 rounded shadow py-3'>
             {
                 IsSelectingShipment ?
-                    <ShippingDetail setIsPaying={setIsPaying} setIsSelectingShipment={setIsSelectingShipment} Shippingdetail={props.Shippingdetail} setShippingDetail={props.setShippingDetail} />
+                    <div>
+                        <ShippingDetail setIsPaying={setIsPaying} setIsSelectingShipment={setIsSelectingShipment} Shippingdetail={props.Shippingdetail} setShippingDetail={props.setShippingDetail} />
+                    </div>
                     :
                     ""
             }
@@ -189,101 +192,126 @@ export default function Purchase(props) {
             {
                 IsPaying ?
                     <div>
-                        <h2> Detalle de Pago </h2>
-                        <Row className="mt-5" fluid>
-                            <Col xs={2} style={{ backgroundColor: '#ffffff' }} className="mx-5 my-2">
+                        <h1 className='text-orange-fenix text-center font-weight-bold pt-2'>
+                            Detalle de Pago <Image src={PaymentImg} alt=''></Image>
+                        </h1>
+                        <Row className="mt-5">
+                            <Col xs={12} md={3} className="my-2">
+                            <h4 className='text-orange-fenix text-center mb-3'>Resumen de compra</h4>
                                 <DetailShoopingCart price={props.price} setTotalPrice={props.setTotalPrice} carProduct={props.carProduct} setCarProduct={props.setCarProduct} functionPrice={props.functionPrice} setFunctionPrice={props.setFunctionPrice} kntcat={props.kntcat} setKntcat={props.setKntcat} />
                             </Col>
-                            <Col style={{ backgroundColor: '#ffffff' }} className="my-2" >
-                                <Cards
-                                    cvc={State.cvc}
-                                    expiry={State.expiry}
-                                    focused={State.focus}
-                                    name={State.name}
-                                    number={State.number}
-                                />
-                            </Col>
-                            <Col style={{ backgroundColor: '#ffffff' }} className="my-2">
-                                <Row className="my-4">
-                                    <Form>
-                                        <Row>
-                                            <Col>
-                                                <Form.Group controlId="cardnumber">
-                                                    <Form.Control
-                                                        type="tel"
-                                                        name="number"
-                                                        placeholder="Número de Tarjeta"
-                                                        onChange={onchangecreditcard}
-                                                        onFocus={handleInputFocusFront}
-                                                        maxLength="16"
-                                                        required />
-                                                    <Form.Text className="text-muted">
-                                                        Número de Tarjeta
-                                                    </Form.Text>
-                                                </Form.Group>
-                                            </Col>
-                                            <Col>
-                                                <Form.Group controlId="nameperson">
-                                                    <Form.Control
-                                                        type="text"
-                                                        name="name"
-                                                        placeholder="Nombre"
-                                                        onChange={onchangecreditcard}
-                                                        required
-                                                    />
-                                                    <Form.Text className="text-muted">
-                                                        Nombre
-                                                    </Form.Text>
-                                                </Form.Group>
-                                            </Col>
-                                        </Row>
+                            <Col xs={12} md={9} className="my-2" >
+                                <Row>
+                                    <Col xs={12} md={6}>
+                                        <Cards
+                                            cvc={State.cvc}
+                                            expiry={State.expiry}
+                                            focused={State.focus}
+                                            name={State.name}
+                                            number={State.number}
+                                        />
+                                    </Col>
+                                    <Col xs={12} md={6} className='mt-2'>
+                                        <Form onSubmit={e=> {e.preventDefault();}}>
+                                            <Row>
+                                                <Col xs={12}>
+                                                    <Form.Group controlId="cardnumber">
+                                                        <Form.Control
+                                                            type="tel"
+                                                            name="number"
+                                                            placeholder="Número de Tarjeta"
+                                                            onChange={onchangecreditcard}
+                                                            onFocus={handleInputFocusFront}
+                                                            maxLength="16"
+                                                            minLength="16"
+                                                            pattern='[0-9]{16}'
+                                                            onKeyPress={onKeyPressValidateNumbers}
+                                                            required />
+                                                        <Form.Text className="text-muted">
+                                                            Número de Tarjeta
+                                                        </Form.Text>
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col xs={12}>
+                                                    <Form.Group controlId="nameperson">
+                                                        <Form.Control
+                                                            type="text"
+                                                            name="name"
+                                                            placeholder="Nombre"
+                                                            onChange={onchangecreditcard}
+                                                            required
+                                                            onKeyPress={onKeyPressLetters}
+                                                            pattern='[a-zA-Z áéíóúÁÉÍÓÚÑñ]{3,30}'
+                                                            minLength='3'
+                                                            maxLength='30'
+                                                        />
+                                                        <Form.Text className="text-muted">
+                                                            Nombre
+                                                        </Form.Text>
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col xs={12} md={6}>
+                                                    <Form.Group controlId="expiry">
+                                                        <Form.Control
+                                                            type="tel"
+                                                            name="expiry"
+                                                            placeholder="Vencimiento"
+                                                            onChange={onchangecreditcard}
+                                                            maxLength="5"
+                                                            minLength="5"
+                                                            pattern='\b(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})\b'
+                                                            required
+                                                            onKeyPress={onKeyPressValidateDate}
+                                                        />
+                                                        <Form.Text className="text-muted">
+                                                            Vencimiento
+                                                        </Form.Text>
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col xs={12} md={6}>
+                                                    <Form.Group controlId="cvc">
+                                                        <Form.Control
+                                                            type="tel"
+                                                            name="cvc"
+                                                            placeholder="CVC"
+                                                            onChange={onchangecreditcard}
+                                                            onFocus={handleInputFocus}
+                                                            maxLength="3"
+                                                            minLength='3'
+                                                            onKeyPress={onKeyPressValidateNumbers}
+                                                            required
+                                                        />
+                                                        <Form.Text className="text-muted">
+                                                            Código de Seguridad
+                                                        </Form.Text>
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
 
-                                        <Form.Group controlId="expiry">
-                                            <Form.Control
-                                                type="tel"
-                                                name="expiry"
-                                                placeholder="Vencimiento"
-                                                onChange={onchangecreditcard}
-                                                maxLength="4"
-                                                required
-                                            />
-                                            <Form.Text className="text-muted">
-                                                Vencimiento
-                                            </Form.Text>
-                                        </Form.Group>
 
-                                        <Form.Group controlId="cvc">
-                                            <Form.Control
-                                                type="tel"
-                                                name="cvc"
-                                                placeholder="CVC"
-                                                onChange={onchangecreditcard}
-                                                onFocus={handleInputFocus}
-                                                maxLength="3"
-                                                required
-                                            />
-                                            <Form.Text className="text-muted">
-                                                Código de Seguridad
-                                            </Form.Text>
-                                        </Form.Group>
 
-                                    </Form>
+                                            <Row >
+                                                {props.carProduct.length > 0 && paymentId.length === 0 ?
+                                                    <Button variant="primary" className="my-1" type='submit' block
+                                                        onClick={() => { savePurchase() }}
+                                                    >Validar Datos de la Tarjeta</Button> : ""}
+
+                                                {finishPurchase === true ?
+                                                    <Link className="btn btn-primary my-1" onClick={() => { cleanCarProduct() }} to='/finishpurchase' >Finalizar Compra </Link>
+                                                    : ""
+                                                }
+                                            </Row>
+                                        </Form>
+                                    </Col>
                                 </Row>
 
-                                <Row >
-                                    {props.carProduct.length > 0 && paymentId.length === 0 ?
-                                        <Button variant="primary" className="my-1"
-                                            onClick={() => { savePurchase() }}
-                                        >Validar Datos de la Tarjeta</Button> : ""}
-
-
-
-                                    {finishPurchase === true ?
-                                        <Link className="btn btn-primary my-1" onClick={() => { cleanCarProduct() }} to='/finishpurchase' >Finalizar Compra </Link>
-                                        : ""
-                                    }
-                                </Row>
                             </Col>
+
+
                         </Row>
                     </div>
                     :

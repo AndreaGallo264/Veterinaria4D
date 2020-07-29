@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { Container, Form, Row, Col, Image, Pagination, Button } from 'react-bootstrap'
-import CardProducts from './CardProducts'
+import React, { useState, useEffect } from 'react';
+import { Container, Form, Row, Col, Image, Pagination, Button } from 'react-bootstrap';
+import CardProducts from './CardProducts';
 import EditProducts from './EditProducts';
-import Search from '../Search/Search'
-
-import SliderProduct from '../../../cli_components/ecommerce/Products/SliderProducts'
-import LogoProduct from '../../../resources/products.png'
+import Search from '../Search/Search';
+import LogoProduct from '../../../resources/products.png';
 
 export default function ListProductos(props) {
 
@@ -135,39 +133,18 @@ export default function ListProductos(props) {
 
 
     return (
-        <Container >
-            <Row>
-                <Container fluid>
-                    <hr style={{
-                        color: '#000000',
-                        backgroundColor: '#000000',
-                        height: .1,
-                        borderColor: '#000000'
-                    }} ></hr>
-                    <Row>
-                        <Col>
-                            <Image width="500px" fluid src={LogoProduct} />
-                        </Col>
-                    </Row>
-                    <hr style={{
-                        color: '#000000',
-                        backgroundColor: '#000000',
-                        height: .1,
-                        borderColor: '#000000'
-                    }} ></hr>
-                </Container>
+        <Container className='bg-white my-3 shadow' >
+            <Row className='py-3 mb-4 border-bottom border-warning'>
+                <Image width="80%" src={LogoProduct} className='mx-auto d-block'/>
             </Row>
-            {
-                props.isAdmin.isAdmin ? "" : <SliderProduct products={products} />
-            }
             <Row>
-                <Col  className="mt-2" >
+                <Col className="mt-2" >
                     <Form.Group controlId="ListProducts">
                         <Col>
                             <Form.Control as="select" onChange={e => selectedCategory(e.target.value)} >
                                 <option key="all" value="all" >
                                     Seleccione una Categoria...
-                            </option>
+                                </option>
                                 {
                                     category.length > 0 ?
                                         category.map(category => {

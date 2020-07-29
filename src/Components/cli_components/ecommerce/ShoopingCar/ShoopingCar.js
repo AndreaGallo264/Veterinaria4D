@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
-import { Container, Row, Col, Card, ListGroup, Button, Image } from 'react-bootstrap'
+import React, { useEffect } from 'react';
+import { Container, Row, Col, Button, Image } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import LogoOps from '../../../resources/emptyCart.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSadTear, faBan, faStore } from '@fortawesome/free-solid-svg-icons';
+import { faSadTear, faBan, faStore, faTimes, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import './shoppingCart.css';
 
 
@@ -44,12 +44,12 @@ export default function ShoopingCar(props) {
                                 <Image width='50%' src={product.urlimg} />
                                 <div className='py-2 font-weight-bold text-align-left shopping-details text-dark'>
                                     <h3>{product.title}</h3>
-                                    <p>  Precio  : $ {product.price}</p>
-                                    <p>  Cantidad :{product.knt}</p>
-                                    <p>  Detalle : {product.details}</p>
+                                    <p>  Precio: $ {product.price}</p>
+                                    <p>  Cantidad:{product.knt}</p>
+                                    <p>  Detalle: {product.details}</p>
                                 </div>
                                 <Button variant="danger" size='lg' block onClick={() => deleteitem(product.title)}>
-                                    <FontAwesomeIcon icon={faBan} className='mr-2' />    Eliminar
+                                    <FontAwesomeIcon icon={faBan} className='mr-2' /> Eliminar
                             </Button>
                             </Row>
                         ))}
@@ -81,9 +81,12 @@ export default function ShoopingCar(props) {
                         {
                             props.isPurchase ? "" :
                                 <Row className="justify-content-center mt-4">
-                                    <Button variant="danger" onClick={() => cancelPurchase()} className="mr-2">Cancelar</Button>
+                                    <Button variant="danger" onClick={() => cancelPurchase()} className="mr-2">
+                                        <FontAwesomeIcon icon={faTimes} className='mr-2' />    Cancelar
+                                    </Button>
                                     {
-                                        props.user.usuario ? <Link to="/purchase" className="btn btn-primary" >Continuar y Pagar</Link> :
+                                        props.user.usuario ? <Link to="/purchase" className="btn btn-success">
+                                            <FontAwesomeIcon icon={faArrowRight} className='mr-2' /> Continuar</Link> :
                                             <Link to="/Login" className="btn btn-primary" > Iniciar Sesión para Continuar </Link>
                                     }
                                 </Row>
