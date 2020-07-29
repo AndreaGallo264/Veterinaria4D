@@ -81,11 +81,10 @@ export default function AD_PurchaseList(props) {
 
     return (
 
-        <Container fluid className='bg-white'>
-            <Row>
-                <Col xs={2} ></Col>
-                <Col xs={10}>
-                    <h1>Listado de Compras</h1>
+        <Container className='bg-white p-2 m-2 border shadow'>
+            <Row className="d-flex justify-content-center">
+                <Col xs={11} className="m-2">
+                    <h1 className="AdmTitle">Listado de Compras</h1>
                     <Row className="mt-2" style={{
                         backgroundColor: 'orange'
                     }}>
@@ -99,11 +98,11 @@ export default function AD_PurchaseList(props) {
                         purchases.length > 0 ?
                             purchases.map(purchase => (
 
-                                <Row className="mt-2">
+                                <Row className="mt-2 d-flex align-items-center">
                                     <Col>{new Date(purchase.dateship).toISOString().slice(0, 10)} </Col>
-                                    <Col>{purchase.totalprice}</Col>
+                                    <Col className="ml-3">${purchase.totalprice}</Col>
                                     {props.userState.isAdmin ?
-                                        <Col>{purchase.users.length > 0 ? purchase.users[0].nombre : "SIN USUARIO"} </Col> :
+                                    <Col>{purchase.users.length > 0 ? purchase.users[0].nombre : "SIN USUARIO"} </Col> :
                                         ""}
                                     <Col><PurchaseDetail purchase={purchase} /> </Col>
                                 </Row>
@@ -115,9 +114,7 @@ export default function AD_PurchaseList(props) {
                             <Pagination >{items}</Pagination>
                         </Pagination>
                     </Row>
-
                 </Col>
-                <Col xs={1}></Col>
             </Row>
         </Container>
     )

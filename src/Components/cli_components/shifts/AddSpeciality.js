@@ -50,13 +50,9 @@ export default function AddSpeciality(props) {
 
 
     return (
-        <Container>
-            <Row className="mt-5" fluid>
-                <Col >
-                    <Card bg="light">
-                        <Card.Header>Registro de Especialidad</Card.Header>
-                        <Card.Body>
-                            <Form onSubmit={onSubmitSpecie}>
+        <Container fluid className='bg-white p-2 m-2 border shadow'>
+             <h1 className="AdmTitle"> Registro de Especialidad </h1>
+             <Form onSubmit={onSubmitSpecie}>
                                 <Form.Group controlId="name">
                                     <Form.Label>
                                         Nombre de Especie
@@ -77,10 +73,6 @@ export default function AddSpeciality(props) {
                                     type="submit">Registrar Especialidad
                             </Button>
                             </Form>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
         </Container>
 
     )

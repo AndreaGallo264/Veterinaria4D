@@ -176,9 +176,9 @@ export default function AddShifts(props) {
 
     return (
         <Container>
-            <Row className="mt-5">
-                <Col xs={12} sm={8} md={6} className="mx-auto">
-                    <Card bg="light">
+            <Row>
+                <Col xs={12} className="mx-auto">
+                    <Card bg="light" className="shadow">
                         <Card.Header>Registro de Turno</Card.Header>
                         <Card.Body>
                             <Form onSubmit={onSubmitShifts}>

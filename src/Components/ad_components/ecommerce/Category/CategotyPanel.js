@@ -11,10 +11,10 @@ export default function CategoryPanel(props){
     const  [selectCategory , setSelectCategory] = useState([]) ; 
     return (
 
-        <Container className='bg-white'>
-            <Row>
-                <Col xs={3}><AddCategory  userState={props.userState}  loadCategory ={loadCategory} setLoadCategory={setLoadCategory} selectCategory={selectCategory} setSelectCategory={setSelectCategory}   /></Col>
-                <Col xs={9}><ListCategory userState={props.userState} loadCategory ={loadCategory} setLoadCategory={setLoadCategory} selectCategory={selectCategory} setSelectCategory={setSelectCategory}  /></Col>
+        <Container>
+            <Row className="d-flex justify-content-center">
+                <Col xs={8} sm={6}><AddCategory  userState={props.userState}  loadCategory ={loadCategory} setLoadCategory={setLoadCategory} selectCategory={selectCategory} setSelectCategory={setSelectCategory}   /></Col>
+                <Col xs={8} sm={6}><ListCategory userState={props.userState} loadCategory ={loadCategory} setLoadCategory={setLoadCategory} selectCategory={selectCategory} setSelectCategory={setSelectCategory}  /></Col>
             </Row>
         </Container>
     )

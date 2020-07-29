@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ListGroup, Container, Button, Row, Col } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 
 
 export default function ListCategory(props) {
@@ -72,16 +74,16 @@ export default function ListCategory(props) {
 
     return (
 
-        <Container  fluid className='bg-white'>
-            <h1>Listado de Categorias</h1>
+        <Container className='bg-white p-2 m-2 border shadow'>
+            <h1 className="AdmTitle">Listado de Categorias</h1>
             <ListGroup className="list-group-flush">
 
                 {
                     listCategory.map(function (item, i) {
 
                         return (
-                            <Row fluid>
-                                <Col >
+                            <Row className="d-flex align-items-center justify-content-center">
+                                <Col xs={9}>
                                     <ListGroup.Item
                                         as="button"
                                         className="list-group-item-action"
@@ -90,9 +92,9 @@ export default function ListCategory(props) {
                                     >{item.name}
                                     </ListGroup.Item>
                                 </Col>
-                                <Col xs={1}>
-                                    <Button variant="danger" onClick={() => deleteCateogry(item)}>X</Button>
-                                </Col>
+                                    <Button variant="danger" onClick={() => deleteCateogry(item)}>
+                                    <FontAwesomeIcon icon={faTrashAlt}/>
+                                    </Button>
                             </Row>)
 
                     })

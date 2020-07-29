@@ -1,5 +1,6 @@
 import React , {useState} from 'react'
-import {Container ,Row , Col} from 'react-bootstrap'
+import {Container ,Row , Col, Image} from 'react-bootstrap'
+import pikuImg from '../../resources/piku.jpeg';
 
 //Components 
 import ShiftsList from './ShiftsList'
@@ -9,10 +10,15 @@ export default function ShiftsPanel(props){
 
     const [loadshifts , setLoadShifs] = useState([]) ; 
     return (
-        <Container className='bg-white'>
+        <Container>
+            <Row className="d-flex justify-content-center align-items-center">
+                { props.userState.isAdmin? "" : <Col xs={12} md={6} className="mt-3">  <AddShifts  loadshifts={loadshifts} setLoadShifs={setLoadShifs} userState={props.userState}  /> </Col>}
+                <Col xs={6} md={6} className='mt-3'>
+                <Image fluid width='80%' src={pikuImg} className="rounded shadow" />
+                </Col>
+            </Row>
             <Row>
-                { props.userState.isAdmin? "" : <Col>  <AddShifts  loadshifts={loadshifts} setLoadShifs={setLoadShifs} userState={props.userState}  /> </Col>}
-                <Col>  <ShiftsList loadshifts={loadshifts} setLoadShifs={setLoadShifs} userState={props.userState} /> </Col>
+                <Col xs={12}>  <ShiftsList loadshifts={loadshifts} setLoadShifs={setLoadShifs} userState={props.userState} /> </Col>
             </Row>
         </Container>
       
