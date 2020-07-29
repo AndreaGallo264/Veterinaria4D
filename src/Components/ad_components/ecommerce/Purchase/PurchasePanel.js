@@ -6,8 +6,8 @@ import ManagePurchase from './PurchaseList'
 export default function PurchasePanel(props){
     return (
         <Container>
-            <Row>
-                <Col xs={9}><ManagePurchase userState={props.userState}  /></Col>
+            <Row className="d-flex justify-content-center">
+                <Col xs={12}><ManagePurchase userState={props.userState}  /></Col>
             </Row>
         </Container>
 
