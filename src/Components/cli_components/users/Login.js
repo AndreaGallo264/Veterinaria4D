@@ -76,7 +76,7 @@ export default function Login({ autenticado, setAutenticado }) {
                         Usuario Logueado
                 </Alert>
                     :
-                    <Card className='my-2 text-center px-5'>
+                    <Card className='my-2 text-center px-3'>
                         {loginerr ? <Alert variant='danger' className='mt-2'> Email o contraseña incorrecto/s </Alert> : ""}
                         <Card.Body>
 
