@@ -44,7 +44,7 @@ export default function CardProducts(props) {
                     <Col xs={12} md={3}>
                     <Card key={products._id} border="dark" className="mt-1 mb-2 bg-white h-100">
                         <Card.Body className='text-center text-orange-fenix'>
-                            <Row className='mt-2'>
+                            <Row className='mt-2 d-flex justify-content-center'>
                                 <h5>{products.title}</h5>
                             </Row>
                             <Row>
