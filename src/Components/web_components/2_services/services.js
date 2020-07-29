@@ -3,7 +3,7 @@ import { Row, Col, Image } from 'react-bootstrap';
 import Logo from '../../resources/logo.png';
 import tobyImg from '../../resources/toby.png';
 import sansonImg from '../../resources/sanson.jpeg';
-import oliverImg from '../../resources/oliver.jpeg';
+import foxImg from '../../resources/fox.jpg';
 import chanchoImg from '../../resources/chancho.jpeg';
 import pierreImg from '../../resources/pierre.jpeg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,7 +24,7 @@ export default function services() {
                                 <Image fluid width='100%' src={sansonImg} roundedCircle />
                             </Col>
                             <Col xs={12} md={3} className='cols-margin-top'>
-                                <Image fluid width='100%' src={oliverImg} roundedCircle />
+                                <Image fluid width='100%' src={foxImg} roundedCircle />
                             </Col>
                             <Col xs={12} md={3} className='cols-margin-top'>
                                 <Image fluid width='100%' src={chanchoImg} roundedCircle />
