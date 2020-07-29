@@ -119,14 +119,14 @@ export default function ShiftsList(props) {
     return (
         <Container className='bg-white p-2 m-2 border shadow'>
             <h3 className="AdmTitle">Mis Próximos Turnos</h3>
-            <Row className="row-cols-1 row-cols-sm-3 row-cols-md-2 ">
+            <Row className="row-cols-1 row-cols-sm-3 row-cols-md-4 d-flex justify-content-center">
 
                 {
                     listShips.length > 0 ?
                         listShips.map(listShips => (
 
                             listShips.state === false ?
-                                <Card bg={listShips.state === false ? "success" : "danger"} border="dark" style={{ width: "33rem" }}> <Card.Body>
+                                <Card bg={listShips.state === false ? "light" : "danger"} border="dark" className="m-1"> <Card.Body>
 
                                     <Card.Title>Turno {new Date(listShips.dateshifts).toISOString().slice(0, 10)}</Card.Title>
 
@@ -153,7 +153,7 @@ export default function ShiftsList(props) {
                                         Estado : {listShips.state === false ? "CONFIRMADO" : "CANCELADO/CONSULTAR"}
                                     </Row>
                                 </Card.Body>
-                                    <Card.Footer>
+                                    <Card.Footer className="d-flex justify-content-center">
 
                                         {listShips.state === false ? <Button variant="warning" onClick={() => cancshift(listShips)}>Cancelar Turno</Button> : ""}
 
