@@ -11,9 +11,10 @@ import './footer.css';
 export default function footer() {
     return (
         <footer>
-        <Container fluid className='bg-menu px-5 py-1'>
-            <Row >
-                <Col xs={12} md={9} className="mt-3 d-flex justify-content-start display-row-phone">
+            <Container fluid className='bg-menu px-3 py-3 fixed-bottom'>
+                <Row className="d-flex align-items-center">
+                    {/* Col inicial: Google maps */}
+                    <Col xs={2}  className="d-flex justify-content-start display-row-phone">
                         <OverlayTrigger
                             placement={"top"}
                             overlay={
@@ -21,31 +22,31 @@ export default function footer() {
                                     Encontranos en el mapa
                                 </Tooltip>
                             }
-                            >
-                            <div>
+                        >
                             <a target='_blank' href='https://www.google.com.ar/maps/place/Lola+Polola+Pension+Canina+y+Veterinaria/@-26.8209314,-65.1691573,17z/data=!3m1!4b1!4m5!3m4!1s0x94225c0f0b68cc9b:0x7485750c562fade0!8m2!3d-26.8209314!4d-65.1669686'>
                                 <Image fluid src={ImgMaps} rounded />
                             </a>
-                    </div>
-                            </OverlayTrigger>
-                        <div className='ml-5'>
-                            <h5 className='mt-3'><a href="https://api.whatsapp.com/send?phone=+543815699049" target='_blank'><Image src={WhatsappSm} className='mr-2'></Image></a>155699049</h5>
-                            <h5>Lun a Vie de 08:00 hs. a 17:00 hs.</h5>
-                        </div>
-                </Col>
 
-                    <Col xs={12} md={3} className="mt-3 footer-row">
-                        <Row className='d-flex justify-content-center mb-2 '>
-                            <h5 className="text-dark">Buscanos en Nuestras Redes Sociales</h5>
-                        </Row>
-                        <Row className='d-flex justify-content-around'>
+                        </OverlayTrigger>
+                    </Col>
+                    {/* Col central:WPP */}
+                    <Col xs={6} md={6} >
+                        <h4 className='d-flex justify-content-center'><a href="https://api.whatsapp.com/send?phone=+543815699049" target='_blank'><Image src={WhatsappSm} className='mr-2'></Image></a>155699049</h4>
+                        <h5 className='d-none d-lg-block text-center'>Lun a Vie de 08:00 hs. a 17:00 hs.</h5>
+                    </Col>
+                    {/* Col final: Redes Sociales */}        
+                    <Col xs={4} md={3} className="d-flex justify-content-end">
+                        <Col className='d-flex justify-content-end'>
+                            <h5 className="text-dark d-none d-lg-block">Redes Sociales</h5>
+                        </Col>
+                        <Col className='d-flex justify-content-around'>
                             <a href='#'><Image src={Facebook}></Image></a>
                             <a href='#'><Image src={Instagram}></Image></a>
                             <a href="https://api.whatsapp.com/send?phone=+543815699049" target='_blank'><Image src={Whatsapp}></Image></a>
-                        </Row>
+                        </Col>
                     </Col>
-            </Row>
-        </Container>
+                </Row>
+            </Container>
         </footer>
     )
 }
