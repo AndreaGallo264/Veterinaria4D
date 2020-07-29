@@ -15,7 +15,7 @@ export default function PurchaseDetail(props) {
                 <Image fluid width="40px" src={Purchase} />
             </Button>
             {
-                <Modal show={show} onHide={handleClose}>
+                <Modal centered show={show} onHide={handleClose}>
 
                     <Modal.Header closeButton>
                         <Modal.Title>Fecha de Compra : {new Date(props.purchase.dateship).toISOString().slice(0, 10)}</Modal.Title>

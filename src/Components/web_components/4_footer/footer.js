@@ -11,7 +11,7 @@ import './footer.css';
 export default function footer() {
     return (
         <footer>
-            <Container fluid className='bg-menu px-3 py-3 fixed-bottom'>
+            <Container fluid className='bg-menu px-3 py-3'>
                 <Row className="d-flex align-items-center">
                     {/* Col inicial: Google maps */}
                     <Col xs={2}  className="d-flex justify-content-start display-row-phone">
@@ -30,12 +30,12 @@ export default function footer() {
                         </OverlayTrigger>
                     </Col>
                     {/* Col central:WPP */}
-                    <Col xs={6} md={6} >
+                    <Col xs={5} md={6} >
                         <h4 className='d-flex justify-content-center'><a href="https://api.whatsapp.com/send?phone=+543815699049" target='_blank'><Image src={WhatsappSm} className='mr-2'></Image></a>155699049</h4>
                         <h5 className='d-none d-lg-block text-center'>Lun a Vie de 08:00 hs. a 17:00 hs.</h5>
                     </Col>
                     {/* Col final: Redes Sociales */}        
-                    <Col xs={4} md={3} className="d-flex justify-content-end">
+                    <Col xs={4} md={4} className="fluid d-flex justify-content-end">
                         <Col className='d-flex justify-content-end'>
                             <h5 className="text-dark d-none d-lg-block">Redes Sociales</h5>
                         </Col>
