@@ -71,6 +71,7 @@ function App() {
     <div className="App">
 
       <Router>
+            <PrincipalMenu  {...commonprops} />
         <Switch>
 
         <Route strict path="/chekout">
@@ -78,53 +79,41 @@ function App() {
         </Route>
 
         <Route strict path="/help">
-            <PrincipalMenu  {...commonprops} />
             <Help />
         </Route>
 
         <Route strict path="/shippingdetail">
-            <PrincipalMenu  {...commonprops} />
             <ShippingDetail userState={userState} Shippingdetail={Shippingdetail} setShippingDetail={setShippingDetail} />
         </Route>
 
         <Route strict path="/listusr">
-            <PrincipalMenu {...commonprops} />
             <ListUsr userState={userState} />
         </Route>
         <Route strict path="/finishpurchase">
-            <PrincipalMenu {...commonprops} />
             <FinishPurchase />
         </Route>
         <Route strict path="/purchasepanel">
-            <PrincipalMenu {...commonprops} />
             <PurchasePanel userState={userState} kntcat={kntcat} setKntcat={setKntcat}  />
         </Route>
         <Route strict path="/categorypanel">
-            <PrincipalMenu {...commonprops} />
             <CategoryPanel userState={userState} />
           </Route>
         <Route strict path="/addspecie">
-            <PrincipalMenu {...commonprops} />
             <SpeciePanel   userState={userState} />
           </Route>
         <Route strict path="/addspeciality">
-            <PrincipalMenu {...commonprops} />
             <SpecialityPanel userState={userState} />
           </Route>
           <Route strict path="/shiftspanel">
-            <PrincipalMenu {...commonprops} />
             <ShiftsPanel userState={userState} />
           </Route>
           <Route strict path="/purchase">
-            <PrincipalMenu {...commonprops} />
             <Purchase userState={userState} carProduct={carrito} setCarProduct={setCarrito} price={price} setTotalPrice={setTotalPrice} functionPrice={functionPrice} setFunctionPrice={setFunctionPrice} kntcat={kntcat} setKntcat={setKntcat} Shippingdetail={Shippingdetail} setShippingDetail={setShippingDetail} />
           </Route>
           <Route strict path="/MyCart">
-            <PrincipalMenu {...commonprops} />
             <MyCart carProduct={carrito} setCarProduct={setCarrito} user={userState} price={price} setTotalPrice={setTotalPrice} kntcat={kntcat} setKntcat={setKntcat} realstock={realstock} setRealStock={setRealStock} />
           </Route>
           <Route strict path="/listproduct">
-            <PrincipalMenu {...commonprops} />
             <ListProduct   userState={userState} carProduct={carrito} setCarProduct={setCarrito} isAdmin={userState} isAction={isAction} setisAction={setisAction} kntcat={kntcat} setKntcat={setKntcat} price={price} setTotalPrice={setTotalPrice} functionPrice={functionPrice} setFunctionPrice={setFunctionPrice} realstock={realstock} setRealStock={setRealStock} />
           </Route>
           <Route strict path="/editusr">
@@ -132,19 +121,15 @@ function App() {
             <EditUsr userState={userState} datusr={datusr} setDatUsr={setdatusr} />
         </Route>
           <Route strict path="/register">
-            <PrincipalMenu {...commonprops} />
             <Register autenticado={autenticado} setAutenticado={setAutenticado} userState={userState}  />
           </Route>
           <Route strict path="/login">
-            <PrincipalMenu {...commonprops} />
             <Login autenticado={autenticado} setAutenticado={setAutenticado} />
           </Route>
           <Route strict path="/home">
-            <PrincipalMenu {...commonprops} />
             <Main />
           </Route>
           <Route strict path="/">
-            <PrincipalMenu {...commonprops} />
             <Main />
           </Route>
         </Switch>
