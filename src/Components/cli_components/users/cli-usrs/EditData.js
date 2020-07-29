@@ -151,7 +151,7 @@ export default function EditData(props) {
                 edit === true ? <Alert variant='success'> Datos Modificados</Alert> :
                     <Row className="my-3">
                         <Col xs={12} sm={8} md={6} className="mx-auto">
-                            <Card>
+                            <Card className="shadow">
                                 <Card.Header className='bg-warning text-center font-weight-bold text-uppercase'>Mis Datos</Card.Header>
                                 <Card.Body>
                                     <Form onSubmit={onSubmitRegistro}>
