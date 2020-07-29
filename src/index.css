@@ -37,3 +37,13 @@ code {
 a.text-orange-fenix:hover{
   color: orangered;
 }
+
+.pagination .page-item.active .page-link{
+    background-color: #ffbb00;
+    border-color: #ffbb00;
+}
+
+.pagination .page-item .page-link:hover{
+  background-color: rgb(255, 245, 108);
+  border-color: rgb(255, 245, 108);
+}

@@ -54,7 +54,7 @@ export default function services() {
                                 <Image fluid width='100%' src={tobyImg} rounded />
                             </Col>
                         </Row>
-                        <Row className="mt-3 mb-2 pb-2 border-bottom border-warning">
+                        <Row className="m-2 pb-2 border-bottom border-warning">
                             <Col xs={3} md={1} className='d-flex align-items-center'>
                                 <Image fluid src={Logo} width='100%' />
                             </Col>
@@ -64,7 +64,7 @@ export default function services() {
                                 </h5>
                             </Col>
                         </Row>
-                        <Row className='mb-2 pb-2 border-bottom border-warning'>
+                        <Row className='m-2 pb-2 border-bottom border-warning'>
                             <Col xs={3} md={1} className='d-flex align-items-center'>
                                 <Image fluid src={Logo} width='100%' />
                             </Col>
@@ -74,7 +74,7 @@ export default function services() {
                                 </h5>
                             </Col>
                         </Row>
-                        <Row className='mb-2 pb-2 border-bottom border-warning'>
+                        <Row className='m-2 pb-2 border-bottom border-warning'>
                             <Col xs={3} md={1} className='d-flex align-items-center'>
                                 <Image fluid src={Logo} width='100%' />
                             </Col>
@@ -84,7 +84,7 @@ export default function services() {
                                 </h5>
                             </Col>
                         </Row>
-                        <Row className='mb-4'>
+                        <Row className='mx-2 pb-2 mb-4'>
                             <Col xs={3} md={1} className='d-flex align-items-center'>
                                 <Image fluid src={Logo} width='100%' />
                             </Col>
@@ -94,11 +94,8 @@ export default function services() {
                                 </h5>
                             </Col>
                         </Row>
-
                     </Col>
-
                 </Row>
-
         </section>
 
 
