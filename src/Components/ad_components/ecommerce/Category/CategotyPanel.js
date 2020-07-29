@@ -12,9 +12,9 @@ export default function CategoryPanel(props){
     return (
 
         <Container>
-            <Row>
-                <Col xs={8}sm={6}><AddCategory  userState={props.userState}  loadCategory ={loadCategory} setLoadCategory={setLoadCategory} selectCategory={selectCategory} setSelectCategory={setSelectCategory}   /></Col>
-                <Col xs={8}sm={6}><ListCategory userState={props.userState} loadCategory ={loadCategory} setLoadCategory={setLoadCategory} selectCategory={selectCategory} setSelectCategory={setSelectCategory}  /></Col>
+            <Row className="d-flex justify-content-center">
+                <Col xs={8} sm={6}><AddCategory  userState={props.userState}  loadCategory ={loadCategory} setLoadCategory={setLoadCategory} selectCategory={selectCategory} setSelectCategory={setSelectCategory}   /></Col>
+                <Col xs={8} sm={6}><ListCategory userState={props.userState} loadCategory ={loadCategory} setLoadCategory={setLoadCategory} selectCategory={selectCategory} setSelectCategory={setSelectCategory}  /></Col>
             </Row>
         </Container>
     )

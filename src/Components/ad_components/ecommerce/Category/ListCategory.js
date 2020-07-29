@@ -74,7 +74,7 @@ export default function ListCategory(props) {
 
     return (
 
-        <Container className='bg-white p-2 m-2 border'>
+        <Container className='bg-white p-2 m-2 border shadow'>
             <h1 className="AdmTitle">Listado de Categorias</h1>
             <ListGroup className="list-group-flush">
 

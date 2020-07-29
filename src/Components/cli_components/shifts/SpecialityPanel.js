@@ -7,10 +7,10 @@ import ListSpeciality from './ListSpeciality'
 export default function SpecialityPanel(props){
     const  [loadSpeciality , setLoadSpeciality] = useState([]) ; 
     return (
-        <Container className='bg-white'>
-            <Row>
-                <Col xs={3}><AddSpeciality  userState={props.userState} loadSpeciality={loadSpeciality} setLoadSpeciality={setLoadSpeciality}  /></Col>
-                <Col xs={9}><ListSpeciality userState={props.userState} loadSpeciality={loadSpeciality} setLoadSpeciality={setLoadSpeciality}  /></Col>
+        <Container>
+            <Row className="d-flex justify-content-center">
+                <Col xs={8} sm={6}><AddSpeciality  userState={props.userState} loadSpeciality={loadSpeciality} setLoadSpeciality={setLoadSpeciality}  /></Col>
+                <Col xs={8} sm={6}><ListSpeciality userState={props.userState} loadSpeciality={loadSpeciality} setLoadSpeciality={setLoadSpeciality}  /></Col>
             </Row>
         </Container>
     )

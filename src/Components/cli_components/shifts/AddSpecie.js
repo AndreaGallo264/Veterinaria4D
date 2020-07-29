@@ -49,36 +49,33 @@ export default function AddSpecie(props) {
 
 
     return (
-        <Container fluid>
+        <Container fluid className='bg-white p-2 m-2 border shadow'>
+            <h1 className="AdmTitle"> Registro de Especie </h1>
             <Row className="mt-5">
-                <Col >
-                    <Card bg="light">
-                        <Card.Header>Registro de Especie</Card.Header>
-                        <Card.Body>
-                            <Form onSubmit={onSubmitSpecie}>
-                                <Form.Group controlId="name">
-                                    <Form.Label>
-                                        Nombre de Especie
+                <Col>
+                <Form onSubmit={onSubmitSpecie}>
+                    <Form.Group controlId="name">
+                        <Form.Label>
+                            Nombre de Especie
                                 </Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        name="name"
-                                        placeholder="Ingrese Nombre"
-                                        onChange={onChangeSpecie}
-                                        value={name}
-                                        required
+                        <Form.Control
+                            type="text"
+                            name="name"
+                            placeholder="Ingrese Nombre"
+                            onChange={onChangeSpecie}
+                            value={name}
+                            required
 
-                                    />
-                                </Form.Group>
-                                <Button
-                                    className="mr-3"
-                                    variant="primary"
-                                    type="submit">Registrar Especie
-                            </Button>
-                            </Form>
-                        </Card.Body>
-                    </Card>
+                        />
+                    </Form.Group>
+                    <Button
+                        className="mr-3"
+                        variant="primary"
+                        type="submit">Registrar Especie
+                    </Button>
+                    </Form>
                 </Col>
+                
             </Row>
         </Container>
 

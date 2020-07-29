@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { ListGroup, Container, Button, Row, Col, Image } from 'react-bootstrap'
 import LogoOps from '../../resources/logoopps.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 
 
 export default function ListSpecie(props) {
@@ -64,8 +66,8 @@ export default function ListSpecie(props) {
 
     return (
 
-        <Container fluid>
-            <h1>Listado de Especies</h1>
+        <Container className='bg-white p-2 m-2 border shadow'>
+            <h1 className="AdmTitle">Listado de Especies</h1>
             <ListGroup className="list-group-flush">
 
                 {
@@ -73,8 +75,8 @@ export default function ListSpecie(props) {
                         listSpecie.map(function (item, i) {
 
                             return (
-                                <Row fluid>
-                                    <Col >
+                                <Row className="d-flex align-items-center justify-content-center">
+                                    <Col xs={9}>
                                         <ListGroup.Item
                                             as="button"
                                             className="list-group-item-action"
@@ -82,9 +84,11 @@ export default function ListSpecie(props) {
                                         >{item.name}
                                         </ListGroup.Item>
                                     </Col>
-                                    <Col xs={1}>
-                                        <Button variant="danger" onClick={() => deletespecie(item)}>X</Button>
-                                    </Col>
+
+                                    <Button variant="danger" onClick={() => deletespecie(item)}>
+                                    <FontAwesomeIcon icon={faTrashAlt}/>
+                                    </Button>
+
                                 </Row>)
 
                         })

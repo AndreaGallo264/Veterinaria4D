@@ -31,8 +31,10 @@ code {
 
 .AdmTitle{
     text-shadow: 2px 2px #ffbb00;
+    margin-bottom: 30px;
   }
-  
+
 a.text-orange-fenix:hover{
   color: orangered;
+
 }

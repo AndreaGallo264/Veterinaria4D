@@ -93,7 +93,7 @@ export default function Category(props) {
     }
 
     return (
-        <Container  fluid className='bg-white p-2 m-2 border'>
+        <Container  fluid className='bg-white p-2 m-2 border shadow'>
             <h1 className="AdmTitle"> Nueva Categoria </h1>
             <Form onSubmit={onSubmitAddCategory} >
                 <Form.Group controlId="">
