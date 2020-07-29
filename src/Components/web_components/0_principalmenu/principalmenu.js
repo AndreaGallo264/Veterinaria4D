@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Logo from '../../resources/logo.png';
 import './principalMenu.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faBookReader ,faUserPlus, faSignOutAlt, faStore, faShoppingCart, faShoppingBag, faSignInAlt, faQuestionCircle, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faBookReader, faUserPlus, faSignOutAlt, faStore, faShoppingCart, faShoppingBag, faSignInAlt, faQuestionCircle, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
 import UserVisitor from '../../resources/createUserBlack.png';
 import UserClient from '../../resources/createUser.png';
@@ -42,11 +42,11 @@ export default function Principalmenu(props) {
             );
     }
 
-     useEffect(() => {
+    useEffect(() => {
         if (props.userState.autenticado === true) {
             getusrbyId();
         }
-    }, []); 
+    }, []);
 
     return (
 
@@ -76,31 +76,33 @@ export default function Principalmenu(props) {
 
                 </Nav>
 
-                {
-                    props.userState.isAdmin ?
-                        <Dropdown>
-                            <Dropdown.Toggle variant="warning" id="dropdown-basic">
-                                Administrador Ecommerce
-                            </Dropdown.Toggle>
 
-                            <Dropdown.Menu>
-                                <Link id="sale" className="nav-link" to="/listusr">Administracion Usuarios</Link>
-                                <Link id="sale" className="nav-link" to="/shiftspanel">Administracion Turnos</Link>
-                                <Link id="sale" className="nav-link" to="/categorypanel"> Administracion Categorias</Link>
-                                <Link id="sale" className="nav-link" to="/addSPecie"> Administracion Especies</Link>
-                                <Link id="sale" className="nav-link" to="/addSPeciality"> Administracion Especialidades</Link>
-                                <Link id="sale" className="nav-link" to="/purchasepanel"> Administracion Compras</Link>
-                            </Dropdown.Menu>
-                        </Dropdown>
-                        : ""}
 
-                <Navbar.Text className="mr-1 text-dark font-weight-bold"> 
-                <Image className = 'mr-2' src={!props.userState.usuario ? UserVisitor : UserClient} alt=''></Image>
+                <Navbar.Text className="mr-1 text-dark font-weight-bold">
+                    <Image className='mr-2' src={!props.userState.usuario ? UserVisitor : UserClient} alt=''></Image>
                 Bienvenido
                 {
                         props.userState.usuario ? " " + props.userState.usuario.nombre : " Visitante"
                     }
                 </Navbar.Text>
+
+                {
+                    props.userState.isAdmin ?
+                        <Dropdown>
+                            <Dropdown.Toggle variant="white" id="dropdown-basic">
+                                Administrar Ecommerce
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                <Link id="sale" className="nav-link" to="/listusr">Usuarios</Link>
+                                <Link id="sale" className="nav-link" to="/shiftspanel">Turnos</Link>
+                                <Link id="sale" className="nav-link" to="/categorypanel">Categorias</Link>
+                                <Link id="sale" className="nav-link" to="/addSPecie">Especies</Link>
+                                <Link id="sale" className="nav-link" to="/addSPeciality">Especialidades</Link>
+                                <Link id="sale" className="nav-link" to="/purchasepanel">Compras</Link>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                        : ""}
                 {
                     props.userState.usuario ? "" : <Link onClick={() => setExpanded(false)} id="sale" className="text-dark nav-link font-weight-bold" to="/login"><FontAwesomeIcon icon={faSignInAlt} className='mr-2' />Acceder</Link>
                 }
@@ -114,7 +116,7 @@ export default function Principalmenu(props) {
 
                 {
                     props.userState.usuario ? <Link onClick={() => setExpanded(false)} id="sale" className="text-dark nav-link font-weight-bold" to="/editusr">
-                            <FontAwesomeIcon icon={faBookReader} className='mr-2' />Mis Datos</Link> : ""
+                        <FontAwesomeIcon icon={faBookReader} className='mr-2' />Mis Datos</Link> : ""
                 }
                 <Link onClick={() => setExpanded(false)} id="sale" className="text-dark nav-link font-weight-bold" to="/help"><FontAwesomeIcon icon={faQuestionCircle} className='mr-2' />Ayuda</Link>
 
