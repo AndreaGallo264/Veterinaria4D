@@ -28,3 +28,7 @@ code {
   position: relative;
   padding-bottom: 7rem;
 }
+
+a.text-orange-fenix:hover{
+  color: orangered;
+}

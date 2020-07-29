@@ -1,8 +1,9 @@
-import React from 'react'
-import { Container, Form, Col } from 'react-bootstrap'
+import React from 'react';
+import { Container, Form, Col, Button } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
 export default function ShippingDetail(props) {
-
+    const history = useHistory();
     const { province, postalcode, dataadress } = props.Shippingdetail;
     const datalocation = [
         { id: 1, value: 'YerbaBuena' },
@@ -20,10 +21,25 @@ export default function ShippingDetail(props) {
         onchangeShipping(e);
     }
 
+    const sendForm = e => {
+        e.preventDefault();
+        props.setIsSelectingShipment(false);
+        props.setIsPaying(true);
+    }
+
+    const goBackToCart = () =>{
+        history.push('/MyCart');
+    }
+
+    const goToPay = () =>{
+        props.setIsSelectingShipment(false);
+        props.setIsPaying(true);
+    }
+
     return (
         <Container className='bg-white' fluid>
             <h1> Detalle de Envio  </h1>
-            <Form >
+            <Form onSubmit={sendForm}>
                 <Form.Group controlId="">
                     <Form.Label>Datos de Domicilio </Form.Label>
                     <Col>
@@ -88,8 +104,8 @@ export default function ShippingDetail(props) {
                         />
                     </Col>
                 </Form.Group>
-
-
+                <Button onClick={goBackToCart}>Volver al carrito</Button>
+                <Button onClick={goToPay}>Ir a pagar</Button>
             </Form>
         </Container>
 
