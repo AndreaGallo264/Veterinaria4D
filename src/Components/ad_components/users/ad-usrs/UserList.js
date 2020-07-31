@@ -54,7 +54,7 @@ export default function UserList(props) {
                     if (result.success) {
                         setIsAdmin(result);
                     } else {
-                        alert("Ocurrio un Error, reintente nuevamente");
+                        alert("Ocurrio un Error, reintente nuevamente: "+ result.msg);
                     }
                 },
                 (error) => {
