@@ -31,7 +31,7 @@ export default function EditProducts(props) {
         });
     };
 
-    const onChangeMemeImg = async e => {
+    const onChangeImg = async e => {
         if (e.target.files[0]) {
             if (e.target.files[0].size > 4194304) {
                 // 5242880 = 5MB
@@ -300,7 +300,7 @@ export default function EditProducts(props) {
                             <Form.File
                                 id="img"
                                 accept="image/*"
-                                onChange={onChangeMemeImg}
+                                onChange={onChangeImg}
                             />
                         </Form.Group>
                         <Button

@@ -52,7 +52,7 @@ export default function ListCategory(props) {
                         setDeleteCategory(result);
                         alert('Categoria Eliminada')
                     } else {
-                        //alert('Ocurrio un Inconveniente')
+                        alert('Ocurrio un Inconveniente : ' + result.msg)
                     }
                 },
                 (error) => {

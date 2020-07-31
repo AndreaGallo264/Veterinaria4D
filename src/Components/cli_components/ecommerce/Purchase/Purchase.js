@@ -140,7 +140,7 @@ export default function Purchase(props) {
             newproduc.user = props.userState.usuario._id;
             newproduc.payment = paymentId;
             newproduc.purchase = purchaseId;
-            newproduc.product = product._id;
+            newproduc.product = product.Id;
             newproduc.details = product.details;
             newproduc.title = product.title;
             newproduc.knt = product.knt;
@@ -162,7 +162,7 @@ export default function Purchase(props) {
 
     const cleanCarProduct = () => {
         props.setCarProduct([]);
-        props.setKntcat([1]);
+        props.setKntcat([0]);
         history.push('/finishpurchase');
         alertify.success('Su compra ha sido realizada con éxito');
     }
@@ -175,6 +175,11 @@ export default function Purchase(props) {
     useEffect(() => {
 
     }, [finishPurchase]);
+
+    
+    useEffect(() => {
+
+    }, [props.kntcat]);
 
 
 
