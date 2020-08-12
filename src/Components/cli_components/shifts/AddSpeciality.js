@@ -63,6 +63,9 @@ export default function AddSpeciality(props) {
                                         placeholder="Ingrese Nombre"
                                         onChange={onChangeSpeciality}
                                         value={name}
+                                        minLength='3'
+                                        maxLength='20'
+                                        pattern='[a-zA-Z0-9!?-_ ]{3,50}'
                                         required
 
                                     />

@@ -106,6 +106,9 @@ export default function Category(props) {
                             placeholder="Nombre"
                             value={name}
                             onChange={onChangeCategory}
+                            minLength='3'
+                            maxLength='20'
+                            pattern='[a-zA-Z0-9!?-_ ]{3,50}'
                             required
                         />
                     </Col>
@@ -121,6 +124,9 @@ export default function Category(props) {
                             placeholder="Detalle"
                             value={detail}
                             onChange={onChangeCategory}
+                            minLength='3'
+                            maxLength='50'
+                            pattern='[a-zA-Z0-9!?-_ ]{3,50}'
                             required
                         />
                     </Col>

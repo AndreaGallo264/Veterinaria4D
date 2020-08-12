@@ -64,6 +64,9 @@ export default function AddSpecie(props) {
                             placeholder="Ingrese Nombre"
                             onChange={onChangeSpecie}
                             value={name}
+                            minLength='3'
+                            maxLength='20'
+                            pattern='[a-zA-Z0-9!?-_ ]{3,50}'
                             required
 
                         />

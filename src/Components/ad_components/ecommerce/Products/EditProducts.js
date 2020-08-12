@@ -247,6 +247,9 @@ export default function EditProducts(props) {
                                 value={title}
                                 onChange={onChangeEditProduct}
                                 required
+                                minLength='3'
+                                maxLength='30'
+                                pattern='[a-zA-Z0-9!?-_ ]{3,30}'
                             />
                         </Form.Group>
 
@@ -255,12 +258,16 @@ export default function EditProducts(props) {
                             >Precio
                         </Form.Label>
                             <Form.Control
-                                type="text"
+                                type="number"
                                 name="price"
                                 placeholder="Precio"
                                 value={price}
                                 onChange={onChangeEditProduct}
                                 required
+                                min="1"
+                                max="99999"
+                                defaultValue="1"
+                                step='0.01'
                             />
                         </Form.Group>
 
@@ -275,6 +282,7 @@ export default function EditProducts(props) {
                                 value={stock}
                                 onChange={onChangeEditProduct}
                                 min="1"
+                                maxValue="99999"
                                 defaultValue="1"
                                 required
                             />
@@ -291,6 +299,9 @@ export default function EditProducts(props) {
                                 value={detail}
                                 onChange={onChangeEditProduct}
                                 required
+                                minLength='3'
+                                maxLength='50'
+                                pattern='[a-zA-Z0-9!?-_ ]{3,50}'
                             />
 
                         </Form.Group>
