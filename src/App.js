@@ -7,37 +7,37 @@ import {
 } from "react-router-dom";
 
 //Components
-import PrincipalMenu from './components/web_components/0_principalmenu/principalmenu'
-import Main from './components/web_components/6_main/main'
-import Footer from './components/web_components/4_footer/footer'
+import PrincipalMenu from './Components/web_components/0_principalmenu/principalmenu'
+import Main from './Components/web_components/6_main/main'
+import Footer from './Components/web_components/4_footer/footer'
 
 //Users
-import Login from './components/cli_components/users/Login'
-import Register from './components/cli_components/users/cli-usrs/Register'
-import ListUsr from './components/ad_components/users/ad-usrs/UserPanel'
-import EditUsr from './components/cli_components/users/cli-usrs/EditData'
+import Login from './Components/cli_components/users/Login'
+import Register from './Components/cli_components/users/cli-usrs/Register'
+import ListUsr from './Components/ad_components/users/ad-usrs/UserPanel'
+import EditUsr from './Components/cli_components/users/cli-usrs/EditData'
 
 
 //Ecommerce 
-import ListProduct from './components/ad_components/ecommerce/Products/ListProducts'
-import MyCart from './components/cli_components/ecommerce/ShoopingCar/ShoopingCar'
-import Purchase from './components/cli_components/ecommerce/Purchase/Purchase'
-import FinishPurchase from './components/cli_components/ecommerce/Purchase/FinishPurchase'
-import CategoryPanel from './components/ad_components/ecommerce/Category/CategotyPanel'
-import PurchasePanel from './components/ad_components/ecommerce/Purchase/PurchasePanel'
-import ShippingDetail from './components/cli_components/ecommerce/ShippingDetail/ShippingDetail'
+import ListProduct from './Components/ad_components/ecommerce/Products/ListProducts'
+import MyCart from './Components/cli_components/ecommerce/ShoopingCar/ShoopingCar'
+import Purchase from './Components/cli_components/ecommerce/Purchase/Purchase'
+import FinishPurchase from './Components/cli_components/ecommerce/Purchase/FinishPurchase'
+import CategoryPanel from './Components/ad_components/ecommerce/Category/CategotyPanel'
+import PurchasePanel from './Components/ad_components/ecommerce/Purchase/PurchasePanel'
+import ShippingDetail from './Components/cli_components/ecommerce/ShippingDetail/ShippingDetail'
 
 
 //Turnos
-import ShiftsPanel from './components/cli_components/shifts/ShiftsPanel'
-import SpeciePanel from './components/cli_components/shifts/SpeciePanel'
-import SpecialityPanel from './components/cli_components/shifts/SpecialityPanel'
+import ShiftsPanel from './Components/cli_components/shifts/ShiftsPanel'
+import SpeciePanel from './Components/cli_components/shifts/SpeciePanel'
+import SpecialityPanel from './Components/cli_components/shifts/SpecialityPanel'
 
 //Main 
-import Help from './components/web_components/7_help/help'
+import Help from './Components/web_components/7_help/help'
 
 //MP 
-import Chekout from './components/mp_component/Checkout'
+import Chekout from './Components/mp_component/Checkout'
 
 
 function App() {

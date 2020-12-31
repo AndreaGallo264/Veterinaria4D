@@ -6,7 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url('../src/components/resources/paw-bg.jpg');
+  background-image: url('../src/Components/resources/paw-bg.jpg');
   background-color: rgba(0,0,0,0.3);
   scroll-behavior: smooth;
 }
